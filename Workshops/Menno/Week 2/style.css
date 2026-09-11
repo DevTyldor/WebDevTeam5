@@ -1,0 +1,29 @@
+body {
+  background-image: url("background-img.jpg");
+  background-size: cover;
+  color: white;
+  background-repeat: no-repeat;
+}
+
+nav {
+  color: white;
+  text-align: center;
+}
+
+nav a {
+  color: white;
+}
+
+.img-container {
+    display: flex;
+    justify-content: center;
+}
+
+.img-container img {
+    max-height: 300px;
+    max-width: 300px;
+}
+
+.page-title {
+  text-align: center;
+}

@@ -1,0 +1,60 @@
+html,
+body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-image: url("login-background.png");
+}
+
+.title {
+    align-content: center;
+    color: #adb4cf;
+    font-size: 30px;
+    text-align: center;
+}
+
+login {
+    align-content: center;
+    display: grid;
+    place-items: center;
+}
+
+.login-card {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    padding: 5px;
+
+    border-style: inset;
+    border-radius: 10px;
+    border-color: #909090;
+
+    background-color: #303030;
+}
+
+.username-input, .password-input {
+    border-style: inset;
+    border-radius: 5px;
+    border-color: #909090;
+}
+.username-input::placeholder, .password-input::placeholder {
+    color: #001665;
+}
+
+.login-button {
+    align-self: center;
+    position: relative;
+    border-style: inset;
+    border-radius: 5px;
+    border-color: #909090;
+}
+
+#confetti {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+}

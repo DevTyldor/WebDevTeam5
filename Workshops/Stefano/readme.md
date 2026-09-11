@@ -1,3 +1,1 @@
 Folder for workshop material to display Stefano's work
-
-Test Commit

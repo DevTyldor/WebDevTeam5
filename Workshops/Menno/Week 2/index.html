@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Wishlist</title>
+  </head>
+  <body>
+
+    <header>
+        <h1>GameShelf</h1>
+        <nav>
+            <a href="collection.html">Collection</a> |
+            <a href="lending.html">Lending</a> |
+            <a href="sessions.html">Game Sessions</a> |
+            <a href="wishlist.html">Wishlist</a>
+          </ul>
+        </nav>
+    </header>
+
+    <main>
+
+    <!-- Wishlist -->
+    <section>
+
+      <h1>My wishlist</h1>
+      <p>Games you'd like to own</p>
+
+      <table border="1">
+          <tr>
+            <th>Game</th>
+            <th>Priority</th>
+            <th>Note</th>
+          </tr>
+          <tr>
+            <td>Hotels</td>
+            <td>High</td>
+            <td>English edition</td>
+          </tr>
+          <tr>
+            <td>Monopoly Classic</td>
+            <td>Low</td>
+            <td>Only the base box</td>
+          </tr>
+      </table>
+    </section>
+
+
+    <!-- Add game to wishlist -->
+    <section>
+
+      <h2>Add game to wishlist</h2>
+      <p>Add a game to your wishlist</p>
+
+      <form action="/wishlist/toevoegen" method="post">
+
+        <label>Game from collection:</label>
+        <select id="game" name="game_id" required>
+          <option>-- choose a game --</option>
+          <option>Halo 3</option>
+          <option>Overwatch</option>
+          <option>The Legend of Zelda: Ocarina of Time</option>
+        </select>
+        <br><br>
+
+        <label>Priority:</label>
+        <select id="priority" name="priority">
+          <option>High</option>
+          <option>Medium</option>
+          <option>Low</option>
+        </select>
+        <br><br>
+
+        <label>Note (edition, condition):</label>
+        <br>
+        <textarea rows="3" cols="40"></textarea>
+        <br><br>
+
+        <button type="submit">Add to Wishlist</button>
+      </form>
+    </section>
+
+    <!-- Offers to my wishlist -->
+
+    <!-- My offers to other's wishlists-->
+
+    <!-- Wishlists from others -->
+
+    </main>
+
+  </body>
+</html>

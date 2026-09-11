@@ -62,7 +62,7 @@ function login() {
 
     if(password === "passwordTest0001" && username === "Nairo"){
         alert("Success");
-        confetti();
+        //confetti();
         
     } else {
         alert("Incorrect username and/or password");

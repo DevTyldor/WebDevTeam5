@@ -100,11 +100,16 @@
             <td>Hotels</td>
             <td>User123</td>
             <td>New</td>
-            <td>I have a new copy of Hotels, would you like to trade?</td>
+            <td>I have a new copy of hotels, would you like to trade?</td>
             <td>
-              <form action="/wishlist/accept" method="post">
-                <input name="offer_id" value="1">
-                <button type="submit">Accept Offer</button>
+              <div class="button-container">
+                <form action="/wishlist/accept" method="post">
+                  <button type="submit">Accept Offer</button>
+                </form>
+                <form action="/wishlist/decline" method="post">
+                  <button type="submit">Decline Offer</button>
+                </form>
+              </div>
               </form>
             </td>
           </tr>
@@ -112,16 +117,16 @@
             <td>Monopoly Classic</td>
             <td>User456</td>
             <td>Used</td>
-            <td>I have a used copy of Monopoly Classic, are you interested?</td>
+            <td>I have a used copy of monopoly cclassic, are you interested?</td>
             <td>
-              <form action="/wishlist/accept" method="post">
-                <input name="offer_id" value="2">
-                <button type="submit">Accept Offer</button>
-              </form>
-              <form action="/wishlist/decline" method="post">
-                <input name="offer_id" value="3">
-                <button type="submit">Decline Offer</button>
-              </form>
+              <div class="button-container">
+                <form action="/wishlist/accept" method="post">
+                  <button type="submit">Accept Offer</button>
+                </form>
+                <form action="/wishlist/decline" method="post">
+                  <button type="submit">Decline Offer</button>
+                </form>
+              </div>
             </td>
           </tr>
       </table>

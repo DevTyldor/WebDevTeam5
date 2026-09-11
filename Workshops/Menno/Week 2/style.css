@@ -27,3 +27,18 @@ nav a {
 .page-title {
   text-align: center;
 }
+
+.button-container {
+  display: flex;
+  gap: 4px;
+}
+
+.button-container button {
+  flex: 1;
+  padding: 3px 6px;
+  text-align: center;
+}
+
+p {
+  font-size: 14px;
+}

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Collection</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+
+    <header>
+        <h1>GameShelf</h1>
+        <nav>
+            <a href="collection.html">Collection</a> |
+            <a href="lending.html">Lending</a> |
+            <a href="sessions.html">Game Sessions</a> |
+            <a href="/Frontend/Wishlist/index.html">Wishlist</a>
+        </nav>
+    </header>
+
+    <main>
+
+    <!-- Collection -->
+    <section>
+
+      <h1>My Collection</h1>
+
+      <table border="1">
+          <tr>
+            <th>Title</th>
+            <th>Platform</th>
+            <th>Genre</th>
+            <th>Condition</th>
+          </tr>
+          <tr>
+            <td>Halo 3</td>
+            <td>Xbox 360</td>
+            <td>Shooter</td>
+            <td>Good</td>
+          </tr>
+          <tr>
+            <td>Overwatch</td>
+            <td>PC</td>
+            <td>Shooter</td>
+            <td>New</td>
+          </tr>
+          <tr>
+            <td>Fortnite</td>
+            <td>Playstation 5</td>
+            <td>Shooter</td>
+            <td>Used</td>
+          </tr>
+      </table>
+    </section>
+
+
+    <!-- Add game to collection -->
+    <section>
+
+      <h2>Add game to collection</h2>
+      <p>Add a new game to your collection</p>
+
+      <form action="/collection/toevoegen" method="post">
+
+        <label>Title:</label>
+        <input type="text" id="title" name="title" required>
+        <br><br>
+
+        <label>Platform:</label>
+        <select id="platform" name="platform">
+          <option>PC</option>
+          <option>Xbox 360</option>
+          <option>Playstation 5</option>
+        </select>
+        <br><br>
+
+        <label>Genre:</label>
+        <input type="text" id="genre" name="genre">
+        <br><br>
+
+        <label>Condition:</label>
+        <select id="condition" name="condition">
+          <option>New</option>
+          <option>Good</option>
+          <option>Used</option>
+        </select>
+        <br><br>
+
+        <button type="submit">Add Game</button>
+      </form>
+    </section>
+
+    </main>
+
+  </body>
+</html>

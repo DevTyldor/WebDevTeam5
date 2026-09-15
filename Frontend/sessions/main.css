@@ -1,0 +1,61 @@
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+}
+
+body {
+    min-height: 100dvh;
+    overflow-x: hidden;
+}
+
+.page {
+    min-height: 100dvh;
+
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+
+    color: #ffffff;
+    border: 2px inset #847ab6;
+    border-radius: 5px;
+    background-color: #41194f;
+}
+
+header h3 {
+    margin: 0;
+}
+
+.create-session {
+    margin-left: auto;
+
+    border: 2px inset #aa9bff;
+    border-radius: 5px;
+}
+
+main {
+    padding: 1rem;
+}
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2rem;
+    padding: 0.5rem 1rem;
+
+    color: #ffffff;
+    border: 2px inset #aa9bff;
+    border-radius: 5px;
+    background-color: #41194f;
+}
+
+footer p {
+    margin: 0;
+}

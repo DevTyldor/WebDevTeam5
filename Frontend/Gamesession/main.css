@@ -26,10 +26,10 @@ header {
     color: #ffffff;
     border: 2px inset #847ab6;
     border-radius: 5px;
-    background-color: #41194f;
+    background-color: #272727;
 }
 
-header h3 {
+header h2 {
     margin: 0;
 }
 
@@ -46,6 +46,66 @@ main {
     padding: 1rem;
 }
 
+.session-grid {
+    display: grid;
+    grid-template-rows: repeat(
+        auto-fit,
+        minmax(min(100%, 280px), 1fr)
+    );
+
+    gap: 1rem;
+    max-width: 1200px;
+    margin: 0 auto; 
+}
+
+.session-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    color: #ffffff;
+    border: 2px inset #847ab6;
+    border-radius: 5px;
+    background-color: #272727;
+}
+
+.session-card h3 {
+    font-size: 12px;
+    color: #ffffff;
+}
+
+.session-details {
+    display: grid;
+    gap: 0.35rem;
+    color: #ded7e5;
+    font-size: 0.9rem;
+}
+
+.session-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: auto;
+}
+
+.session-actions button {
+    padding: 0.4rem 0.7rem;
+    border: 2px inset #aa9bff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.empty-message {
+    margin: 2rem 0;
+    color: #6f6375;
+    text-align: center;
+}
+
+.empty-message[hidden] {
+    display: none;
+}
+
+
 footer {
     display: flex;
     align-items: center;
@@ -54,9 +114,9 @@ footer {
     padding: 0.5rem 1rem;
 
     color: #ffffff;
-    border: 2px inset #aa9bff;
+    border: 2px inset #847ab6;
     border-radius: 5px;
-    background-color: #41194f;
+    background-color: #272727;
 }
 
 footer p {

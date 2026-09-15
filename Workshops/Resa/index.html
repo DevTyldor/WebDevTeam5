@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Lending Club</title>
+
+    <style>
+        :root {
+            --bg: #f5f7fb;
+            --card: #ffffff;
+            --text: #172033;
+            --muted: #687386;
+            --primary: #5b5bd6;
+            --primary-light: #eeeeff;
+            --green: #18864b;
+            --green-light: #e8f7ef;
+            --orange: #c56a00;
+            --orange-light: #fff2df;
+            --red: #c53030;
+            --red-light: #fdeaea;
+            --border: #e2e6ef;
+            --shadow: 0 8px 25px rgba(23, 32, 51, 0.07);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        header {
+            background: linear-gradient(135deg, #4d4dc7, #7272ed);
+            color: white;
+            padding: 32px 24px;
+        }
+
+        header .header-inner {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        header h1 {
+            margin: 0 0 8px;
+            font-size: 30px;
+        }
+
+        header p {
+            margin: 0;
+            opacity: .88;
+        }
+
+        nav {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        nav .nav-inner {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            gap: 8px;
+            padding: 10px 24px;
+            overflow-x: auto;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--muted);
+            padding: 9px 14px;
+            border-radius: 8px;
+            white-space: nowrap;
+        }
+
+        nav a:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 24px 60px;
+        }
+
+        section {
+            margin-bottom: 45px;
+        }
+
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 18px;
+        }
+
+        h2 {
+            margin: 0;
+            font-size: 23px;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            margin-top: 5px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .stat {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .stat .number {
+            font-size: 30px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .stat .label {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .card h3 {
+            margin: 0 0 8px;
+        }
+
+        .card p {
+            margin: 7px 0;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .game-box {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .game-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 12px;
+            background: var(--primary-light);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            flex-shrink: 0;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .pending {
+            background: var(--orange-light);
+            color: var(--orange);
+        }
+
+        .approved {
+            background: var(--green-light);
+            color: var(--green);
+        }
+
+        .rejected {
+            background: var(--red-light);
+            color: var(--red);
+        }
+
+        .available {
+            background: var(--green-light);
+            color: var(--green);
+        }
+
+        .loaned {
+            background: var(--orange-light);
+            color: var(--orange);
+        }
+
+        .late {
+            background: var(--red-light);
+            color: var(--red);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        th,
+        td {
+            padding: 15px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: #fafbfe;
+            color: var(--muted);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .rules {
+            display: grid;
+            gap: 12px;
+        }
+
+        .rule {
+            display: flex;
+            gap: 14px;
+            padding: 16px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        .rule-number {
+            width: 30px;
+            height: 30px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .rule strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .rule span {
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .data-model {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .field-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .field-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .field-list li:last-child {
+            border-bottom: none;
+        }
+
+        .field-name {
+            font-weight: 600;
+        }
+
+        .field-type {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .notice {
+            padding: 18px;
+            border-radius: 12px;
+            background: var(--primary-light);
+            color: #38388c;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            background: white;
+            color: var(--muted);
+            text-align: center;
+            padding: 25px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 900px) {
+            .stats,
+            .grid,
+            .data-model {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 25px 18px;
+            }
+
+            main {
+                padding: 25px 16px 45px;
+            }
+
+            .stats,
+            .grid,
+            .data-model {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-inner">
+        <h1>🎲 Game Lending Club</h1>
+        <p>Beheer van uitleenbare spellen, aanvragen en leningen.</p>
+    </div>
+</header>
+
+<nav>
+    <div class="nav-inner">
+        <a href="#dashboard">Dashboard</a>
+        <a href="#boxes">Uitleenlijst</a>
+        <a href="#requests">Aanvragen</a>
+        <a href="#loans">Leningen</a>
+        <a href="#rules">Regels</a>
+        <a href="#model">Datamodel</a>
+    </div>
+</nav>
+
+<main>
+
+    <!-- Dashboard -->
+    <section id="dashboard">
+        <div class="section-title">
+            <div>
+                <h2>Dashboard</h2>
+                <div class="subtitle">
+                    Overzicht van de huidige uitleensituatie.
+                </div>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="number">12</div>
+                <div class="label">Uitleenbare dozen</div>
+            </div>
+
+            <div class="stat">
+                <div class="number">7</div>
+                <div class="label">Openstaande aanvragen</div>
+            </div>
+
+            <div class="stat">
+                <div class="number">5</div>
+                <div class="label">Lopende leningen</div>
+            </div>
+
+            <div class="stat">
+                <div class="number">1</div>
+                <div class="label">Te laat</div>
+            </div>
+        </div>
+
+        <div class="notice">
+            <strong>Let op:</strong>
+            de uitleenlijst is niet hetzelfde als de collectie.
+            Alleen dozen die daadwerkelijk op de uitleenlijst staan,
+            kunnen worden aangevraagd.
+        </div>
+    </section>
+
+
+    <!-- Lending list -->
+    <section id="boxes">
+        <div class="section-title">
+            <div>
+                <h2>Uitleenlijst</h2>
+                <div class="subtitle">
+                    De fysieke dozen die leden bereid zijn uit te lenen.
+                </div>
+            </div>
+        </div>
+
+        <div class="grid">
+
+            <div class="card">
+                <div class="game-box">
+                    <div class="game-icon">🏰</div>
+
+                    <div>
+                        <h3>Gloomhaven</h3>
+                        <span class="badge available">Beschikbaar</span>
+                    </div>
+                </div>
+
+                <p><strong>Eigenaar:</strong> Anna</p>
+                <p>
+                    <strong>Conditie:</strong>
+                    Goed — gebruikt gedurende ongeveer 8 jaar.
+                    Enkele gebruikssporen aan de doos.
+                </p>
+            </div>
+
+
+            <div class="card">
+                <div class="game-box">
+                    <div class="game-icon">🚀</div>
+
+                    <div>
+                        <h3>Terraforming Mars</h3>
+                        <span class="badge loaned">Uitgeleend</span>
+                    </div>
+                </div>
+
+                <p><strong>Eigenaar:</strong> Bram</p>
+                <p>
+                    <strong>Conditie:</strong>
+                    Zeer goed. Kaarten zijn gesleeved.
+                </p>
+            </div>
+
+
+            <div class="card">
+                <div class="game-box">
+                    <div class="game-icon">🧙</div>
+
+                    <div>
+                        <h3>Root</h3>
+                        <span class="badge available">Beschikbaar</span>
+                    </div>
+                </div>
+
+                <p><strong>Eigenaar:</strong> Claire</p>
+                <p>
+                    <strong>Conditie:</strong>
+                    Goed. Normale gebruikssporen.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- Requests -->
+    <section id="requests">
+        <div class="section-title">
+            <div>
+                <h2>Aanvragen</h2>
+                <div class="subtitle">
+                    Een aanvraag blijft pending totdat de eigenaar beslist.
+                </div>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Spel / doos</th>
+                    <th>Aanvrager</th>
+                    <th>Eigenaar</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Gloomhaven</td>
+                    <td>David</td>
+                    <td>Anna</td>
+                    <td>
+                        <span class="badge pending">Pending</span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Terraforming Mars</td>
+                    <td>Eva</td>
+                    <td>Bram</td>
+                    <td>
+                        <span class="badge approved">Approved</span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Root</td>
+                    <td>Frank</td>
+                    <td>Claire</td>
+                    <td>
+                        <span class="badge rejected">Rejected</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+
+    <!-- Loans -->
+    <section id="loans">
+        <div class="section-title">
+            <div>
+                <h2>Leningen</h2>
+                <div class="subtitle">
+                    Een goedgekeurde aanvraag wordt een lening zodra de doos
+                    daadwerkelijk van eigenaar naar lener gaat.
+                </div>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Spel / doos</th>
+                    <th>Lener</th>
+                    <th>Startdatum</th>
+                    <th>Retourdatum</th>
+                    <th>Verlengd</th>
+                    <th>Teruggebracht</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Terraforming Mars</td>
+                    <td>Eva</td>
+                    <td>01-09-2026</td>
+                    <td>22-09-2026</td>
+                    <td>Nee</td>
+                    <td>—</td>
+                    <td>
+                        <span class="badge loaned">Lopend</span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Gloomhaven</td>
+                    <td>David</td>
+                    <td>01-08-2026</td>
+                    <td>15-09-2026</td>
+                    <td>Ja</td>
+                    <td>—</td>
+                    <td>
+                        <span class="badge late">Te laat</span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Wingspan</td>
+                    <td>Lisa</td>
+                    <td>05-09-2026</td>
+                    <td>19-09-2026</td>
+                    <td>Nee</td>
+                    <td>—</td>
+                    <td>
+                        <span class="badge loaned">Lopend</span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Azul</td>
+                    <td>Tom</td>
+                    <td>10-08-2026</td>
+                    <td>24-08-2026</td>
+                    <td>Nee</td>
+                    <td>24-08-2026</td>
+                    <td>
+                        <span class="badge approved">Teruggebracht</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+
+    <!-- Rules -->
+    <section id="rules">
+        <div class="section-title">
+            <div>
+                <h2>Regels</h2>
+                <div class="subtitle">
+                    De belangrijkste bedrijfsregels van het uitleensysteem.
+                </div>
+            </div>
+        </div>
+
+        <div class="rules">
+
+            <div class="rule">
+                <div class="rule-number">1</div>
+                <div>
+                    <strong>Alleen de eigenaar beslist</strong>
+                    <span>
+                        Een aanvraag kan alleen door de eigenaar van de
+                        betreffende doos worden goedgekeurd of afgewezen.
+                    </span>
+                </div>
+            </div>
+
+            <div class="rule">
+                <div class="rule-number">2</div>
+                <div>
+                    <strong>Andere aanvragen vervallen</strong>
+                    <span>
+                        Zodra een aanvraag voor een doos wordt goedgekeurd,
+                        worden alle andere openstaande aanvragen voor die
+                       zelfde doos automatisch afgewezen.
+                    </span>
+                </div>
+            </div>
+
+            <div class="rule">
+                <div class="rule-number">3</div>
+                <div>
+                    <strong>Een uitgeleende doos kan niet opnieuw worden uitgeleend</strong>
+                    <span>
+                        Een doos kan pas opnieuw worden aangevraagd nadat de
+                        huidige lening is beëindigd en de terugkomst is
+                        geregistreerd.
+                    </span>
+                </div>
+            </div>
+
+            <div class="rule">
+                <div class="rule-number">4</div>
+                <div>
+                    <strong>Terugkomst wordt geregistreerd</strong>
+                    <span>
+                        De eigenaar of de commissie registreert wanneer de doos
+                        terugkomt.
+                    </span>
+                </div>
+            </div>
+
+            <div class="rule">
+                <div class="rule-number">5</div>
+                <div>
+                    <strong>Eén verlenging</strong>
+                    <span>
+                        Een lening kan maximaal één keer worden verlengd en
+                        alleen zolang de lening nog niet te laat is.
+                    </span>
+                </div>
+            </div>
+
+            <div class="rule">
+                <div class="rule-number">6</div>
+                <div>
+                    <strong>Maximale uitleenperiode</strong>
+                    <span>
+                        De nieuwe retourdatum moet binnen de maximale
+                        uitleenperiode blijven, gerekend vanaf de startdatum
+                        van de lening.
+                    </span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- Data model -->
+    <section id="model">
+        <div class="section-title">
+            <div>
+                <h2>Datamodel</h2>
+                <div class="subtitle">
+                    De gegevens die voor ieder onderdeel moeten worden
+                    bijgehouden.
+                </div>
+            </div>
+        </div>
+
+        <div class="data-model">
+
+            <div class="card">
+                <h3>📦 Box</h3>
+                <p>
+                    Een fysieke speldoos die door een lid beschikbaar wordt
+                    gesteld.
+                </p>
+
+                <ul class="field-list">
+                    <li>
+                        <span class="field-name">owner</span>
+                        <span class="field-type">Member</span>
+                    </li>
+
+                    <li>
+                        <span class="field-name">game</span>
+                        <span class="field-type">Game</span>
+                    </li>
+
+                    <li>
+                        <span class="field-name">condition</span>
+                        <span class="field-type">Text</span>
+                    </li>
+                </ul>
+            </div>
+
+
+            <div class="card">
+                <h3>🙋 Request</h3>
+                <p>
+                    Een verzoek van een lid om een bepaalde doos te lenen.
+                </p>
+
+                <ul class="field-list">
+                    <li>
+                        <span class="field-name">box</span>
+                        <span class="field-type">Box</span>
+                    </li>
+
+                    <li>
+                        <span class="field-name">member</span>
+                        <span class="field-type">Member</span>
+                    </li>
+
+                    <li>
+                        <span class="field-name">status</span>
+                        <span class="field-type">
+                            Pending / Approved / Rejected
+                        </span>
+                    </li>
+                </ul>
+            </div>
+
+
+            <div class="card">
+                <h3>🤝 Loan</h3>
+                <p>
+                    Een actieve of afgeronde uitleenperiode van een doos.
+                </p>
+
+                <ul class="field-list">
+                    <li>
+                        <span class="field-name">box</span>
+                        <span class="field-type">Box</span>
+                    </li>
+
+                    <li>
+                        <span class="field-name">borrower</span>
+                        <span class="field-type">Member</span>
+                    </li>
+
+                    <li>
+                        <span class="field-name">startDate</span>
+                        <span class="field-type">Date</span>
+                    </li>
+
+                    <li>
+                        <span class="field-name">returnDate</span>
+                        <span class="field-type">Date</span>
+                    </li>
+
+                    <li>
+                        <span class="field-name">extended</span>
+                        <span class="field-type">Boolean</span>
+                    </li>
+
+                    <li>
+                        <span class="field-name">returnedDate</span>
+                        <span class="field-type">Date / null</span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    Game Lending Club · Uitleensysteem
+</footer>
+
+</body>
+</html>

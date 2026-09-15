@@ -28,7 +28,20 @@ nav {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+}
 
+nav a { color: #e6e6e6;}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+thead th {
+  text-align: left;
+  padding: 0.75rem;
+  background: #2e3749;
+  font-size: 0.85rem;
 }
 
 .img-container {

@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Wishlist</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="img-container">
+      <img src="gameshelf.jpeg">
+    </div>
+    <header>
+      <h1 class="page-title">GameShelf</h1>
+      <nav>
+        <a href="collection.html">Collection</a> |
+        <a href="lending.html">Lending</a> |
+        <a href="sessions.html">Game Sessions</a> |
+        <a href="wishlist.html">Wishlist</a>
+      </nav>
+      <!--- <style>
+          @import url('style.css');
+        </style> -->
+    </header>
+
+    <main>
+
+      <!-- Wishlist -->
+      <section>
+
+        <h1>My wishlist</h1>
+        <p>Games you'd like to own</p>
+
+        <table class="wishlist-table">
+          <thead>
+            <tr>
+              <th>Game</th>
+              <th>Priority</th>
+              <th>Note</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Hotels</td>
+              <td>High</td>
+              <td>English edition</td>
+            </tr>
+            <tr>
+              <td>Monopoly Classic</td>
+              <td>Low</td>
+              <td>Only the base box</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+
+      <!-- Add game to wishlist -->
+      <section>
+
+        <h2>Add game to wishlist</h2>
+        <p>Add a game to your wishlist</p>
+
+        <form action="/wishlist/add" method="post">
+
+          <label>Game from collection:</label>
+          <select id="game" name="game_id" required>
+            <option value="">-- choose a game --</option>
+            <option value="1">Halo 3</option>
+            <option value="2">Overwatch</option>
+            <option value="3">The Legend of Zelda: Ocarina of Time</option>
+          </select>
+          <br><br>
+
+          <label>Priority:</label>
+          <select id="priority" name="priority" required>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+          </select>
+          <br><br>
+
+          <label>Note (edition, condition):</label>
+          <br>
+          <textarea class="note-text" name="note" required></textarea>
+          <br>
+
+          <button type="submit">Add to Wishlist</button>
+        </form>
+      </section>
+
+      <!-- Offers to my wishlist -->
+      <section>
+        <h2>Offers to my wishlist</h2>
+        <p>Offers from other users for games on your wishlist</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Game</th>
+              <th>Offered by</th>
+              <th>Condition</th>
+              <th>Message</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Hotels</td>
+              <td>User123</td>
+              <td>New</td>
+              <td>I have a new copy of Hotels, would you like to trade?</td>
+              <td class="actions">
+                <form action="/wishlist/accept" method="post">
+                  <button type="submit">Accept</button>
+                </form>
+                <form action="/wishlist/decline" method="post">
+                  <button type="submit">Decline</button>
+                </form>
+              </td>
+            </tr>
+            <tr>
+              <td>Monopoly Classic</td>
+              <td>User456</td>
+              <td>Used</td>
+              <td>
+                I have a used copy of Monopoly Classic, are you interested?
+              </td>
+              <td class="actions">
+                <form action="/wishlist/accept" method="post">
+                  <button type="submit">Accept</button>
+                </form>
+                <form action="/wishlist/decline" method="post">
+                  <button type="submit">Decline</button>
+                </form>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- My offers to other's wishlists-->
+
+      <!-- Wishlists from others -->
+
+    </main>
+
+  </body>
+</html>

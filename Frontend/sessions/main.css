@@ -41,6 +41,8 @@ header h3 {
 }
 
 main {
+    min-height: 0;
+    overflow-y: auto;
     padding: 1rem;
 }
 

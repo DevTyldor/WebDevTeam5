@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="nl">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Collection - Shelves</title>
+        <link rel="stylesheet" href="../Stylesheet/style.css">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header>
+            <div class="header-inner">
+                <h1>GameShelf</h1>
+            </div>
+        </header>
+
+        <nav>
+            <div class="nav-inner">
+                <a href="index.html" class="active">Collection</a>
+                <a href="../Lending/index.html">Lending</a>
+                <a href="../Gamesession/index.html">Game Sessions</a>
+                <a href="../Wishlist/index.html">Wishlist</a>
+            </div>
+        </nav>
+
+        <main>
+
+            <!-- My shelves -->
+            <section>
+                <div class="section-title">
+                    <h2>My shelves</h2>
+                    <a href="index.html" class="btn btn-secondary">Back to collection</a>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Shelf</th>
+                                <th>Description</th>
+                                <th>Public</th>
+                                <th>Games</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Test1</td>
+                                <td>Desc1</td>
+                                <td>Yes</td>
+                                <td>Overwatch, Halo 3</td>
+                            </tr>
+                            <tr>
+                                <td>Test2</td>
+                                <td>qwerty</td>
+                                <td>No</td>
+                                <td>Fortnite</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Add shelf -->
+            <section>
+                <div class="section-title">
+                    <h2>Add shelf</h2>
+                </div>
+
+                <form class="card" action="/shelf/add" method="post">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="public">Public</label>
+                        <select id="public" name="public" required>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Add Shelf</button>
+                </form>
+            </section>
+
+        </main>
+
+    </body>
+</html>

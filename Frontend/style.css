@@ -17,6 +17,7 @@
     --orange: #c56a00;
     --orange-light: #fff2df;
     --red: #c53030;
+    --red-hover: #9b2c2c;
     --red-light: #fdeaea;
     --border: #e2e6ef;
     --shadow: 0 8px 25px rgba(23, 32, 51, 0.07);
@@ -458,6 +459,15 @@ tbody tr:hover {
 
 .btn-primary:hover {
     background: var(--primary-dark);
+}
+
+.btn-danger {
+    background: var(--red);
+    color: white;
+}
+
+.btn-danger:hover {
+    background: var(--red-hover);
 }
 
 .btn-secondary {

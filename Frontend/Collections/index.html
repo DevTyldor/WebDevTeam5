@@ -2,148 +2,106 @@
 <html lang="nl">
     <head>
         <meta charset="UTF-8"/>
-        <title>Collection</title>
-        <!-- <link rel="stylesheet" href="style.css"> Dit is mn oude stylesheet maar ik behoud hem nog even als backup -->
-         <link rel="stylesheet" href="../Stylesheet/style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Collection - Main</title>
+        <link rel="stylesheet" href="../Stylesheet/style.css">
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <header>
-            <h1 class="page-title">GameShelf</h1>
-            <nav>
-                <a href="/Frontend/Collections/index.html">Collection</a> |
-                <a href="/Frontend/Lending/index.html">Lending</a> |
-                <a href="/Frontend/Gamesession/index.html">Game Sessions</a> |
-                <a href="/Frontend/Wishlist/index.html">Wishlist</a>
-            </nav>
+            <div class="header-inner">
+                <h1>GameShelf</h1>
+            </div>
         </header>
+
+        <nav>
+            <div class="nav-inner">
+                <a href="index.html" class="active">Collection</a>
+                <a href="../Lending/index.html">Lending</a>
+                <a href="../Gamesession/index.html">Game Sessions</a>
+                <a href="../Wishlist/index.html">Wishlist</a>
+            </div>
+        </nav>
 
         <main>
 
             <!-- Collection -->
             <section>
+                <div class="section-title">
+                    <h2>My collection</h2>
+                    <a href="shelves.html" class="btn btn-secondary">My shelves</a>
+                </div>
 
-                <h1>My collection</h1>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Game</th>
-                            <th>Status</th>
-                            <th>Plays</th>
-                            <th>Rating</th>
-                            <th>Note</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Halo 3</td>
-                            <td>Played</td>
-                            <td>12</td>
-                            <td>4</td>
-                            <td>qwertyuiop</td>
-                        </tr>
-                        <tr>
-                            <td>Overwatch</td>
-                            <td>In progress</td>
-                            <td>5</td>
-                            <td></td>
-                            <td>Test5</td>
-                        </tr>
-                        <tr>
-                            <td>Fortnite</td>
-                            <td>Not played yet</td>
-                            <td>0</td>
-                            <td></td>
-                            <td>qwerty</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Game</th>
+                                <th>Status</th>
+                                <th>Plays</th>
+                                <th>Rating</th>
+                                <th>Note</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Halo 3</td>
+                                <td>Played</td>
+                                <td>12</td>
+                                <td>4</td>
+                                <td>qwertyuiop</td>
+                            </tr>
+                            <tr>
+                                <td>Overwatch</td>
+                                <td>In progress</td>
+                                <td>5</td>
+                                <td></td>
+                                <td>Test5</td>
+                            </tr>
+                            <tr>
+                                <td>Fortnite</td>
+                                <td>Not played yet</td>
+                                <td>0</td>
+                                <td></td>
+                                <td>qwerty</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </section>
 
             <!-- Add game to collection -->
             <section>
+                <div class="section-title">
+                    <h2>Add game to collection</h2>
+                </div>
 
-                <h2>Add game to collection</h2>
-                <form action="/collection/add" method="post">
+                <form class="card" action="/collection/add" method="post">
+                    <div class="form-group">
+                        <label for="game">Game</label>
+                        <select id="game" name="game_id" required>
+                            <option value="">-- choose a game --</option>
+                            <option value="1">Halo 3</option>
+                            <option value="2">Overwatch</option>
+                            <option value="3">Fortnite</option>
+                        </select>
+                    </div>
 
-                    <label>Game:</label>
-                    <select id="game" name="game_id" required>
-                        <option value="">-- choose a game --</option>
-                        <option value="1">Halo 3</option>
-                        <option value="2">Overwatch</option>
-                        <option value="3">Fortnite</option>
-                    </select>
-                    <br><br>
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select id="status" name="status" required>
+                            <option value="Not played yet">Not played yet</option>
+                            <option value="In progress">In progress</option>
+                            <option value="Played">Played</option>
+                        </select>
+                    </div>
 
-                    <label>Status:</label>
-                    <select id="status" name="status" required>
-                        <option value="Not played yet">Not played yet</option>
-                        <option value="In progress">In progress</option>
-                        <option value="Played">Played</option>
-                    </select>
-                    <br><br>
+                    <div class="form-group">
+                        <label for="note">Note</label>
+                        <textarea id="note" name="note"></textarea>
+                    </div>
 
-                    <label>Note:</label>
-                    <br>
-                    <textarea class="note-text" name="note"></textarea>
-                    <br>
-
-                    <button type="submit">Add to Collection</button>
-                </form>
-            </section>
-
-            <!-- My shelves -->
-            <section>
-                <h2>My shelves</h2>
-
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Shelf</th>
-                            <th>Description</th>
-                            <th>Public</th>
-                            <th>Games</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Test1</td>
-                            <td>Desc1</td>
-                            <td>Yes</td>
-                            <td>Overwatch, Halo 3</td>
-                        </tr>
-                        <tr>
-                            <td>Test2</td>
-                            <td>qwerty</td>
-                            <td>No</td>
-                            <td>Fortnite</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <!-- Add shelf -->
-            <section>
-
-                <h2>Add shelf</h2>
-
-                <form action="/shelf/add" method="post">
-                    <label>Name:</label>
-                    <input type="text" id="name" name="name" required>
-                    <br><br>
-
-                    <label>Description:</label>
-                    <br>
-                    <textarea class="note-text" name="description"></textarea>
-                    <br>
-
-                    <label>Public:</label>
-                    <select id="public" name="public" required>
-                        <option value="Yes">Yes</option>
-                        <option value="No">No</option>
-                    </select>
-                    <br><br>
-
-                    <button type="submit">Add Shelf</button>
+                    <button type="submit" class="btn btn-primary">Add to Collection</button>
                 </form>
             </section>
 

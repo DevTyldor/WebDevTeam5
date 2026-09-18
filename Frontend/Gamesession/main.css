@@ -144,3 +144,37 @@ footer {
 footer p {
     margin-right: auto;
 }
+
+.info-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin: 0.5rem 0 1rem;
+}
+
+.info-card {
+    color: #ffffff;
+    border: 2px inset #847ab6;
+    border-radius: 5px;
+    background-color: #272727;
+    padding: 0.75rem;
+}
+
+.info-card h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 14px;
+    color: #ffffff;
+}
+
+.info-card p,
+.info-card ol,
+.info-card ul {
+    margin: 0;
+    font-size: 12px;
+    color: #ffffff;
+}
+
+.info-card ol,
+.info-card ul {
+    padding-left: 1.2rem;
+}

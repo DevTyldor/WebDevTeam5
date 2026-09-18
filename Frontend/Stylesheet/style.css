@@ -140,6 +140,7 @@ header p {
 
 /* ---------- Navigation ---------- */
 
+
 nav {
     background: var(--surface);
     border-bottom: 1px solid var(--border);
@@ -150,25 +151,26 @@ nav {
 
 nav .nav-inner {
     display: flex;
-    gap: 8px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    gap: 26px;
     overflow-x: auto;
 }
 
 nav a {
     text-decoration: none;
     color: var(--muted);
-    padding: 9px 14px;
-    border-radius: var(--radius-sm);
+    font-weight: 500;
+    padding: 14px 2px;
     white-space: nowrap;
-    transition: background .15s ease, color .15s ease;
+    border-bottom: 2px solid transparent;
 }
 
-nav a:hover,
-nav a.active {
-    background: var(--primary-light);
+nav a:hover {
     color: var(--primary);
+}
+
+nav a.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
 }
 
 /* ---------- Cards ---------- */

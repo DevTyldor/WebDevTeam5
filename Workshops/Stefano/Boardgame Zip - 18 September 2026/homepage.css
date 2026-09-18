@@ -1,0 +1,14 @@
+.afbeelding {
+    height: 10rem;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+article {
+    border: 1px solid black;
+    padding: 1rem;
+}

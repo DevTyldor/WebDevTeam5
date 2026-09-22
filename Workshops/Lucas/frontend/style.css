@@ -7,6 +7,23 @@ body {
     background-image: url("login-background.png");
 }
 
+:root {
+            --bg: #f5f7fb;
+            --card: #ffffff;
+            --text: #172033;
+            --muted: #687386;
+            --primary: #5b5bd6;
+            --primary-light: #eeeeff;
+            --green: #18864b;
+            --green-light: #e8f7ef;
+            --orange: #c56a00;
+            --orange-light: #fff2df;
+            --red: #c53030;
+            --red-light: #fdeaea;
+            --border: #e2e6ef;
+            --shadow: 0 8px 25px rgba(23, 32, 51, 0.07);
+        }
+
 .title {
     align-content: center;
     color: #adb4cf;

@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="nl">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Wishlist - GameShelf</title>
+        <link rel="stylesheet" href="../Stylesheet/style.css">
+    </head>
+    <body>
+
+        <header>
+            <div class="header-inner">
+                <h1>GameShelf</h1>
+                <p>Manage your board game collection, lending, and wishlists</p>
+            </div>
+        </header>
+
+        <!-- Menu/nav -->
+        <nav>
+            <div class="nav-inner">
+                <a href="collection.html">Collection</a>
+                <a href="lending.html">Lending</a>
+                <a href="sessions.html">Game Sessions</a>
+                <a href="wishlist.html" class="active">Wishlist</a>
+            </div>
+        </nav>
+
+        <main>
+
+            <!-- Wishlist -->
+            <section>
+                <div class="section-title">
+                    <div>
+                        <h2>My wishlist</h2>
+                        <p class="subtitle">Games you'd like to own</p>
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Game</th>
+                                <th>Priority</th>
+                                <th>Note</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Hotels</strong></td>
+                                <td><span class="badge pending">High</span></td>
+                                <td>English edition</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Monopoly Classic</strong></td>
+                                <td><span class="badge available">Low</span></td>
+                                <td>Only the base box</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Add game to wishlist -->
+            <section>
+                <div class="section-title">
+                    <div>
+                        <h2>Add game to wishlist</h2>
+                        <p class="subtitle">Add a game to your wishlist</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <form action="/wishlist/add" method="post">
+                        <div class="form-group">
+                            <label for="game">Game from collection:</label>
+                            <select id="game" name="game_id" required>
+                                <option value="">-- choose a game --</option>
+                                <option value="1">Halo 3</option>
+                                <option value="2">Overwatch</option>
+                                <option value="3">The Legend of Zelda: Ocarina of Time</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="priority">Priority:</label>
+                            <select id="priority" name="priority" required>
+                                <option value="High">High</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Low">Low</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="note">Note (edition, condition):</label>
+                            <textarea id="note" name="note" rows="3" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Add to Wishlist</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Offers from other users for games on your wishlist -->
+            <section>
+                <div class="section-title">
+                    <div>
+                        <h2>Offers to my wishlist</h2>
+                        <p class="subtitle">Offers from other users for games on your wishlist</p>
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Game</th>
+                                <th>Offered by</th>
+                                <th>Condition</th>
+                                <th>Message</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Hotels</strong></td>
+                                <td>User123</td>
+                                <td><span class="badge approved">New</span></td>
+                                <td>I have a new copy of Hotels, would you like to trade?</td>
+                                <td>
+                                    <div class="flex gap-sm">
+                                        <form action="/wishlist/accept" method="post">
+                                            <button type="submit" class="btn btn-primary">Accept</button>
+                                        </form>
+                                        <form action="/wishlist/decline" method="post">
+                                            <button type="submit" class="btn btn-secondary">Decline</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Monopoly Classic</strong></td>
+                                <td>User456</td>
+                                <td><span class="badge loan">Used</span></td>
+                                <td>I have a used copy of Monopoly Classic, are you interested?</td>
+                                <td>
+                                    <div class="flex gap-sm">
+                                        <form action="/wishlist/accept" method="post">
+                                            <button type="submit" class="btn btn-primary">Accept</button>
+                                        </form>
+                                        <form action="/wishlist/decline" method="post">
+                                            <button type="submit" class="btn btn-secondary">Decline</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- My offers to other's wishlists -->
+            <section>
+                <div class="section-title">
+                    <div>
+                        <h2>My offers to other's wishlists</h2>
+                        <p class="subtitle">See the offers you have made to other members' wishlists</p>
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Game</th>
+                                <th>Priority</th>
+                                <th>Note</th>
+                                <th>Member</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Settlers of Catan</strong></td>
+                                <td><span class="badge pending">High</span></td>
+                                <td>Looking for the base game only</td>
+                                <td>User789</td>
+                                <td>
+                                    <form action="/wishlist/offer" method="post">
+                                        <button type="submit" class="btn btn-primary">Make Offer</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Ticket to Ride</strong></td>
+                                <td><span class="badge loan">Medium</span></td>
+                                <td>Any edition is fine</td>
+                                <td>User321</td>
+                                <td>
+                                    <form action="/wishlist/offer" method="post">
+                                        <button type="submit" class="btn btn-primary">Make Offer</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- My offers to other's wishlists -->
+            <section>
+                <div class="section-title">
+                    <div>
+                        <h2>My offers to other's wishlists</h2>
+                        <p class="subtitle">See the offers you've made to other members' wishlists</p>
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Game</th>
+                                <th>Offered to</th>
+                                <th>Condition</th>
+                                <th>Message</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Settlers of Catan</strong></td>
+                                <td>User789</td>
+                                <td>New</td>
+                                <td>I have a new copy of Settlers of Catan, would you like to trade?</td>
+                                <td><span class="badge pending">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Ticket to Ride</strong></td>
+                                <td>User321</td>
+                                <td>Used</td>
+                                <td>I have a used copy of Ticket to Ride, are you interested?</td>
+                                <td><span class="badge approved">Accepted</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+
+        <footer>
+            <p>&copy; 2026 GameShelf - Manage your tabletop collection</p>
+        </footer>
+    </body>
+</html>

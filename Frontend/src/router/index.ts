@@ -17,6 +17,11 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../pages/AboutPage.vue'),
     },
+    {
+      path: '/sessions',
+      name: 'Game Sessions',
+      component: () => import('../pages/SessionsListPage.vue'),
+    },
   ],
 })
 

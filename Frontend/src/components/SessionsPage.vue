@@ -1,0 +1,96 @@
+<script setup lang="ts">
+</script>
+
+<template>
+    <div class="game-sessions-page">
+        <header>
+            <div class="header-inner">
+                <h1>Game Sessions</h1>
+                <p>Browse and join upcoming board game sessions</p>
+            </div>
+        </header>
+
+        <main class="container">
+            <section>
+                <div class="section-title">
+                    <div>
+                        <h2>Upcoming sessions</h2>
+                        <p class="subtitle">Find a session to join or create your own</p>
+                    </div>
+                    <div>
+                        <a href="new-session.html" class="btn btn-primary">New Session</a>
+                    </div>
+                </div>
+
+                <div class="grid">
+                    <div class="card card-hover">
+                        <div class="game-box">
+                            <div class="game-icon">🎲</div>
+                            <div>
+                                <h3>Friday board games</h3>
+                                <p>Host: Alice</p>
+                                <p>Friday 18 Sept • 19:00 • Club room</p>
+                            </div>
+                        </div>
+
+                        <p>
+                            <span class="badge approved">Open</span>
+                            • 4 / 6 seats
+                        </p>
+
+                        <div class="flex gap-sm">
+                            <a href="session-friday.html" class="btn btn-primary">View Details</a>
+                            <a href="signup.html" class="btn btn-secondary">Sign Up</a>
+                        </div>
+                    </div>
+
+                    <div class="card card-hover">
+                        <div class="game-box">
+                            <div class="game-icon">🗡️</div>
+                            <div>
+                                <h3>Saturday Gloomhaven</h3>
+                                <p>Host: Tom</p>
+                                <p>Saturday 19 Sept • 20:00 • Tom's home</p>
+                            </div>
+                        </div>
+
+                        <p>
+                            <span class="badge rejected">Full</span>
+                            • 5 / 5 seats
+                        </p>
+
+                        <div class="flex gap-sm">
+                            <a href="session-saturday.html" class="btn btn-primary">View Details</a>
+                            <a href="signup.html" class="btn btn-secondary">Sign Up</a>
+                        </div>
+                    </div>
+
+                    <div class="card card-hover">
+                        <div class="game-box">
+                            <div class="game-icon">🏝️</div>
+                            <div>
+                                <h3>Sunday Catan</h3>
+                                <p>Host: Tom</p>
+                                <p>Sunday 20 Sept • 20:00 • Rotterdam Library</p>
+                            </div>
+                        </div>
+
+                        <p>
+                            <span class="badge rejected">Full</span>
+                            • 10 / 10 seats
+                        </p>
+
+                        <div class="flex gap-sm">
+                            <a href="session-sunday.html" class="btn btn-primary">View Details</a>
+                            <a href="signup.html" class="btn btn-secondary">Sign Up</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            ©2026 Team 5. All rights reserved.
+        </footer>
+    </div>
+</template>

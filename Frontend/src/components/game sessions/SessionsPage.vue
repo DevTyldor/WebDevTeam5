@@ -18,7 +18,7 @@
                         <p class="subtitle">Find a session to join or create your own</p>
                     </div>
                     <div>
-                        <a href="new-session.html" class="btn btn-primary">New Session</a>
+                        <a href="new-session" class="btn btn-primary">New Session</a>
                     </div>
                 </div>
 

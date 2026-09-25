@@ -20,7 +20,12 @@ const router = createRouter({
     {
       path: '/sessions',
       name: 'Game Sessions',
-      component: () => import('../pages/SessionsListPage.vue'),
+      component: () => import('../pages/game sessions/SessionsListPage.vue'),
+    },
+    {
+      path: '/new-session',
+      name: 'New Session',
+      component: () => import('../pages/game sessions/NewSessionPage.vue'),
     },
   ],
 })

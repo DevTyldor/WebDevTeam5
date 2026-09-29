@@ -37,7 +37,11 @@ const router = createRouter({
       name: 'Session Signup',
       component: () => import('../pages/game sessions/SessionSignupPage.vue'),
     },
-  ],
+    {
+      path: '/wishlist',
+      name: 'Wishlist',
+      component: () => import('../pages/wishlist/Wishlist.vue'),
+}],
 })
 
 export default router

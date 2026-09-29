@@ -6,7 +6,7 @@
     <section>
         <div class="section-title">
             <h2>My collection</h2>
-            <a href="shelves.html" class="btn btn-secondary">My shelves</a>
+            <a href="collection/shelves" class="btn btn-secondary">My shelves</a>
         </div>
 
         <div class="table-wrapper">

@@ -45,6 +45,21 @@ const router = createRouter({
       name: 'Collection',
       component: () => import('../pages/collections/Collections.vue'),
     },
+    {
+      path: '/collection/shelf',
+      name: 'Shelf',
+      component: () => import('../pages/collections/Shelf.vue'),
+    },
+    {
+      path: '/collection/shelves',
+      name: 'Shelves',
+      component: () => import('../pages/collections/Shelves.vue'),
+    },
+    {
+      path: '/collection/public-shelf',
+      name: 'Public Shelf',
+      component: () => import('../pages/collections/PublicShelf.vue'),
+    }
   ],
 })
 

@@ -37,6 +37,11 @@ const router = createRouter({
       name: 'Session Signup',
       component: () => import('../pages/game sessions/SessionSignupPage.vue'),
     },
+    {
+      path: '/view-session',
+      name: 'Session Overview',
+      component: () => import('../pages/game sessions/ViewSessionPage.vue'),
+    },
   ],
 })
 

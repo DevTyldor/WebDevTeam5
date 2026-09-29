@@ -1,0 +1,84 @@
+<script setup lang="ts">
+</script>
+
+<template>
+    <!-- Collection -->
+    <section>
+        <div class="section-title">
+            <h2>My collection</h2>
+            <a href="collection/shelves" class="btn btn-secondary">My shelves</a>
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Game</th>
+                        <th>Status</th>
+                        <th>Plays</th>
+                        <th>Rating</th>
+                        <th>Note</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Halo 3</td>
+                        <td>Played</td>
+                        <td>12</td>
+                        <td>4</td>
+                        <td>qwertyuiop</td>
+                    </tr>
+                    <tr>
+                        <td>Overwatch</td>
+                        <td>In progress</td>
+                        <td>5</td>
+                        <td></td>
+                        <td>Test5</td>
+                    </tr>
+                    <tr>
+                        <td>Fortnite</td>
+                        <td>Not played yet</td>
+                        <td>0</td>
+                        <td></td>
+                        <td>qwerty</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Add game to collection -->
+    <section>
+        <div class="section-title">
+            <h2>Add game to collection</h2>
+        </div>
+
+        <form class="card" action="/collection/add" method="post">
+            <div class="form-group">
+                <label for="game">Game</label>
+                <select id="game" name="game_id" required>
+                    <option value="">-- choose a game --</option>
+                    <option value="1">Halo 3</option>
+                    <option value="2">Overwatch</option>
+                    <option value="3">Fortnite</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select id="status" name="status" required>
+                    <option value="Not played yet">Not played yet</option>
+                    <option value="In progress">In progress</option>
+                    <option value="Played">Played</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="note">Note</label>
+                <textarea id="note" name="note"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add to Collection</button>
+        </form>
+    </section>
+</template>

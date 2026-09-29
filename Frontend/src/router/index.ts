@@ -17,6 +17,26 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../pages/AboutPage.vue'),
     },
+    {
+      path: '/sessions',
+      name: 'Game Sessions',
+      component: () => import('../pages/game sessions/SessionsListPage.vue'),
+    },
+    {
+      path: '/new-session',
+      name: 'New Session',
+      component: () => import('../pages/game sessions/NewSessionPage.vue'),
+    },
+    {
+      path: '/edit-session',
+      name: 'Edit Session',
+      component: () => import('../pages/game sessions/EditSessionPage.vue'),
+    },
+    {
+      path: '/session-signup',
+      name: 'Session Signup',
+      component: () => import('../pages/game sessions/SessionSignupPage.vue'),
+    },
   ],
 })
 

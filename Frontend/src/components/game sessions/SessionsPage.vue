@@ -88,9 +88,5 @@
                 </div>
             </section>
         </main>
-
-        <footer>
-            ©2026 Team 5. All rights reserved.
-        </footer>
     </div>
 </template>

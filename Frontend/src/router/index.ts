@@ -61,6 +61,11 @@ const router = createRouter({
       component: () => import('../pages/collections/PublicShelf.vue'),
     }
   ],
+    {
+      path: '/wishlist',
+      name: 'Wishlist',
+      component: () => import('../pages/wishlist/Wishlist.vue'),
+}],
 })
 
 export default router

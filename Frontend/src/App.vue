@@ -1,19 +1,19 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
+import AppFooter from './components/layout/AppFooter.vue'
+import AppNav from './components/layout/AppNav.vue'
+
 </script>
 
 <template>
   <header class="app-header">
-    <nav class="navigation" aria-label="Hoofdnavigatie">
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/about">About</RouterLink>
-      <RouterLink to="/sessions">Game Sessions</RouterLink>
-    </nav>
+    <AppNav />
   </header>
 
   <main class="page-content">
     <RouterView />
   </main>
+  <AppFooter />
 </template>
 
 <style scoped>

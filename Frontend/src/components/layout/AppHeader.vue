@@ -1,5 +1,7 @@
 <template>
-    <header class="inner-header">
-        <h1>Blabla</h1>
+    <header>
+        <div class="header-inner">
+            <h1>Gameshelf</h1>
+        </div>
     </header>
 </template>

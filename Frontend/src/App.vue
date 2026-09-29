@@ -2,13 +2,13 @@
 import { RouterLink, RouterView } from 'vue-router'
 import AppFooter from './components/layout/AppFooter.vue'
 import AppNav from './components/layout/AppNav.vue'
+import AppHeader from './components/layout/AppHeader.vue'
 
 </script>
 
 <template>
-  <header class="app-header">
-    <AppNav />
-  </header>
+  <AppHeader />
+  <AppNav />
 
   <main class="page-content">
     <RouterView />

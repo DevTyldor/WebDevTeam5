@@ -28,17 +28,17 @@ const router = createRouter({
       component: () => import('../pages/game sessions/NewSessionPage.vue'),
     },
     {
-      path: '/edit-session',
+      path: '/edit-session/:id',
       name: 'Edit Session',
       component: () => import('../pages/game sessions/EditSessionPage.vue'),
     },
     {
-      path: '/session-signup',
+      path: '/session-signup/:id',
       name: 'Session Signup',
       component: () => import('../pages/game sessions/SessionSignupPage.vue'),
     },
     {
-      path: '/view-session',
+      path: '/view-session/:id',
       name: 'Session Overview',
       component: () => import('../pages/game sessions/ViewSessionPage.vue'),
     },

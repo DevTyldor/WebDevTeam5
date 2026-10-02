@@ -26,7 +26,7 @@
                         <h2>Session Details</h2>
                     </div>
                     <div>
-                        <a href="sessions.html" class="btn btn-primary">Return to sessions list</a>
+                        <a href="sessions" class="btn btn-primary">Return to sessions list</a>
                     </div>
                 </div>
 
@@ -96,9 +96,9 @@
 
 
             <div class="flex gap-sm">
-                <a href="signup.html" class="btn btn-primary">Sign up</a>
-                <a href="edit-session.html" class="btn btn-primary">Edit session</a>
-                <a href="cancel-session.html" class="btn btn-danger">Cancel session</a>
+                <a href="session-signup" class="btn btn-primary">Sign up</a>
+                <a href="edit-session" class="btn btn-primary">Edit session</a>
+                <a href="cancel-session" class="btn btn-danger">Cancel session</a>
             </div>
         </main>
     </div>

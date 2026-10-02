@@ -39,7 +39,7 @@
                         </p>
 
                         <div class="flex gap-sm">
-                            <a href="session-friday.html" class="btn btn-primary">View Details</a>
+                            <a href="view-session" class="btn btn-primary">View Details</a>
                             <a href="session-signup" class="btn btn-secondary">Sign Up</a>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                         </p>
 
                         <div class="flex gap-sm">
-                            <a href="session-saturday.html" class="btn btn-primary">View Details</a>
+                            <a href="view-session" class="btn btn-primary">View Details</a>
                             <a href="session-signup" class="btn btn-secondary">Sign Up</a>
                         </div>
                     </div>
@@ -81,7 +81,7 @@
                         </p>
 
                         <div class="flex gap-sm">
-                            <a href="session-sunday.html" class="btn btn-primary">View Details</a>
+                            <a href="view-session" class="btn btn-primary">View Details</a>
                             <a href="session-signup" class="btn btn-secondary">Sign Up</a>
                         </div>
                     </div>

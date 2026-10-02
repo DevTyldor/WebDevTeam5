@@ -59,8 +59,8 @@
             </section>
 
             <div class="flex gap-sm">
-                <a href="edit-session.html" class="btn btn-primary">Signup</a>
-                <a href="session-friday.html" class="btn btn-danger">Cancel signup</a>
+                <a href="view-session" class="btn btn-primary">Signup</a>
+                <a href="view-session" class="btn btn-danger">Cancel signup</a>
             </div>
         </main>
     </div>

@@ -33,8 +33,8 @@
         </section>
 
         <div class="flex gap-sm">
-            <a href="sessions.html" class="btn btn-primary">Create session</a>
-            <a href="sessions.html" class="btn btn-danger">Cancel</a>
+            <a href="sessions" class="btn btn-primary">Create session</a>
+            <a href="sessions" class="btn btn-danger">Cancel</a>
         </div>
 
     </main>

@@ -6,9 +6,9 @@ import { mockSessions } from '@/data/mockSessions'
 const route = useRoute()
 
 const session = computed(() => {
-  return mockSessions.find(
-    session => session.id === Number(route.params.id)
-  )
+    return mockSessions.find(
+        session => session.id === Number(route.params.id)
+    )
 })
 </script>
 
@@ -24,7 +24,7 @@ const session = computed(() => {
 
         <header>
             <div class="header-inner">
-                <h1>Friday Board Games</h1>
+                <h1>{{ session?.name }}</h1>
                 <p>View information about the session Friday Board Games</p>
             </div>
         </header>
@@ -37,7 +37,10 @@ const session = computed(() => {
                         <h2>Session Details</h2>
                     </div>
                     <div>
-                        <a href="sessions" class="btn btn-primary">Return to sessions list</a>
+                        <RouterLink to="/sessions" class="btn btn-primary">
+                            Return to sessions list
+                        </RouterLink>
+
                     </div>
                 </div>
 
@@ -45,10 +48,10 @@ const session = computed(() => {
                     <div class="game-box">
                         <div class="game-icon">🎲</div>
                         <div>
-                            <p><strong>Host:</strong> Alice</p>
-                            <p><strong>Date:</strong> Friday 18 September</p>
-                            <p><strong>Time:</strong> 19:00</p>
-                            <p><strong>Place:</strong> Club room</p>
+                            <p>Host: {{ session?.host }}</p>
+                            <p>Date: {{ session?.date }}</p>
+                            <p>Time: {{ session?.time }}</p>
+                            <p>Place: {{ session?.place }}</p>
                         </div>
                     </div>
                 </div>
@@ -57,35 +60,47 @@ const session = computed(() => {
                     <div class="game-box">
                         <div>
                             <h4>Capacity</h4>
-                            <p>4/6 Confirmed</p>
-                            <span class="badge approved">Open</span>
+                            <p>
+                                {{ session?.confirmed }}/{{ session?.capacity }} Confirmed
+                            </p>
+                            <span class="badge" :class="session?.status === 'Open' ? 'approved' : 'rejected'">
+                                {{ session?.status }}
+                            </span>
                         </div>
                     </div>
                 </div>
-
 
                 <div class="card card-hover">
                     <div class="game-box">
                         <div>
                             <h4>Waiting list</h4>
-                            <ol>
-                                <li>Eve</li>
-                                <li>Frank</li>
+                            <ol v-if="session?.waitingList.length">
+                                <li v-for="person in session.waitingList" :key="person">
+                                    {{ person }}
+                                </li>
                             </ol>
+                            <p v-else>
+                                No one is currently on the waiting list.
+                            </p>
                         </div>
                     </div>
                 </div>
-
 
                 <div class="card card-hover">
                     <div class="game-box">
                         <div>
                             <h4>Games</h4>
                             <ul>
-                                <li>Catan (3–4 players) · <span class="badge approved">✓ Enough players</span></li>
-                                <li>Carcassonne (2–5 players) · <span class="badge approved">✓ Enough players</span>
+                                <li v-for="game in session?.games" :key="game.name">
+                                    {{ game.name }}
+                                    ({{ game.minPlayers }}–{{ game.maxPlayers }} players)
+
+                                    <span v-if="game.enoughPlayers" class="badge approved">
+                                        ✓ Enough players
+                                    </span>
                                 </li>
                             </ul>
+
                         </div>
                     </div>
                 </div>
@@ -95,21 +110,26 @@ const session = computed(() => {
                         <div>
                             <h4>Participants</h4>
                             <ol>
-                                <li>Alice</li>
-                                <li>Bob → Catan</li>
-                                <li>Charlie</li>
-                                <li>David → Carcassonne</li>
+                                <li v-for="participant in session?.participants" :key="participant.name">
+                                    {{ participant.name }}
+                                    <span v-if="participant.game">
+                                        → {{ participant.game }}
+                                    </span>
+                                </li>
                             </ol>
+
                         </div>
                     </div>
                 </div>
             </section>
 
-
+            <RouterLink to="/sessions" class="btn btn-primary">
+                Return to sessions list
+            </RouterLink>
             <div class="flex gap-sm">
-                <a href="session-signup" class="btn btn-primary">Sign up</a>
-                <a href="edit-session" class="btn btn-primary">Edit session</a>
-                <a href="cancel-session" class="btn btn-danger">Cancel session</a>
+                <RouterLink to="session-signup" class="btn btn-primary">Sign up</RouterLink>
+                <RouterLink to="edit-session" class="btn btn-primary">Edit session</RouterLink>
+                <RouterLink to="cancel-session" class="btn btn-danger">Cancel session</RouterLink>
             </div>
         </main>
     </div>

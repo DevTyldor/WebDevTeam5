@@ -10,7 +10,7 @@ const sessionId = route.params.id
     <div class="edit-session-page">
 
         <head>
-            <title>Session Creation</title>
+            <title>Session Signup</title>
             <link rel="stylesheet" href="../stylesheet/style.css">
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">

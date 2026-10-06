@@ -48,10 +48,10 @@ const session = computed(() => {
                     <div class="game-box">
                         <div class="game-icon">🎲</div>
                         <div>
-                            <p>Host: {{ session?.host }}</p>
-                            <p>Date: {{ session?.date }}</p>
-                            <p>Time: {{ session?.time }}</p>
-                            <p>Place: {{ session?.place }}</p>
+                            <p><strong>Host:</strong> {{ session?.host }}</p>
+                            <p><strong>Date:</strong> {{ session?.date }}</p>
+                            <p><strong>Time:</strong> {{ session?.time }}</p>
+                            <p><strong>Place:</strong> {{ session?.place }}</p>
                         </div>
                     </div>
                 </div>

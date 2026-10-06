@@ -32,7 +32,7 @@ const sessions = mockSessions;
 
                             <div>
                                 <h3>{{ session.name }}</h3>
-                                <p>Host: {{ session.host }}</p>
+                                <p><string>Host:</string> {{ session.host }}</p>
                                 <p>
                                     {{ session.date }} • {{ session.time }} • {{ session.place }}
                                 </p>

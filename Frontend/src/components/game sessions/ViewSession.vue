@@ -1,9 +1,15 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
+import { computed } from 'vue'
+import { mockSessions } from '@/data/mockSessions'
 
 const route = useRoute()
 
-const sessionId = route.params.id
+const session = computed(() => {
+  return mockSessions.find(
+    session => session.id === Number(route.params.id)
+  )
+})
 </script>
 
 <template>

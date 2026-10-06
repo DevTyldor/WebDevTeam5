@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { mockSessions } from '@/data/mockSessions'
+
+const sessions = mockSessions;
 </script>
 
 <template>
@@ -64,6 +67,7 @@
                             <a href="session-signup" class="btn btn-secondary">Sign Up</a>
                         </div>
                     </div>
+                    
 
                     <div class="card card-hover">
                         <div class="game-box">

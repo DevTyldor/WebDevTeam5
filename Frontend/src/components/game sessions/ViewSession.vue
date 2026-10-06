@@ -56,33 +56,23 @@ const session = computed(() => {
                     </div>
                 </div>
 
-                <div class="card card-hover">
-                    <div class="game-box">
-                        <div>
-                            <h4>Capacity</h4>
-                            <p>
-                                {{ session?.confirmed }}/{{ session?.capacity }} Confirmed
-                            </p>
-                            <span class="badge" :class="session?.status === 'Open' ? 'approved' : 'rejected'">
-                                {{ session?.status }}
-                            </span>
-                        </div>
+                <div class="card card-hover attendance-card">
+                    <div>
+                        <h4>Capacity</h4>
+                        <p>{{ session?.confirmed }}/{{ session?.capacity }} Confirmed</p>
+                        <span class="badge" :class="session?.status === 'Open' ? 'approved' : 'rejected'">
+                            {{ session?.status }}
+                        </span>
                     </div>
-                </div>
 
-                <div class="card card-hover">
-                    <div class="game-box">
-                        <div>
-                            <h4>Waiting list</h4>
-                            <ol v-if="session?.waitingList.length">
-                                <li v-for="person in session.waitingList" :key="person">
-                                    {{ person }}
-                                </li>
-                            </ol>
-                            <p v-else>
-                                No one is currently on the waiting list.
-                            </p>
-                        </div>
+                    <div class="section-divider">
+                        <h4>Waiting list</h4>
+                        <ol v-if="session?.waitingList.length">
+                            <li v-for="person in session.waitingList" :key="person">
+                                {{ person }}
+                            </li>
+                        </ol>
+                        <p v-else>No one is currently on the waiting list.</p>
                     </div>
                 </div>
 
@@ -133,3 +123,16 @@ const session = computed(() => {
         </main>
     </div>
 </template>
+
+<style scoped>
+.attendance-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.section-divider {
+    padding-left: 2rem;
+    border-left: 1px solid #ddd;
+}
+</style>

@@ -16,7 +16,7 @@ const session = computed(() => {
     <div class="view-session-page">
 
         <head>
-            <title>Friday Board Games – Session Details</title>
+            <title>{{ session?.name }} – Session Details</title>
             <link rel="stylesheet" href="../stylesheet/style.css">
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">

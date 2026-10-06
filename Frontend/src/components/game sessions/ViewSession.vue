@@ -124,9 +124,11 @@ const session = computed(() => {
             </section>
 
             <div class="flex gap-sm">
-                <RouterLink to="session-signup" class="btn btn-primary">Sign up</RouterLink>
-                <RouterLink to="edit-session" class="btn btn-primary">Edit session</RouterLink>
-                <RouterLink to="cancel-session" class="btn btn-danger">Cancel session</RouterLink>
+                <RouterLink :to="`/session-signup/${session?.id}`" class="btn btn-primary">
+                    Sign up
+                </RouterLink>
+                <RouterLink :to="`/edit-session/${session?.id}`" class="btn btn-primary">Edit session</RouterLink>
+                <RouterLink :to="`/cancel-session/${session?.id}`" class="btn btn-danger">Cancel session</RouterLink>
             </div>
         </main>
     </div>

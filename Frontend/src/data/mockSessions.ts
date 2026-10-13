@@ -44,7 +44,7 @@ export const mockSessions: Session[] = [
     confirmed: 4,
     status: "Open",
 
-    waitingList: ["Eve", "Frank"],
+    waitingList: [],
 
     games: [
       {
@@ -91,7 +91,7 @@ export const mockSessions: Session[] = [
     confirmed: 6,
     status: "Open",
 
-    waitingList: ["Grace"],
+    waitingList: [],
 
     games: [
       {
@@ -333,7 +333,7 @@ export const mockSessions: Session[] = [
     confirmed: 5,
     status: "Open",
 
-    waitingList: ["Nina"],
+    waitingList: [],
 
     games: [
       {

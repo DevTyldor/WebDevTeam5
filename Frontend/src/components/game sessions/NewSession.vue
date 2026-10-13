@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { mockSessions, type Session } from '@/data/mockSessions'
 
 const router = useRouter()
 
@@ -12,9 +13,10 @@ const sessionCapacity = ref<number | null>(null)
 
 const error = ref('')
 
-// for now this is just a mockup function that shows an alert upon success
+
 function createSession() {
     error.value = ''
+
     if (!sessionName.value.trim()) {
         error.value = 'Please enter a session name.'
         return
@@ -42,8 +44,30 @@ function createSession() {
         error.value = 'Capacity must be at least 1.'
         return
     }
-    alert(`New session ${sessionName.value}`)
+
+    const newSession: Session = {
+        id: Math.max(0, ...mockSessions.map(s => s.id)) + 1,
+        name: sessionName.value.trim(),
+        description: `A game session: ${sessionName.value.trim()}`,
+        host: 'Alice',
+        date: sessionDate.value,
+        time: sessionTime.value,
+        place: sessionPlace.value,
+        capacity: sessionCapacity.value,
+        confirmed: 1,
+        status: 'Open',
+        waitingList: [],
+        games: [],
+        participants: [
+            { name: 'Alice' }
+        ]
+    }
+
+    mockSessions.push(newSession)
+
+    router.push(`/view-session/${newSession.id}`)
 }
+
 
 function cancel() {
     router.push('/sessions')
@@ -80,12 +104,16 @@ function cancel() {
 
                             <p><strong>Enter place:</strong></p>
                             <select v-model="sessionPlace">
-                                <option value="club">Club room</option>
-                                <option value="home">Home</option>
+                                <option value="Club room">Club room</option>
+                                <option value="Community centre">Community centre</option>
+                                <option value="Library meeting room">Library meeting room</option>
+                                <option value="Game café">Game café</option>
+                                <option value="Home">Home</option>
                             </select>
 
                             <p><strong>Enter capacity:</strong></p>
-                            <p><input v-model.number="sessionCapacity" type="number" min="1"placeholder="Enter capacity"></p>
+                            <p><input v-model.number="sessionCapacity" type="number" min="1"
+                                    placeholder="Enter capacity"></p>
                             <p v-if="error" class="error">{{ error }}</p>
                         </div>
                     </div>

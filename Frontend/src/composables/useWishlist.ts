@@ -4,11 +4,13 @@ import type { MemberWishlistItem } from '../types/MemberWishlistItem'
 import type { ReceivedOffer } from '../types/ReceivedOffer'
 import type { SentOffer } from '../types/SentOffer'
 
+import { starterWishlist, starterReceivedOffers, starterMemberWishlists, starterSentOffers } from '../data/mockWishlist'
 
-const wishlist = ref<WishlistItem[]>(JSON.parse(localStorage.getItem('wishlist') || '[]'))
-const receivedOffers = ref<ReceivedOffer[]>(JSON.parse(localStorage.getItem('receivedOffers') || '[]'))
-const memberWishlists = ref<MemberWishlistItem[]>(JSON.parse(localStorage.getItem('memberWishlists') || '[]'))
-const sentOffers = ref<SentOffer[]>(JSON.parse(localStorage.getItem('sentOffers') || '[]'))
+
+const wishlist = ref<WishlistItem[]>(JSON.parse(localStorage.getItem('wishlist') || JSON.stringify(starterWishlist)))
+const receivedOffers = ref<ReceivedOffer[]>(JSON.parse(localStorage.getItem('receivedOffers') || JSON.stringify(starterReceivedOffers)))
+const memberWishlists = ref<MemberWishlistItem[]>(JSON.parse(localStorage.getItem('memberWishlists') || JSON.stringify(starterMemberWishlists)))
+const sentOffers = ref<SentOffer[]>(JSON.parse(localStorage.getItem('sentOffers') || JSON.stringify(starterSentOffers)))
 
 
 const lastSaved = ref<string | null>(null)
@@ -74,18 +76,19 @@ function deleteItem(id: number) {
   }
 
 function acceptOffer(id: number) {
-    const offer = receivedOffers.value.find(o => o.id === id)
-    if (offer) {
-      offer.status = 'Accepted'
-    }
+  const offer = receivedOffers.value.find(o => o.id === id)
+  if (offer) {
+    // now i accepted the game it no longer needs to be on my wishlist
+    wishlist.value = wishlist.value.filter(i => i.game !== offer.game)
+    receivedOffers.value = receivedOffers.value.filter(o => o.game !== offer.game)
   }
+}
 
 function declineOffer(id: number) {
-    const offer = receivedOffers.value.find(o => o.id === id)
-    if (offer) {
-      offer.status = 'Declined'
-    }
-  }
+  // only remove this offer, the game stays on my wishlist
+  receivedOffers.value = receivedOffers.value.filter(o => o.id !== id)
+}
+
 
 function makeOffer(item: MemberWishlistItem, condition: string, message: string) {
     const newOffer: SentOffer = {

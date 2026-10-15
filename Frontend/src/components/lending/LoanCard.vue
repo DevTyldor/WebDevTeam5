@@ -5,45 +5,29 @@ defineProps<{
     boxName: string;
     borrower: string;
     startDate: string;
-    endDate?: string;
+    endDate: string;
     status: string;
 }>();
 </script>
 
 <template>
-    <div class="loan-card">
-        <div class="loan-header">
-            <h3>{{ boxName }}</h3>
-            <StatusBadge :status="status" />
+    <div class="card card-hover">
+        <div class="game-box">
+            <div class="game-icon">📦</div>
+
+            <div>
+                <h3>{{ boxName }}</h3>
+                <p><strong>Borrower:</strong> {{ borrower }}</p>
+                <p><strong>Start date:</strong> {{ startDate }}</p>
+                <p><strong>Return date:</strong> {{ endDate }}</p>
+
+                <p>
+                    <strong>Status:</strong>
+                    <StatusBadge :status="status" />
+                </p>
+
+                <slot />
+            </div>
         </div>
-
-        <p><strong>Lener:</strong> {{ borrower }}</p>
-        <p><strong>Startdatum:</strong> {{ startDate }}</p>
-        <p v-if="endDate"><strong>Einddatum:</strong> {{ endDate }}</p>
-
-        <slot />
     </div>
 </template>
-
-<style scoped>
-.loan-card {
-    padding: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-}
-
-.loan-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-}
-
-h3 {
-    margin: 0;
-}
-
-p {
-    margin: 0.6rem 0 0;
-}
-</style>

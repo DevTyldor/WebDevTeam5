@@ -1,38 +1,8 @@
 import { ref, computed, watch } from 'vue'
-
-
-export interface WishlistItem {
-  id: number
-  game: string
-  priority: string
-  note: string
-}
-
-export interface MemberWishlistItem {
-  id: number
-  game: string
-  priority: string
-  note: string
-  member: string
-}
-
-export interface ReceivedOffer {
-  id: number
-  game: string
-  offeredBy: string
-  condition: string
-  message: string
-  status: string
-}
-
-export interface SentOffer {
-  id: number
-  game: string
-  offeredTo: string
-  condition: string
-  message: string
-  status: string
-}
+import type { WishlistItem } from '../types/WishlistItem'
+import type { MemberWishlistItem } from '../types/MemberWishlistItem'
+import type { ReceivedOffer } from '../types/ReceivedOffer'
+import type { SentOffer } from '../types/SentOffer'
 
 
 const wishlist = ref<WishlistItem[]>(JSON.parse(localStorage.getItem('wishlist') || '[]'))
@@ -90,14 +60,14 @@ function addItem(game: string, priority: string, note: string) {
     wishlist.value.push(newItem)
   }
 
-function updateItem(id: number, game: string, priority: string, note: string) {
-    const item = wishlist.value.find(i => i.id === id)
-    if (item) {
-      item.game = game
-      item.priority = priority
-      item.note = note
-    }
+function updateItem(updated: WishlistItem) {
+  const item = wishlist.value.find(i => i.id === updated.id)
+  if (item) {
+    item.game = updated.game
+    item.priority = updated.priority
+    item.note = updated.note
   }
+}
 
 function deleteItem(id: number) {
     wishlist.value = wishlist.value.filter(i => i.id !== id)

@@ -7,7 +7,7 @@ import type { SentOffer } from '../types/SentOffer'
 
 export const starterWishlist: WishlistItem[] = [
   { id: 1, game: 'Hotels', priority: 'High', note: 'I\'m looking for the newest edition' },
-  { id: 2, game: 'Monopoly Classic', priority: 'Low', note: 'Only the base box' },
+  { id: 2, game: 'Monopoly Classic', priority: 'Medium', note: 'Only the base box' },
   { id: 3, game: 'Risk', priority: 'Low', note: 'Any edition is fine' },
 ]
 

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import StatusBadge from "./StatusBadge.vue";
+
 defineProps<{
     name: string;
     description: string;
@@ -19,15 +21,10 @@ defineProps<{
 
                 <p>
                     <strong>Status:</strong>
-                    <span
-                        class="badge"
-                        :class="available ? 'approved' : 'rejected'"
-                    >
-                        {{ available ? "Available" : "Lent out" }}
-                    </span>
+                    <StatusBadge
+                        :status="available ? 'Available' : 'Lent out'"
+                    />
                 </p>
-
-                <slot />
             </div>
         </div>
     </div>

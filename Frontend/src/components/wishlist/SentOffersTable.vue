@@ -26,7 +26,7 @@ defineProps<{
         <tr v-for="offer in offers" :key="offer.id">
           <td><strong>{{ offer.game }}</strong></td>
           <td>{{ offer.offeredTo }}</td>
-          <td>{{ offer.condition }}</td>
+          <td><StatusBadge :label="offer.condition" /></td>
           <td>{{ offer.message }}</td>
           <td><StatusBadge :label="offer.status" /></td>
         </tr>

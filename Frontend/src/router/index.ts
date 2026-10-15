@@ -63,10 +63,11 @@ const router = createRouter({
       name: 'Public Shelf',
       component: () => import('../pages/collections/PublicShelf.vue'),
     },
+    // Wishlist
     {
       path: '/wishlist',
       name: 'Wishlist',
-      component: () => import('../pages/wishlist/Wishlist.vue'),
+      component: () => import('../pages/wishlist/WishlistPage.vue'),
     }
   ],
 })

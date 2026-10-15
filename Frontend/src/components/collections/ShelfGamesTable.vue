@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useCollection } from '../../composables/useCollection'
-import type { CollectionRecord } from '../../types/Collection'
+import type { CollectionRecord } from '../../types/CollectionRecord'
 
 defineProps<{
     records: CollectionRecord[]

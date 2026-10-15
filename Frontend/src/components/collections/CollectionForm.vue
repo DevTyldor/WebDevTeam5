@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { Game, RecordStatus } from '../../types/Collection'
+import type { Game } from '../../types/Game'
+import type { RecordStatus } from '../../types/CollectionRecord'
 
 const props = defineProps<{
     games: Game[]

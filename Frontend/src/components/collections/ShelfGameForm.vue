@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useCollection } from '../../composables/useCollection'
-import type { CollectionRecord } from '../../types/Collection'
+import type { CollectionRecord } from '../../types/CollectionRecord'
 
 defineProps<{
     records: CollectionRecord[]

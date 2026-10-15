@@ -1,4 +1,6 @@
-import type { Game, CollectionRecord, Shelf } from '../types/Collection'
+import type { Game } from '../types/Game'
+import type { CollectionRecord } from '../types/CollectionRecord'
+import type { Shelf } from '../types/Shelf'
 
 export const mockGames: Game[] = [
   { id: 1, title: 'Halo 3' },

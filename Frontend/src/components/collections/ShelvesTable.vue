@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useCollection } from '../../composables/useCollection'
-import type { Shelf } from '../../types/Collection'
+import type { Shelf } from '../../types/Shelf'
 
 defineProps<{
     shelves: Shelf[]

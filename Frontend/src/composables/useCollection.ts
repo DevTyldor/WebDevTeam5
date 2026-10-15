@@ -1,5 +1,7 @@
 import { ref, computed, watch } from 'vue'
-import type { Game, CollectionRecord, RecordStatus, Shelf } from '../types/Collection'
+import type { Game } from '../types/Game'
+import type { CollectionRecord, RecordStatus } from '../types/CollectionRecord'
+import type { Shelf } from '../types/Shelf'
 import { mockGames, mockRecords, mockShelves } from '../data/mockCollection'
 
 const me = 'Stefano'

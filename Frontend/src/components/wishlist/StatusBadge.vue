@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+
 const props = defineProps<{
   label: string
 }>()
 
 // this picks the badge color from the stylesheet
-function badgeClass() {
+const badgeClass = computed(() => {
   if (props.label === 'High' || props.label === 'Pending') {
     return 'badge pending'
   }
@@ -15,10 +17,10 @@ function badgeClass() {
     return 'badge approved'
   }
   return 'badge loan'
-}
+})
 </script>
 
 <!-- this will display the label text inside the badge -->
 <template>
-  <span :class="badgeClass()">{{ label }}</span>
+  <span :class="badgeClass">{{ label }}</span>
 </template>

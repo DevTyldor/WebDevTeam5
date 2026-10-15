@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import StatusBadge from "../../components/wishlist/StatusBadge.vue";
 import { useWishlist } from "../../composables/useWishlist";
 import type {
@@ -21,6 +21,7 @@ const {
   acceptOffer,
   declineOffer,
   makeOffer,
+  lastSaved,
 } = useWishlist();
 
 // Wishlist form
@@ -97,6 +98,21 @@ function sendOffer() {
 function cancelOffer() {
   offeringItem.value = null;
 }
+
+function handleKeyPress(event: KeyboardEvent) {
+  if (event.key === "Escape") {
+    resetForm();
+    cancelOffer();
+  }
+}
+
+onMounted(() => {
+  document.addEventListener("keydown", handleKeyPress);
+});
+
+onUnmounted(() => {
+  document.removeEventListener("keydown", handleKeyPress);
+});
 </script>
 
 <template>
@@ -181,6 +197,7 @@ function cancelOffer() {
         <button type="submit" class="btn btn-primary">
           {{ editingId ? "Save changes" : "Add to Wishlist" }}
         </button>
+        <button v-if="editingId" type="button" class="btn btn-secondary" @click="resetForm"> Cancel </button>
       </form>
     </div>
   </section>
@@ -333,4 +350,5 @@ function cancelOffer() {
       </table>
     </div>
   </section>
+  <p v-if="lastSaved">Last saved: {{ lastSaved }}</p>
 </template>

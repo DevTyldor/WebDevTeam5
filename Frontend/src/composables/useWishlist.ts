@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 
 
 export interface WishlistItem {
@@ -34,27 +34,36 @@ export interface SentOffer {
   status: string
 }
 
+
+const wishlist = ref<WishlistItem[]>(JSON.parse(localStorage.getItem('wishlist') || '[]'))
+const receivedOffers = ref<ReceivedOffer[]>(JSON.parse(localStorage.getItem('receivedOffers') || '[]'))
+const memberWishlists = ref<MemberWishlistItem[]>(JSON.parse(localStorage.getItem('memberWishlists') || '[]'))
+const sentOffers = ref<SentOffer[]>(JSON.parse(localStorage.getItem('sentOffers') || '[]'))
+
+
+const lastSaved = ref<string | null>(null)
+
+watch(wishlist, (latest) => {
+  localStorage.setItem('wishlist', JSON.stringify(latest))
+  lastSaved.value = new Date().toLocaleTimeString()
+}, { deep: true })
+
+watch(receivedOffers, (latest) => {
+  localStorage.setItem('receivedOffers', JSON.stringify(latest))
+  lastSaved.value = new Date().toLocaleTimeString()
+}, { deep: true })
+
+watch(memberWishlists, (latest) => {
+  localStorage.setItem('memberWishlists', JSON.stringify(latest))
+  lastSaved.value = new Date().toLocaleTimeString()
+}, { deep: true })
+
+watch(sentOffers, (latest) => {
+  localStorage.setItem('sentOffers', JSON.stringify(latest))
+  lastSaved.value = new Date().toLocaleTimeString()
+}, { deep: true })
+
 export function useWishlist() {
-
-const wishlist = ref<WishlistItem[]>([
-  { id: 1, game: 'Hotels', priority: 'High', note: 'English edition' },
-  { id: 2, game: 'Monopoly Classic', priority: 'Low', note: 'Only the base box' },
-])
-
-const receivedOffers = ref<ReceivedOffer[]>([
-  { id: 1, game: 'Hotels', offeredBy: 'User123', condition: 'New', message: 'I have a new copy of Hotels, would you like to trade?', status: 'Pending' },
-  { id: 2, game: 'Monopoly Classic', offeredBy: 'User456', condition: 'Used', message: 'I have a used copy of Monopoly Classic, are you interested?', status: 'Pending' },
-])
-
-const memberWishlists = ref<MemberWishlistItem[]>([
-  { id: 1, game: 'Catan', priority: 'High', note: 'Looking for the base game only', member: 'User789' },
-  { id: 2, game: 'Cluedo', priority: 'Medium', note: 'Any edition is fine', member: 'User321' },
-])
-
-const sentOffers = ref<SentOffer[]>([
-  { id: 1, game: 'Catan', offeredTo: 'User789', condition: 'New', message: 'I have a new copy of Catan, would you like to trade?', status: 'Pending' },
-  { id: 2, game: 'Cluedo', offeredTo: 'User321', condition: 'Used', message: 'I have a used copy of Cluedo, are you interested?', status: 'Accepted' },
-])
 
 const games = [
     'Hotels',
@@ -134,5 +143,6 @@ return {
     acceptOffer,
     declineOffer,
     makeOffer,
+    lastSaved,
   }
 }

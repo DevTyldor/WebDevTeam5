@@ -28,17 +28,20 @@ const router = createRouter({
       component: () => import('../pages/game sessions/NewSessionPage.vue'),
     },
     {
-      path: '/edit-session',
+      path: '/edit-session/:id',
       name: 'Edit Session',
       component: () => import('../pages/game sessions/EditSessionPage.vue'),
     },
     {
-      path: '/session-signup',
+      path: '/session-signup/:id',
       name: 'Session Signup',
       component: () => import('../pages/game sessions/SessionSignupPage.vue'),
     },
-
-
+    {
+      path: '/view-session/:id',
+      name: 'Session Overview',
+      component: () => import('../pages/game sessions/ViewSessionPage.vue'),
+    },
     // Collections
     {
       path: '/collection',
@@ -46,20 +49,21 @@ const router = createRouter({
       component: () => import('../pages/collections/Collections.vue'),
     },
     {
-      path: '/collection/shelf',
-      name: 'Shelf',
-      component: () => import('../pages/collections/Shelf.vue'),
-    },
-    {
       path: '/collection/shelves',
       name: 'Shelves',
       component: () => import('../pages/collections/Shelves.vue'),
     },
     {
-      path: '/collection/public-shelf',
+      path: '/collection/shelf/:id',
+      name: 'Shelf',
+      component: () => import('../pages/collections/Shelf.vue'),
+    },
+    {
+      path: '/collection/public-shelf/:id',
       name: 'Public Shelf',
       component: () => import('../pages/collections/PublicShelf.vue'),
     },
+    // Wishlist
     {
       path: '/wishlist',
       name: 'Wishlist',
@@ -89,6 +93,8 @@ const router = createRouter({
       name: 'New Lending Box',
       component: () => import('../pages/lending/NewLendingBoxPage.vue'),
     },
+      component: () => import('../pages/wishlist/WishlistPage.vue'),
+    }
   ],
 })
 

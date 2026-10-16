@@ -1,71 +1,73 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+import { useCollection } from '../../composables/useCollection'
+import ShelfGamesTable from './ShelfGamesTable.vue'
+import ShelfGameForm from './ShelfGameForm.vue'
+
+const route = useRoute()
+const { me, myGames, getShelf, getShelfGames, addToShelf, removeFromShelf } = useCollection()
+
+const shelfId = Number(route.params.id)
+
+const shelf = computed(() => getShelf(shelfId))
+const shelfGames = computed(() => getShelfGames(shelfId))
+
+function handleAdd(gameId: number) {
+    addToShelf(shelfId, gameId)
+}
+
+function handleRemove(gameId: number) {
+    removeFromShelf(shelfId, gameId)
+}
 </script>
 
 <template>
-    <section>
-        <div class="section-title">
-            <h2>Test1</h2>
-            <a href="shelves" class="btn btn-secondary">Back to shelves</a>
-        </div>
-
-        <div class="card">
-            <p>Desc1</p>
-            <p>Public: Yes</p>
-        </div>
-    </section>
-
-    <!-- Games on this shelf -->
-    <section>
-        <div class="section-title">
-            <h2>Games on this shelf</h2>
-        </div>
-
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Game</th>
-                        <th>Status</th>
-                        <th>Plays</th>
-                        <th>Rating</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Overwatch</td>
-                        <td>In progress</td>
-                        <td>5</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Halo 3</td>
-                        <td>Played</td>
-                        <td>12</td>
-                        <td>4</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
-
-    <!-- Add game to shelf -->
-    <section>
-        <div class="section-title">
-            <h2>Add game to shelf</h2>
-        </div>
-
-        <form class="card" action="/shelf/add-game" method="post">
-            <div class="form-group">
-                <label for="game">Game</label>
-                <select id="game" name="game_id" required>
-                    <option value="">-- choose a game from my collection --</option>
-                    <option value="1">Halo 3</option>
-                    <option value="2">Overwatch</option>
-                    <option value="3">Fortnite</option>
-                </select>
+    <div v-if="shelf && shelf.owner === me">
+        <section>
+            <div class="section-title">
+                <h2>{{ shelf.name }}</h2>
+                <RouterLink to="/collection/shelves" class="btn btn-secondary">Back to shelves</RouterLink>
             </div>
 
-            <button type="submit" class="btn btn-primary">Add to Shelf</button>
-        </form>
-    </section>
+            <div class="card">
+                <p>{{ shelf.description }}</p>
+                <p>Public: {{ shelf.isPublic ? 'Yes' : 'No' }}</p>
+                <p v-if="shelf.isPublic">
+                    <RouterLink :to="`/collection/public-shelf/${shelf.id}`">View public shelf</RouterLink>
+                </p>
+            </div>
+        </section>
+
+        <!-- Games on this shelf -->
+        <section>
+            <div class="section-title">
+                <h2>Games on this shelf</h2>
+            </div>
+
+            <ShelfGamesTable :records="shelfGames" :can-remove="true" @remove="handleRemove" />
+        </section>
+
+        <!-- Add game to shelf -->
+        <section>
+            <div class="section-title">
+                <h2>Add game to shelf</h2>
+            </div>
+
+            <ShelfGameForm :records="myGames" @add="handleAdd" />
+        </section>
+    </div>
+
+    <div v-else>
+        <section>
+            <div class="section-title">
+                <h2>Shelf not found</h2>
+                <RouterLink to="/collection/shelves" class="btn btn-secondary">Back to shelves</RouterLink>
+            </div>
+
+            <div class="card">
+                <p>No shelf exists with ID {{ shelfId }}.</p>
+            </div>
+        </section>
+    </div>
 </template>

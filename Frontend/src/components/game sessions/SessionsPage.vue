@@ -1,15 +1,11 @@
 <script setup lang="ts">
+import { mockSessions } from '@/data/mockSessions'
+
+const sessions = mockSessions;
 </script>
 
 <template>
     <div class="game-sessions-page">
-        <header>
-            <div class="header-inner">
-                <h1>Game Sessions</h1>
-                <p>Browse and join upcoming board game sessions</p>
-            </div>
-        </header>
-
         <main class="container">
             <section>
                 <div class="section-title">
@@ -23,74 +19,36 @@
                 </div>
 
                 <div class="grid">
-                    <div class="card card-hover">
+                    <div v-for="session in sessions" :key="session.id" class="card card-hover">
                         <div class="game-box">
                             <div class="game-icon">🎲</div>
+
                             <div>
-                                <h3>Friday board games</h3>
-                                <p>Host: Alice</p>
-                                <p>Friday 18 Sept • 19:00 • Club room</p>
+                                <h3>{{ session.name }}</h3>
+                                <p><string>Host:</string> {{ session.host }}</p>
+                                <p>
+                                    {{ session.date }} • {{ session.time }} • {{ session.place }}
+                                </p>
                             </div>
                         </div>
-
                         <p>
-                            <span class="badge approved">Open</span>
-                            • 4 / 6 seats
+                            <span class="badge" :class="session.status === 'Open' ? 'approved' : 'rejected'">
+                                {{ session.status }}
+                            </span> • {{ session.confirmed }} / {{ session.capacity }} seats
                         </p>
-
                         <div class="flex gap-sm">
-                            <a href="session-friday.html" class="btn btn-primary">View Details</a>
-                            <a href="session-signup" class="btn btn-secondary">Sign Up</a>
+                            <RouterLink :to="`/view-session/${session.id}`" class="btn btn-primary">
+                                View Details
+                            </RouterLink>
+
+                            <RouterLink :to="`/session-signup/${session.id}`" class="btn btn-secondary">
+                                Sign Up
+                            </RouterLink>
                         </div>
                     </div>
 
-                    <div class="card card-hover">
-                        <div class="game-box">
-                            <div class="game-icon">🗡️</div>
-                            <div>
-                                <h3>Saturday Gloomhaven</h3>
-                                <p>Host: Tom</p>
-                                <p>Saturday 19 Sept • 20:00 • Tom's home</p>
-                            </div>
-                        </div>
-
-                        <p>
-                            <span class="badge rejected">Full</span>
-                            • 5 / 5 seats
-                        </p>
-
-                        <div class="flex gap-sm">
-                            <a href="session-saturday.html" class="btn btn-primary">View Details</a>
-                            <a href="session-signup" class="btn btn-secondary">Sign Up</a>
-                        </div>
-                    </div>
-
-                    <div class="card card-hover">
-                        <div class="game-box">
-                            <div class="game-icon">🏝️</div>
-                            <div>
-                                <h3>Sunday Catan</h3>
-                                <p>Host: Tom</p>
-                                <p>Sunday 20 Sept • 20:00 • Rotterdam Library</p>
-                            </div>
-                        </div>
-
-                        <p>
-                            <span class="badge rejected">Full</span>
-                            • 10 / 10 seats
-                        </p>
-
-                        <div class="flex gap-sm">
-                            <a href="session-sunday.html" class="btn btn-primary">View Details</a>
-                            <a href="session-signup" class="btn btn-secondary">Sign Up</a>
-                        </div>
-                    </div>
                 </div>
             </section>
         </main>
-
-        <footer>
-            ©2026 Team 5. All rights reserved.
-        </footer>
     </div>
 </template>

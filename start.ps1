@@ -1,0 +1,2 @@
+Start-Process powershell -ArgumentList '-NoExit', '-Command', '$Host.UI.RawUI.WindowTitle = "Frontend"; Set-Location frontend; npm run dev'
+Start-Process powershell -ArgumentList '-NoExit', '-Command', '$Host.UI.RawUI.WindowTitle = "Backend"; Set-Location backend; npm run dev'

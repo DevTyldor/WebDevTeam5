@@ -67,7 +67,7 @@ const router = createRouter({
     {
       path: '/wishlist',
       name: 'Wishlist',
-      component: () => import('../pages/wishlist/Wishlist.vue'),
+      component: () => import('../pages/wishlist/WishlistPage.vue'),
     },
 
 
@@ -92,8 +92,6 @@ const router = createRouter({
       path: '/lending/new-box',
       name: 'New Lending Box',
       component: () => import('../pages/lending/NewLendingBoxPage.vue'),
-    },
-      component: () => import('../pages/wishlist/WishlistPage.vue'),
     }
   ],
 })

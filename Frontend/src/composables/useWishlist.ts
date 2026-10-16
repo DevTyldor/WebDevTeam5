@@ -4,7 +4,7 @@ import type { MemberWishlistItem } from '../types/MemberWishlistItem'
 import type { ReceivedOffer } from '../types/ReceivedOffer'
 import type { SentOffer } from '../types/SentOffer'
 
-import { starterWishlist, starterReceivedOffers, starterMemberWishlists, starterSentOffers } from '../data/mockWishlist'
+import { games, starterWishlist, starterReceivedOffers, starterMemberWishlists, starterSentOffers } from '../data/mockWishlist'
 
 
 const wishlist = ref<WishlistItem[]>(JSON.parse(localStorage.getItem('wishlist') || JSON.stringify(starterWishlist)))
@@ -36,13 +36,6 @@ watch(sentOffers, (latest) => {
 }, { deep: true })
 
 export function useWishlist() {
-
-const games = [
-    'Hotels',
-    'Monopoly Classic',
-    'Catan',
-    'Cluedo',
-]
 
 const wishlistCount = computed(() => {
     return wishlist.value.length

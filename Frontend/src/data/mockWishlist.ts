@@ -5,6 +5,14 @@ import type { MemberWishlistItem } from '../types/MemberWishlistItem'
 import type { ReceivedOffer } from '../types/ReceivedOffer'
 import type { SentOffer } from '../types/SentOffer'
 
+export const games = [
+    'Hotels',
+    'Monopoly Classic',
+    'Catan',
+    'Cluedo',
+]
+
+
 export const starterWishlist: WishlistItem[] = [
   { id: 1, game: 'Hotels', priority: 'High', note: 'I\'m looking for the newest edition' },
   { id: 2, game: 'Monopoly Classic', priority: 'Medium', note: 'Only the base box' },

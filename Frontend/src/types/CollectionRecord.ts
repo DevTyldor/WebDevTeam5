@@ -1,10 +1,5 @@
 export type RecordStatus = 'Not played yet' | 'In progress' | 'Played'
 
-export interface Game {
-  id: number
-  title: string
-}
-
 export interface CollectionRecord {
   id: number
   owner: string
@@ -13,13 +8,4 @@ export interface CollectionRecord {
   plays: number
   rating: number
   note: string
-}
-
-export interface Shelf {
-  id: number
-  owner: string
-  name: string
-  description: string
-  isPublic: boolean
-  gameIds: number[]
 }

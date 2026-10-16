@@ -3,11 +3,13 @@ import { computed } from 'vue'
 import { useCollection } from '../../composables/useCollection'
 import CollectionTable from './CollectionTable.vue'
 import CollectionForm from './CollectionForm.vue'
+import NewGameForm from './NewGameForm.vue'
 
 const {
     games,
     myGames,
     tooManyInProgress,
+    addNewGame,
     hasGame,
     addGame,
     removeGame,
@@ -17,6 +19,10 @@ const {
 
 const gamesToAdd = computed(() => {
     return games.value.filter(game => !hasGame(game.id))
+})
+
+const gamesInCollection = computed(() => {
+    return games.value.filter(game => hasGame(game.id))
 })
 </script>
 
@@ -38,5 +44,14 @@ const gamesToAdd = computed(() => {
         </div>
 
         <CollectionForm :games="gamesToAdd" :too-many-in-progress="tooManyInProgress" @add="addGame" />
+    </section>
+
+    <!-- Create a new game -->
+    <section>
+        <div class="section-title">
+            <h2>Create game</h2>
+        </div>
+
+        <NewGameForm :games="gamesInCollection"@add="addNewGame" />
     </section>
 </template>

@@ -1,12 +1,18 @@
 import { ref, computed, watch } from 'vue'
-import type { Game, CollectionRecord, RecordStatus, Shelf } from '../types/Collection'
+import type { Game } from '../types/Game'
+import type { CollectionRecord, RecordStatus } from '../types/CollectionRecord'
+import type { Shelf } from '../types/Shelf'
 import { mockGames, mockRecords, mockShelves } from '../data/mockCollection'
 
 const me = 'Stefano'
 
-const games = ref<Game[]>(mockGames)
+const games = ref<Game[]>(JSON.parse(localStorage.getItem('collectionGames') || JSON.stringify(mockGames)))
 const records = ref<CollectionRecord[]>(JSON.parse(localStorage.getItem('collectionRecords') || JSON.stringify(mockRecords)))
 const shelves = ref<Shelf[]>(JSON.parse(localStorage.getItem('collectionShelves') || JSON.stringify(mockShelves)))
+
+watch(games, (latest) => {
+  localStorage.setItem('collectionGames', JSON.stringify(latest))
+}, { deep: true })
 
 watch(records, (latest) => {
   localStorage.setItem('collectionRecords', JSON.stringify(latest))
@@ -36,6 +42,22 @@ export function useCollection() {
       return game.title
     }
     return ''
+  }
+
+  function addNewGame(title: string) {
+    for (const game of games.value) {
+      if (game.title.toLowerCase() === title.toLowerCase()) {
+        addGame(game.id, 'Not played yet', '')
+        return
+      }
+    }
+
+    const newGame: Game = {
+      id: Date.now(),
+      title
+    }
+    games.value.push(newGame)
+    addGame(newGame.id, 'Not played yet', '')
   }
 
   function hasGame(gameId: number) {
@@ -129,6 +151,7 @@ export function useCollection() {
     myShelves,
     tooManyInProgress,
     getTitle,
+    addNewGame,
     hasGame,
     addGame,
     removeGame,

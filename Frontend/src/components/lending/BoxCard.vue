@@ -1,31 +1,45 @@
-<script setup lang="ts">
-import StatusBadge from "./StatusBadge.vue";
 
+<script setup lang="ts">
 defineProps<{
-    name: string;
-    description: string;
-    owner: string;
-    available: boolean;
+  name: string;
+  description: string;
+  owner: string;
+  condition: string;
+  available: boolean;
+  canRequest?: boolean;
+}>();
+
+const emit = defineEmits<{
+  request: [];
 }>();
 </script>
 
 <template>
-    <div class="card card-hover">
-        <div class="game-box">
-            <div class="game-icon">📦</div>
-
-            <div>
-                <h3>{{ name }}</h3>
-                <p>{{ description }}</p>
-                <p><strong>Owner:</strong> {{ owner }}</p>
-
-                <p>
-                    <strong>Status:</strong>
-                    <StatusBadge
-                        :status="available ? 'Available' : 'Lent out'"
-                    />
-                </p>
-            </div>
-        </div>
+  <article class="card">
+    <div class="game-box">
+      <div class="game-icon">🎲</div>
+      <div>
+        <h3>{{ name }}</h3>
+        <span
+          class="badge"
+          :class="available ? 'available' : 'loaned'"
+        >
+          {{ available ? "Beschikbaar" : "Uitgeleend" }}
+        </span>
+      </div>
     </div>
+
+    <p><strong>Eigenaar:</strong> {{ owner }}</p>
+    <p><strong>Conditie:</strong> {{ condition }}</p>
+    <p>{{ description }}</p>
+
+    <button
+      v-if="available && canRequest"
+      type="button"
+      class="btn btn-primary"
+      @click="emit('request')"
+    >
+      Aanvragen
+    </button>
+  </article>
 </template>

@@ -5,5 +5,6 @@
         <RouterLink to="/sessions">Game Sessions</RouterLink>
         <RouterLink to="/collection">Collection</RouterLink>
         <RouterLink to="/wishlist">Wishlist</RouterLink>
+        <RouterLink to="/lending">Lending</RouterLink>
     </nav>
 </template>

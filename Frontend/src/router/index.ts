@@ -67,6 +67,32 @@ const router = createRouter({
     {
       path: '/wishlist',
       name: 'Wishlist',
+      component: () => import('../pages/wishlist/Wishlist.vue'),
+    },
+
+
+
+    // Lending
+    {
+      path: '/lending',
+      name: 'Lending List',
+      component: () => import('../pages/lending/LendingPage.vue'),
+    },
+    {
+      path: '/lending/requests',
+      name: 'Lending Requests',
+      component: () => import('../pages/lending/LendingRequestsPage.vue'),
+    },
+    {
+      path: '/lending/loans',
+      name: 'Lending Loans',
+      component: () => import('../pages/lending/LendingLoansPage.vue'),
+    },
+    {
+      path: '/lending/new-box',
+      name: 'New Lending Box',
+      component: () => import('../pages/lending/NewLendingBoxPage.vue'),
+    },
       component: () => import('../pages/wishlist/WishlistPage.vue'),
     }
   ],

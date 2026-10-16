@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { mockSessions, type Session } from '@/data/mockSessions'
+import { mockSessions } from '@/data/mockSessions'
+import type { Session } from '@/types/Session'
 
 const router = useRouter()
 

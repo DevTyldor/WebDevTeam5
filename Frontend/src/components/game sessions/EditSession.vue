@@ -99,13 +99,6 @@ function saveSession() {
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
         </head>
 
-        <header>
-            <div class="header-inner">
-                <h1>Edit Session</h1>
-                <p>Edit {{ session?.name }}</p>
-            </div>
-        </header>
-
         <main class="container">
             <section>
                 <div class="card card-hover">

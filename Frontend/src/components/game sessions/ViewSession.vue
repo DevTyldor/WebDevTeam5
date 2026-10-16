@@ -22,14 +22,6 @@ const session = computed(() => {
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
         </head>
 
-        <header>
-            <div class="header-inner">
-                <h1>{{ session?.name }}</h1>
-                <p>View information about the session Friday Board Games</p>
-            </div>
-        </header>
-
-
         <main class="container">
             <section>
                 <div class="section-title">

@@ -6,13 +6,6 @@ const sessions = mockSessions;
 
 <template>
     <div class="game-sessions-page">
-        <header>
-            <div class="header-inner">
-                <h1>Game Sessions</h1>
-                <p>Browse and join upcoming board game sessions</p>
-            </div>
-        </header>
-
         <main class="container">
             <section>
                 <div class="section-title">

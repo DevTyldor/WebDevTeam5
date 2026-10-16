@@ -98,13 +98,6 @@ function cancelSignup() {
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
         </head>
 
-        <header>
-            <div class="header-inner">
-                <h1>Signup</h1>
-                <p>Sign up for {{ session?.name }}</p>
-            </div>
-        </header>
-
         <main class="container">
             <section>
 

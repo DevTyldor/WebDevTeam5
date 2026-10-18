@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { mockSessions } from '@/data/mockSessions'
+import { useSessions } from '@/composables/useSession'
 
-const sessions = mockSessions;
+const { sessions } = useSessions()
 </script>
 
 <template>
@@ -11,42 +11,61 @@ const sessions = mockSessions;
                 <div class="section-title">
                     <div>
                         <h2>Upcoming sessions</h2>
-                        <p class="subtitle">Find a session to join or create your own</p>
+                        <p class="subtitle">
+                            Find a session to join or create your own
+                        </p>
                     </div>
                     <div>
-                        <a href="new-session" class="btn btn-primary">New Session</a>
+                        <RouterLink to="/new-session" class="btn btn-primary">
+                            New Session
+                        </RouterLink>
                     </div>
                 </div>
 
                 <div class="grid">
-                    <div v-for="session in sessions" :key="session.id" class="card card-hover">
+                    <div
+                        v-for="session in sessions"
+                        :key="session.id"
+                        class="card card-hover"
+                    >
                         <div class="game-box">
                             <div class="game-icon">🎲</div>
 
                             <div>
                                 <h3>{{ session.name }}</h3>
-                                <p><string>Host:</string> {{ session.host }}</p>
+                                <p><strong>Host:</strong> {{ session.host }}</p>
                                 <p>
                                     {{ session.date }} • {{ session.time }} • {{ session.place }}
                                 </p>
                             </div>
                         </div>
+
                         <p>
-                            <span class="badge" :class="session.status === 'Open' ? 'approved' : 'rejected'">
+                            <span
+                                class="badge"
+                                :class="session.status === 'Open' ? 'approved' : 'rejected'"
+                            >
                                 {{ session.status }}
-                            </span> • {{ session.confirmed }} / {{ session.capacity }} seats
+                            </span>
+                            • {{ session.confirmed }} / {{ session.capacity }} seats
                         </p>
+
                         <div class="flex gap-sm">
-                            <RouterLink :to="`/view-session/${session.id}`" class="btn btn-primary">
+                            <RouterLink
+                                :to="`/view-session/${session.id}`"
+                                class="btn btn-primary"
+                            >
                                 View Details
                             </RouterLink>
 
-                            <RouterLink :to="`/session-signup/${session.id}`" class="btn btn-secondary">
+                            <RouterLink
+                                :to="`/session-signup/${session.id}`"
+                                class="btn btn-secondary"
+                            >
                                 Sign Up
                             </RouterLink>
                         </div>
                     </div>
-
                 </div>
             </section>
         </main>

@@ -1,27 +1,11 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
-import { computed } from 'vue'
-import { mockSessions } from '@/data/mockSessions'
+import { useSessions } from '@/composables/useSession'
 
-const route = useRoute()
-
-const session = computed(() => {
-    return mockSessions.find(
-        session => session.id === Number(route.params.id)
-    )
-})
+const { currentSession } = useSessions()
 </script>
 
 <template>
     <div class="view-session-page">
-
-        <head>
-            <title>{{ session?.name }} – Session Details</title>
-            <link rel="stylesheet" href="../stylesheet/style.css">
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        </head>
-
         <main class="container">
             <section>
                 <div class="section-title">
@@ -32,7 +16,6 @@ const session = computed(() => {
                         <RouterLink to="/sessions" class="btn btn-primary">
                             Return to sessions list
                         </RouterLink>
-
                     </div>
                 </div>
 
@@ -40,10 +23,10 @@ const session = computed(() => {
                     <div class="game-box">
                         <div class="game-icon">🎲</div>
                         <div>
-                            <p><strong>Host:</strong> {{ session?.host }}</p>
-                            <p><strong>Date:</strong> {{ session?.date }}</p>
-                            <p><strong>Time:</strong> {{ session?.time }}</p>
-                            <p><strong>Place:</strong> {{ session?.place }}</p>
+                            <p><strong>Host:</strong> {{ currentSession?.host }}</p>
+                            <p><strong>Date:</strong> {{ currentSession?.date }}</p>
+                            <p><strong>Time:</strong> {{ currentSession?.time }}</p>
+                            <p><strong>Place:</strong> {{ currentSession?.place }}</p>
                         </div>
                     </div>
                 </div>
@@ -51,19 +34,30 @@ const session = computed(() => {
                 <div class="card card-hover attendance-card">
                     <div>
                         <h4>Capacity</h4>
-                        <p>{{ session?.confirmed }}/{{ session?.capacity }} Confirmed</p>
-                        <span class="badge" :class="session?.status === 'Open' ? 'approved' : 'rejected'">
-                            {{ session?.status }}
+                        <p>
+                            {{ currentSession?.confirmed }}/{{ currentSession?.capacity }} Confirmed
+                        </p>
+
+                        <span
+                            class="badge"
+                            :class="currentSession?.status === 'Open' ? 'approved' : 'rejected'"
+                        >
+                            {{ currentSession?.status }}
                         </span>
                     </div>
 
                     <div class="section-divider">
                         <h4>Waiting list</h4>
-                        <ol v-if="session?.waitingList.length">
-                            <li v-for="person in session.waitingList" :key="person">
+
+                        <ol v-if="currentSession?.waitingList.length">
+                            <li
+                                v-for="person in currentSession.waitingList"
+                                :key="person"
+                            >
                                 {{ person }}
                             </li>
                         </ol>
+
                         <p v-else>No one is currently on the waiting list.</p>
                     </div>
                 </div>
@@ -73,7 +67,10 @@ const session = computed(() => {
                         <div>
                             <h4>Games</h4>
                             <ul>
-                                <li v-for="game in session?.games" :key="game.name">
+                                <li
+                                    v-for="game in currentSession?.games"
+                                    :key="game.name"
+                                >
                                     {{ game.name }}
                                     ({{ game.minPlayers }}–{{ game.maxPlayers }} players)
 
@@ -82,7 +79,6 @@ const session = computed(() => {
                                     </span>
                                 </li>
                             </ul>
-
                         </div>
                     </div>
                 </div>
@@ -92,25 +88,42 @@ const session = computed(() => {
                         <div>
                             <h4>Participants</h4>
                             <ol>
-                                <li v-for="participant in session?.participants" :key="participant.name">
+                                <li
+                                    v-for="participant in currentSession?.participants"
+                                    :key="participant.name"
+                                >
                                     {{ participant.name }}
                                     <span v-if="participant.game">
                                         → {{ participant.game }}
                                     </span>
                                 </li>
                             </ol>
-
                         </div>
                     </div>
                 </div>
             </section>
 
             <div class="flex gap-sm">
-                <RouterLink :to="`/session-signup/${session?.id}`" class="btn btn-primary">
+                <RouterLink
+                    :to="`/session-signup/${currentSession?.id}`"
+                    class="btn btn-primary"
+                >
                     Sign up
                 </RouterLink>
-                <RouterLink :to="`/edit-session/${session?.id}`" class="btn btn-primary">Edit session</RouterLink>
-                <RouterLink :to="`/cancel-session/${session?.id}`" class="btn btn-danger">Cancel session</RouterLink>
+
+                <RouterLink
+                    :to="`/edit-session/${currentSession?.id}`"
+                    class="btn btn-primary"
+                >
+                    Edit session
+                </RouterLink>
+
+                <RouterLink
+                    :to="`/cancel-session/${currentSession?.id}`"
+                    class="btn btn-danger"
+                >
+                    Cancel session
+                </RouterLink>
             </div>
         </main>
     </div>

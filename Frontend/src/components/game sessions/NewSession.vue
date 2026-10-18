@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { mockSessions } from '@/data/mockSessions'
-import type { Session } from '@/types/Session'
+import { useSessions } from '@/composables/useSession'
 
-const router = useRouter()
+const {
+    createSession,
+    goToSessions
+} = useSessions()
 
 const sessionName = ref('')
 const sessionDate = ref('')
@@ -14,64 +15,18 @@ const sessionCapacity = ref<number | null>(null)
 
 const error = ref('')
 
-
-function createSession() {
-    error.value = ''
-
-    if (!sessionName.value.trim()) {
-        error.value = 'Please enter a session name.'
-        return
-    }
-
-    if (!sessionDate.value) {
-        error.value = 'Please select a date.'
-        return
-    }
-
-    if (!sessionTime.value) {
-        error.value = 'Please select a time.'
-        return
-    }
-
-    if (!sessionPlace.value) {
-        error.value = 'Please select a place.'
-        return
-    }
-
-    if (
-        sessionCapacity.value === null ||
-        sessionCapacity.value < 1
-    ) {
-        error.value = 'Capacity must be at least 1.'
-        return
-    }
-
-    const newSession: Session = {
-        id: Math.max(0, ...mockSessions.map(s => s.id)) + 1,
-        name: sessionName.value.trim(),
-        description: `A game session: ${sessionName.value.trim()}`,
-        host: 'Alice',
+function submitSession() {
+    error.value = createSession({
+        name: sessionName.value,
         date: sessionDate.value,
         time: sessionTime.value,
         place: sessionPlace.value,
-        capacity: sessionCapacity.value,
-        confirmed: 1,
-        status: 'Open',
-        waitingList: [],
-        games: [],
-        participants: [
-            { name: 'Alice' }
-        ]
-    }
-
-    mockSessions.push(newSession)
-
-    router.push(`/view-session/${newSession.id}`)
+        capacity: sessionCapacity.value
+    })
 }
 
-
 function cancel() {
-    router.push('/sessions')
+    goToSessions()
 }
 </script>
 
@@ -92,7 +47,11 @@ function cancel() {
 
                         <div>
                             <h3>
-                                <input v-model="sessionName" type="text" placeholder="Enter session name">
+                                <input
+                                    v-model="sessionName"
+                                    type="text"
+                                    placeholder="Enter session name"
+                                >
                             </h3>
 
                             <p>
@@ -113,8 +72,15 @@ function cancel() {
                             </select>
 
                             <p><strong>Enter capacity:</strong></p>
-                            <p><input v-model.number="sessionCapacity" type="number" min="1"
-                                    placeholder="Enter capacity"></p>
+                            <p>
+                                <input
+                                    v-model.number="sessionCapacity"
+                                    type="number"
+                                    min="1"
+                                    placeholder="Enter capacity"
+                                >
+                            </p>
+
                             <p v-if="error" class="error">{{ error }}</p>
                         </div>
                     </div>
@@ -122,11 +88,19 @@ function cancel() {
             </section>
 
             <div class="flex gap-sm">
-                <button type="button" class="btn btn-primary" @click="createSession">
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    @click="submitSession"
+                >
                     Create session
                 </button>
 
-                <button type="button" class="btn btn-danger" @click="cancel">
+                <button
+                    type="button"
+                    class="btn btn-danger"
+                    @click="cancel"
+                >
                     Cancel
                 </button>
             </div>

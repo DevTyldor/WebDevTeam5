@@ -1,16 +1,14 @@
+
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useSessions } from '@/composables/useSession'
 
-const {
-    createSession,
-    goToSessions
-} = useSessions()
+const { createSession, goToSessions } = useSessions()
 
 const sessionName = ref('')
 const sessionDate = ref('')
 const sessionTime = ref('')
-const sessionPlace = ref('club')
+const sessionPlace = ref('Club room')
 const sessionCapacity = ref<number | null>(null)
 
 const error = ref('')
@@ -51,22 +49,35 @@ function cancel() {
                                     v-model="sessionName"
                                     type="text"
                                     placeholder="Enter session name"
+                                    required
                                 >
                             </h3>
 
                             <p>
                                 <strong>Enter date:</strong>
-                                <input v-model="sessionDate" type="date">
+                                <input
+                                    v-model="sessionDate"
+                                    type="date"
+                                    required
+                                >
                             </p>
 
                             <p><strong>Enter time:</strong></p>
-                            <p><input v-model="sessionTime" type="time"></p>
+                            <p>
+                                <input
+                                    v-model="sessionTime"
+                                    type="time"
+                                    required
+                                >
+                            </p>
 
                             <p><strong>Enter place:</strong></p>
-                            <select v-model="sessionPlace">
+                            <select v-model="sessionPlace" required>
                                 <option value="Club room">Club room</option>
                                 <option value="Community centre">Community centre</option>
-                                <option value="Library meeting room">Library meeting room</option>
+                                <option value="Library meeting room">
+                                    Library meeting room
+                                </option>
                                 <option value="Game café">Game café</option>
                                 <option value="Home">Home</option>
                             </select>
@@ -77,11 +88,15 @@ function cancel() {
                                     v-model.number="sessionCapacity"
                                     type="number"
                                     min="1"
+                                    step="1"
                                     placeholder="Enter capacity"
+                                    required
                                 >
                             </p>
 
-                            <p v-if="error" class="error">{{ error }}</p>
+                            <p v-if="error" class="error" role="alert">
+                                {{ error }}
+                            </p>
                         </div>
                     </div>
                 </div>

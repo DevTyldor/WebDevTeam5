@@ -1,7 +1,14 @@
+
 <script setup lang="ts">
 import { useSessions } from '@/composables/useSession'
 
 const { sessions } = useSessions()
+
+function getConfirmedCount(session: typeof sessions.value[number]) {
+    return session.signups.filter(
+        signup => signup.status === 'Confirmed'
+    ).length
+}
 </script>
 
 <template>
@@ -15,6 +22,7 @@ const { sessions } = useSessions()
                             Find a session to join or create your own
                         </p>
                     </div>
+
                     <div>
                         <RouterLink to="/new-session" class="btn btn-primary">
                             New Session
@@ -43,11 +51,15 @@ const { sessions } = useSessions()
                         <p>
                             <span
                                 class="badge"
-                                :class="session.status === 'Open' ? 'approved' : 'rejected'"
+                                :class="{
+                                    approved: session.status === 'Open',
+                                    rejected: session.status === 'Full'
+                                        || session.status === 'Cancelled'
+                                }"
                             >
                                 {{ session.status }}
                             </span>
-                            • {{ session.confirmed }} / {{ session.capacity }} seats
+                            • {{ getConfirmedCount(session) }} / {{ session.capacity }} seats
                         </p>
 
                         <div class="flex gap-sm">
@@ -59,6 +71,7 @@ const { sessions } = useSessions()
                             </RouterLink>
 
                             <RouterLink
+                                v-if="session.status !== 'Cancelled'"
                                 :to="`/session-signup/${session.id}`"
                                 class="btn btn-secondary"
                             >

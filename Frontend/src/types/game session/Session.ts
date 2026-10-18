@@ -1,5 +1,6 @@
+
 import type { SessionGame } from "./SessionGame";
-import type { Participant } from "./Participant";
+import type { SessionSignup } from "./Signup";
 
 export interface Session {
   id: number;
@@ -10,9 +11,7 @@ export interface Session {
   time: string;
   place: string;
   capacity: number;
-  confirmed: number;
   status: "Open" | "Full" | "Cancelled";
-  waitingList: string[];
   games: SessionGame[];
-  participants: Participant[];
+  signups: SessionSignup[];
 }

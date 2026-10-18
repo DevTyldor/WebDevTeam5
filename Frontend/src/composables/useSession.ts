@@ -1,13 +1,13 @@
-// src/composables/useSessions.ts
 import { ref, computed } from "vue";
-import { mockSessions } from "@/data/mockSessions";
-import type { Session } from "@/types/Session";
 import { useRoute, useRouter } from "vue-router";
+import { mockSessions } from "@/data/mockSessions";
+import type { Session } from "@/types/game session/Session";
+import type { SessionSignup } from "@/types/game session/Signup";
 
-// Module-scope state: shared by every component that calls useSessions()
 const sessions = ref<Session[]>(mockSessions);
 
 const currentUser = "New Member";
+const currentMemberId = "member-new";
 
 export function useSessions() {
   const route = useRoute();
@@ -29,10 +29,79 @@ export function useSessions() {
     return getSession(Number(route.params.id));
   });
 
+  const confirmedSignups = computed(() => {
+    return (currentSession.value?.signups ?? [])
+      .filter((signup) => signup.status === "Confirmed")
+      .sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+  });
+
+  const waitingSignups = computed(() => {
+    return (currentSession.value?.signups ?? [])
+      .filter((signup) => signup.status === "Waiting")
+      .sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+  });
+
+  const confirmedCount = computed(() => {
+    return confirmedSignups.value.length;
+  });
+
   const seatsAvailable = computed(() => {
     if (!currentSession.value) return 0;
-    return currentSession.value.capacity - currentSession.value.confirmed;
+
+    return Math.max(0, currentSession.value.capacity - confirmedCount.value);
   });
+
+  const currentSignup = computed(() => {
+    return currentSession.value?.signups.find(
+      (signup) => signup.memberId === currentMemberId,
+    );
+  });
+
+  const isSignedUp = computed(() => {
+    return currentSignup.value !== undefined;
+  });
+
+  function updateSessionStatus(session: Session) {
+    const confirmed = session.signups.filter(
+      (signup) => signup.status === "Confirmed",
+    ).length;
+
+    session.status = confirmed >= session.capacity ? "Full" : "Open";
+  }
+
+  function promoteWaitingSignups(session: Session) {
+    const confirmedCount = session.signups.filter(
+      (signup) => signup.status === "Confirmed",
+    ).length;
+
+    const seatsToFill = Math.max(0, session.capacity - confirmedCount);
+
+    const waiting = session.signups
+      .filter((signup) => signup.status === "Waiting")
+      .sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+
+    waiting.slice(0, seatsToFill).forEach((signup) => {
+      signup.status = "Confirmed";
+    });
+
+    updateSessionStatus(session);
+  }
+
+  // If capacity is reduced, the most recently signed-up confirmed
+  // members lose their seats first.
+  function reconcileCapacity(session: Session) {
+    const confirmed = session.signups
+      .filter((signup) => signup.status === "Confirmed")
+      .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+
+    const excessSeats = Math.max(0, confirmed.length - session.capacity);
+
+    confirmed.slice(0, excessSeats).forEach((signup) => {
+      signup.status = "Waiting";
+    });
+
+    promoteWaitingSignups(session);
+  }
 
   function validateSession(
     name: string,
@@ -48,9 +117,15 @@ export function useSessions() {
     if (!time) return "Please select a time.";
     if (!place) return "Please select a place.";
     if (!host) return "Please select a host.";
-    if (capacity === null || capacity < minimumCapacity) {
+
+    if (
+      capacity === null ||
+      !Number.isFinite(capacity) ||
+      capacity < minimumCapacity
+    ) {
       return `Capacity must be at least ${minimumCapacity}.`;
     }
+
     return "";
   }
 
@@ -61,36 +136,49 @@ export function useSessions() {
     place: string;
     capacity: number | null;
   }) {
+    const host = "Alice";
+
     const validationError = validateSession(
       input.name,
       input.date,
       input.time,
       input.place,
-      "Alice",
+      host,
       input.capacity,
       1,
     );
 
     if (validationError) return validationError;
 
+    const id = Math.max(0, ...sessions.value.map((session) => session.id)) + 1;
+
     const newSession: Session = {
-      id: Math.max(0, ...sessions.value.map((session) => session.id)) + 1,
+      id,
       name: input.name.trim(),
       description: `A game session: ${input.name.trim()}`,
-      host: "Alice",
+      host,
       date: input.date,
       time: input.time,
       place: input.place,
       capacity: input.capacity!,
-      confirmed: 1,
       status: "Open",
-      waitingList: [],
       games: [],
-      participants: [{ name: "Alice" }],
+      signups: [
+        {
+          id: crypto.randomUUID(),
+          sessionId: id,
+          memberId: "alice",
+          status: "Confirmed",
+          createdAt: new Date().toISOString(),
+        },
+      ],
     };
+
+    updateSessionStatus(newSession);
 
     sessions.value.push(newSession);
     router.push(`/view-session/${newSession.id}`);
+
     return "";
   }
 
@@ -101,12 +189,12 @@ export function useSessions() {
     host: string;
     capacity: number | null;
   }) {
-    const sessionToUpdate = currentSession.value;
+    const session = currentSession.value;
 
-    if (!sessionToUpdate) return "Session not found.";
+    if (!session) return "Session not found.";
 
     const validationError = validateSession(
-      sessionToUpdate.name,
+      session.name,
       input.date,
       input.time,
       input.place,
@@ -117,42 +205,45 @@ export function useSessions() {
 
     if (validationError) return validationError;
 
-    sessionToUpdate.date = input.date;
-    sessionToUpdate.time = input.time;
-    sessionToUpdate.place = input.place;
-    sessionToUpdate.host = input.host;
-    sessionToUpdate.capacity = input.capacity!;
+    session.date = input.date;
+    session.time = input.time;
+    session.place = input.place;
+    session.host = input.host;
+    session.capacity = input.capacity!;
 
-    router.push(`/view-session/${sessionToUpdate.id}`);
+    reconcileCapacity(session);
+
+    router.push(`/view-session/${session.id}`);
+
     return "";
   }
 
-  const isSignedUp = ref(false);
-
-  function signup(selectedGame = "") {
+  function signup(gameId?: number) {
     const session = currentSession.value;
 
     if (!session || isSignedUp.value) return;
     if (session.status === "Cancelled") return;
 
-    if (session.confirmed >= session.capacity) {
-      session.waitingList.push(currentUser);
-      isSignedUp.value = true;
-      return;
-    }
+    const confirmed = session.signups.filter(
+      (signup) => signup.status === "Confirmed",
+    ).length;
 
-    session.participants.push({
-      name: currentUser,
-      game: selectedGame || undefined,
-    });
+    const status: SessionSignup["status"] =
+      confirmed < session.capacity ? "Confirmed" : "Waiting";
 
-    session.confirmed++;
+    const newSignup: SessionSignup = {
+      id: crypto.randomUUID(),
+      sessionId: session.id,
+      memberId: currentMemberId,
+      status,
+      createdAt: new Date().toISOString(),
+      ...(gameId !== undefined ? { gameId } : {}),
+    };
 
-    if (session.confirmed >= session.capacity) {
-      session.status = "Full";
-    }
+    session.signups.push(newSignup);
 
-    isSignedUp.value = true;
+    updateSessionStatus(session);
+
     router.push(`/view-session/${session.id}`);
   }
 
@@ -161,36 +252,30 @@ export function useSessions() {
 
     if (!session) return;
 
-    if (!isSignedUp.value) {
+    const signupIndex = session.signups.findIndex(
+      (signup) => signup.memberId === currentMemberId,
+    );
+
+    if (signupIndex === -1) {
       router.push(`/view-session/${session.id}`);
       return;
     }
 
-    const waitingIndex = session.waitingList.indexOf(currentUser);
+    const signup = session.signups[signupIndex];
 
-    if (waitingIndex !== -1) {
-      session.waitingList.splice(waitingIndex, 1);
-    } else {
-      const participantIndex = session.participants.findIndex(
-        (participant) => participant.name === currentUser,
-      );
-
-      if (participantIndex !== -1) {
-        session.participants.splice(participantIndex, 1);
-        session.confirmed--;
-
-        if (session.waitingList.length > 0) {
-          const nextMember = session.waitingList.shift()!;
-          session.participants.push({ name: nextMember });
-          session.confirmed++;
-        }
-
-        session.status =
-          session.confirmed >= session.capacity ? "Full" : "Open";
-      }
+    if (!signup) {
+      router.push(`/view-session/${session.id}`);
+      return;
     }
 
-    isSignedUp.value = false;
+    session.signups.splice(signupIndex, 1);
+
+    if (signup.status === "Confirmed") {
+      promoteWaitingSignups(session);
+    } else {
+      updateSessionStatus(session);
+    }
+
     router.push(`/view-session/${session.id}`);
   }
 
@@ -214,6 +299,9 @@ export function useSessions() {
     hosts,
     places,
     currentSession,
+    confirmedSignups,
+    waitingSignups,
+    confirmedCount,
     seatsAvailable,
     getSession,
     createSession,
@@ -223,5 +311,6 @@ export function useSessions() {
     goToSessions,
     isSignedUp,
     cancelSession,
+    currentSignup
   };
 }

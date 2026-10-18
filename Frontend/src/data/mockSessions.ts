@@ -1,4 +1,5 @@
-import type { Session } from "../types/Session";
+
+import type { Session } from "../types/game session/Session";
 
 export const mockSessions: Session[] = [
   {
@@ -10,10 +11,40 @@ export const mockSessions: Session[] = [
     time: "19:00",
     place: "Club room",
     capacity: 6,
-    confirmed: 4,
     status: "Open",
 
-    waitingList: [],
+    signups: [
+      {
+        id: "signup-1",
+        sessionId: 1,
+        memberId: "alice",
+        status: "Confirmed",
+        createdAt: "2026-09-01T10:00:00.000Z",
+      },
+      {
+        id: "signup-2",
+        sessionId: 1,
+        memberId: "bob",
+        status: "Confirmed",
+        createdAt: "2026-09-01T10:05:00.000Z",
+        gameId: 1,
+      },
+      {
+        id: "signup-3",
+        sessionId: 1,
+        memberId: "charlie",
+        status: "Confirmed",
+        createdAt: "2026-09-01T10:10:00.000Z",
+      },
+      {
+        id: "signup-4",
+        sessionId: 1,
+        memberId: "david",
+        status: "Confirmed",
+        createdAt: "2026-09-01T10:15:00.000Z",
+        gameId: 2,
+      },
+    ],
 
     games: [
       {
@@ -29,23 +60,6 @@ export const mockSessions: Session[] = [
         enoughPlayers: true,
       },
     ],
-
-    participants: [
-      {
-        name: "Alice",
-      },
-      {
-        name: "Bob",
-        game: "Catan",
-      },
-      {
-        name: "Charlie",
-      },
-      {
-        name: "David",
-        game: "Carcassonne",
-      },
-    ],
   },
 
   {
@@ -57,10 +71,58 @@ export const mockSessions: Session[] = [
     time: "18:30",
     place: "Community centre",
     capacity: 8,
-    confirmed: 6,
     status: "Open",
 
-    waitingList: [],
+    signups: [
+      {
+        id: "signup-5",
+        sessionId: 2,
+        memberId: "bob",
+        status: "Confirmed",
+        createdAt: "2026-09-02T10:00:00.000Z",
+        gameId: 3,
+      },
+      {
+        id: "signup-6",
+        sessionId: 2,
+        memberId: "alice",
+        status: "Confirmed",
+        createdAt: "2026-09-02T10:05:00.000Z",
+        gameId: 3,
+      },
+      {
+        id: "signup-7",
+        sessionId: 2,
+        memberId: "charlie",
+        status: "Confirmed",
+        createdAt: "2026-09-02T10:10:00.000Z",
+        gameId: 4,
+      },
+      {
+        id: "signup-8",
+        sessionId: 2,
+        memberId: "david",
+        status: "Confirmed",
+        createdAt: "2026-09-02T10:15:00.000Z",
+        gameId: 4,
+      },
+      {
+        id: "signup-9",
+        sessionId: 2,
+        memberId: "eve",
+        status: "Confirmed",
+        createdAt: "2026-09-02T10:20:00.000Z",
+        gameId: 5,
+      },
+      {
+        id: "signup-10",
+        sessionId: 2,
+        memberId: "frank",
+        status: "Confirmed",
+        createdAt: "2026-09-02T10:25:00.000Z",
+        gameId: 5,
+      },
+    ],
 
     games: [
       {
@@ -82,33 +144,6 @@ export const mockSessions: Session[] = [
         enoughPlayers: true,
       },
     ],
-
-    participants: [
-      {
-        name: "Bob",
-        game: "Terraforming Mars",
-      },
-      {
-        name: "Alice",
-        game: "Terraforming Mars",
-      },
-      {
-        name: "Charlie",
-        game: "Wingspan",
-      },
-      {
-        name: "David",
-        game: "Wingspan",
-      },
-      {
-        name: "Eve",
-        game: "7 Wonders",
-      },
-      {
-        name: "Frank",
-        game: "7 Wonders",
-      },
-    ],
   },
 
   {
@@ -120,10 +155,34 @@ export const mockSessions: Session[] = [
     time: "19:30",
     place: "Library meeting room",
     capacity: 6,
-    confirmed: 3,
     status: "Open",
 
-    waitingList: [],
+    signups: [
+      {
+        id: "signup-11",
+        sessionId: 3,
+        memberId: "charlie",
+        status: "Confirmed",
+        createdAt: "2026-09-03T10:00:00.000Z",
+        gameId: 6,
+      },
+      {
+        id: "signup-12",
+        sessionId: 3,
+        memberId: "grace",
+        status: "Confirmed",
+        createdAt: "2026-09-03T10:05:00.000Z",
+        gameId: 6,
+      },
+      {
+        id: "signup-13",
+        sessionId: 3,
+        memberId: "henry",
+        status: "Confirmed",
+        createdAt: "2026-09-03T10:10:00.000Z",
+        gameId: 7,
+      },
+    ],
 
     games: [
       {
@@ -145,21 +204,6 @@ export const mockSessions: Session[] = [
         enoughPlayers: true,
       },
     ],
-
-    participants: [
-      {
-        name: "Charlie",
-        game: "Ticket to Ride",
-      },
-      {
-        name: "Grace",
-        game: "Ticket to Ride",
-      },
-      {
-        name: "Henry",
-        game: "Azul",
-      },
-    ],
   },
 
   {
@@ -171,10 +215,127 @@ export const mockSessions: Session[] = [
     time: "14:00",
     place: "Game café",
     capacity: 12,
-    confirmed: 12,
     status: "Full",
 
-    waitingList: ["Alice", "Frank", "Grace"],
+    signups: [
+      {
+        id: "signup-14",
+        sessionId: 4,
+        memberId: "david",
+        status: "Confirmed",
+        createdAt: "2026-09-04T10:00:00.000Z",
+        gameId: 1,
+      },
+      {
+        id: "signup-15",
+        sessionId: 4,
+        memberId: "bob",
+        status: "Confirmed",
+        createdAt: "2026-09-04T10:05:00.000Z",
+        gameId: 1,
+      },
+      {
+        id: "signup-16",
+        sessionId: 4,
+        memberId: "charlie",
+        status: "Confirmed",
+        createdAt: "2026-09-04T10:10:00.000Z",
+        gameId: 1,
+      },
+      {
+        id: "signup-17",
+        sessionId: 4,
+        memberId: "eve",
+        status: "Confirmed",
+        createdAt: "2026-09-04T10:15:00.000Z",
+        gameId: 1,
+      },
+      {
+        id: "signup-18",
+        sessionId: 4,
+        memberId: "henry",
+        status: "Confirmed",
+        createdAt: "2026-09-04T10:20:00.000Z",
+        gameId: 1,
+      },
+      {
+        id: "signup-19",
+        sessionId: 4,
+        memberId: "iris",
+        status: "Confirmed",
+        createdAt: "2026-09-04T10:25:00.000Z",
+        gameId: 1,
+      },
+      {
+        id: "signup-20",
+        sessionId: 4,
+        memberId: "jack",
+        status: "Confirmed",
+        createdAt: "2026-09-04T10:30:00.000Z",
+        gameId: 1,
+      },
+      {
+        id: "signup-21",
+        sessionId: 4,
+        memberId: "karen",
+        status: "Confirmed",
+        createdAt: "2026-09-04T10:35:00.000Z",
+        gameId: 1,
+      },
+      {
+        id: "signup-22",
+        sessionId: 4,
+        memberId: "laura",
+        status: "Confirmed",
+        createdAt: "2026-09-04T10:40:00.000Z",
+        gameId: 1,
+      },
+      {
+        id: "signup-23",
+        sessionId: 4,
+        memberId: "mike",
+        status: "Confirmed",
+        createdAt: "2026-09-04T10:45:00.000Z",
+        gameId: 1,
+      },
+      {
+        id: "signup-24",
+        sessionId: 4,
+        memberId: "nina",
+        status: "Confirmed",
+        createdAt: "2026-09-04T10:50:00.000Z",
+        gameId: 1,
+      },
+      {
+        id: "signup-25",
+        sessionId: 4,
+        memberId: "oscar",
+        status: "Confirmed",
+        createdAt: "2026-09-04T10:55:00.000Z",
+        gameId: 1,
+      },
+      {
+        id: "signup-26",
+        sessionId: 4,
+        memberId: "alice",
+        status: "Waiting",
+        createdAt: "2026-09-04T11:00:00.000Z",
+      },
+      {
+        id: "signup-27",
+        sessionId: 4,
+        memberId: "frank",
+        status: "Waiting",
+        createdAt: "2026-09-04T11:05:00.000Z",
+      },
+      {
+        id: "signup-28",
+        sessionId: 4,
+        memberId: "grace",
+        status: "Waiting",
+        createdAt: "2026-09-04T11:10:00.000Z",
+      },
+    ],
 
     games: [
       {
@@ -196,57 +357,6 @@ export const mockSessions: Session[] = [
         enoughPlayers: true,
       },
     ],
-
-    participants: [
-      {
-        name: "David",
-        game: "Catan",
-      },
-      {
-        name: "Bob",
-        game: "Catan",
-      },
-      {
-        name: "Charlie",
-        game: "Catan",
-      },
-      {
-        name: "Eve",
-        game: "Catan",
-      },
-      {
-        name: "Henry",
-        game: "Catan",
-      },
-      {
-        name: "Iris",
-        game: "Catan",
-      },
-      {
-        name: "Jack",
-        game: "Catan",
-      },
-      {
-        name: "Karen",
-        game: "Catan",
-      },
-      {
-        name: "Laura",
-        game: "Catan",
-      },
-      {
-        name: "Mike",
-        game: "Catan",
-      },
-      {
-        name: "Nina",
-        game: "Catan",
-      },
-      {
-        name: "Oscar",
-        game: "Catan",
-      },
-    ],
   },
 
   {
@@ -258,10 +368,26 @@ export const mockSessions: Session[] = [
     time: "19:00",
     place: "Club room",
     capacity: 5,
-    confirmed: 2,
     status: "Open",
 
-    waitingList: [],
+    signups: [
+      {
+        id: "signup-29",
+        sessionId: 5,
+        memberId: "eve",
+        status: "Confirmed",
+        createdAt: "2026-09-05T10:00:00.000Z",
+        gameId: 8,
+      },
+      {
+        id: "signup-30",
+        sessionId: 5,
+        memberId: "frank",
+        status: "Confirmed",
+        createdAt: "2026-09-05T10:05:00.000Z",
+        gameId: 8,
+      },
+    ],
 
     games: [
       {
@@ -277,17 +403,6 @@ export const mockSessions: Session[] = [
         enoughPlayers: true,
       },
     ],
-
-    participants: [
-      {
-        name: "Eve",
-        game: "Pandemic",
-      },
-      {
-        name: "Frank",
-        game: "Pandemic",
-      },
-    ],
   },
 
   {
@@ -299,10 +414,50 @@ export const mockSessions: Session[] = [
     time: "20:00",
     place: "Community centre",
     capacity: 6,
-    confirmed: 5,
     status: "Open",
 
-    waitingList: [],
+    signups: [
+      {
+        id: "signup-31",
+        sessionId: 6,
+        memberId: "frank",
+        status: "Confirmed",
+        createdAt: "2026-09-06T10:00:00.000Z",
+        gameId: 2,
+      },
+      {
+        id: "signup-32",
+        sessionId: 6,
+        memberId: "alice",
+        status: "Confirmed",
+        createdAt: "2026-09-06T10:05:00.000Z",
+        gameId: 2,
+      },
+      {
+        id: "signup-33",
+        sessionId: 6,
+        memberId: "bob",
+        status: "Confirmed",
+        createdAt: "2026-09-06T10:10:00.000Z",
+        gameId: 2,
+      },
+      {
+        id: "signup-34",
+        sessionId: 6,
+        memberId: "charlie",
+        status: "Confirmed",
+        createdAt: "2026-09-06T10:15:00.000Z",
+        gameId: 2,
+      },
+      {
+        id: "signup-35",
+        sessionId: 6,
+        memberId: "grace",
+        status: "Confirmed",
+        createdAt: "2026-09-06T10:20:00.000Z",
+        gameId: 2,
+      },
+    ],
 
     games: [
       {
@@ -310,29 +465,6 @@ export const mockSessions: Session[] = [
         minPlayers: 2,
         maxPlayers: 5,
         enoughPlayers: true,
-      },
-    ],
-
-    participants: [
-      {
-        name: "Frank",
-        game: "Carcassonne",
-      },
-      {
-        name: "Alice",
-        game: "Carcassonne",
-      },
-      {
-        name: "Bob",
-        game: "Carcassonne",
-      },
-      {
-        name: "Charlie",
-        game: "Carcassonne",
-      },
-      {
-        name: "Grace",
-        game: "Carcassonne",
       },
     ],
   },

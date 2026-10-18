@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import TheWelcome from '../../components/game sessions/NewSession.vue'
+import NewSessionPage from '../../components/game sessions/NewSession.vue'
 </script>
 
 <template>
-  <TheWelcome />
+  <NewSessionPage />
 
 </template>

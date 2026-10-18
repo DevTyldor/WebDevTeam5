@@ -42,6 +42,11 @@ const router = createRouter({
       name: 'Session Overview',
       component: () => import('../pages/game sessions/ViewSessionPage.vue'),
     },
+    {
+    path: '/cancel-session/:id',
+    name: 'cancel-session',
+    component: () => import('@/pages/game sessions/CancelSessionPage.vue')
+    },
     // Collections
     {
       path: '/collection',

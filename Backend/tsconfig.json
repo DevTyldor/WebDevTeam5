@@ -7,7 +7,7 @@
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
     "module": "nodenext",
-    "target": "esnext",
+    "target": "ES2022",
     "types": [],
     // For nodejs:
     // "lib": ["esnext"],
@@ -37,5 +37,9 @@
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
+    "moduleResolution": "NodeNext",
+    /* Required for TypeORM in lesson 3 */
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
   }
 }

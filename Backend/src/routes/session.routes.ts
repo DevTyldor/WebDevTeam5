@@ -8,23 +8,23 @@ import type { Request, Response } from "express";
 
 const router = express.Router();
 
-router.get("/sessions", (req: Request, res: Response) => {
+router.get("/", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "..", "views/game sessions", "session-list.html"));
 });
 
-router.get("/view-session", (req: Request, res: Response) => {
+router.get("/view", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "..", "views/game sessions", "view-session.html"));
 });
 
-router.get("/edit-session", (req: Request, res: Response) => {
+router.get("/edit", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "..", "views/game sessions", "edit-session.html"));
 });
 
-router.get("/session-signup", (req: Request, res: Response) => {
+router.get("/signup", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "..", "views/game sessions", "session-signup.html"));
 });
 
-router.get("/cancel-session", (req: Request, res: Response) => {
+router.get("/cancel", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "..", "views/game sessions", "cancel-session.html"));
 });
 

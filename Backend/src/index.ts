@@ -15,12 +15,12 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 app.use("/collections", collectionRouter)
 app.use("/wishlist", wishlistRouter)
+app.use("/sessions", sessionRouter);
 
 app.get("/", (req: Request, res: Response) => {
     res.send("Hello! Welcome to my Express + TypeScript server");
 });
 
-app.use(sessionRouter);
 
 app.use((req: Request, res: Response) => {
     res.status(404).send("<h1>404 - Page Not Found</h1>");

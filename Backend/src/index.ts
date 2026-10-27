@@ -3,6 +3,7 @@ import type { Request, Response, NextFunction } from 'express';
 import sessionRouter from './routes/session.routes.js';
 
 import collectionRouter from "./routes/collection.routes.js"
+import wishlistRouter from "./routes/wishlist.routes.js"
 
 const app = express();
 const PORT = 3000;
@@ -13,6 +14,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 })
 
 app.use("/collections", collectionRouter)
+app.use("/wishlist", wishlistRouter)
 
 app.get("/", (req: Request, res: Response) => {
     res.send("Hello! Welcome to my Express + TypeScript server");

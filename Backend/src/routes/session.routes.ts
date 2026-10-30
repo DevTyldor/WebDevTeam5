@@ -1,31 +1,16 @@
 import express from "express";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-import type { Request, Response } from "express";
+import { showCancelSessionPage, showEditSessionPage, showSessionListPage, showSessionSignupPage, showViewSessionPage } from "../controllers/sessions.controller.js";
 
 const router = express.Router();
 
-router.get("/", (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, "..", "views/game sessions", "session-list.html"));
-});
+router.get("/", showSessionListPage);
 
-router.get("/view", (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, "..", "views/game sessions", "view-session.html"));
-});
+router.get("/view", showViewSessionPage);
 
-router.get("/edit", (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, "..", "views/game sessions", "edit-session.html"));
-});
+router.get("/edit", showEditSessionPage);
 
-router.get("/signup", (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, "..", "views/game sessions", "session-signup.html"));
-});
+router.get("/signup", showSessionSignupPage);
 
-router.get("/cancel", (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, "..", "views/game sessions", "cancel-session.html"));
-});
+router.get("/cancel", showCancelSessionPage);
 
 export default router;

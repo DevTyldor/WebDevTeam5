@@ -1,4 +1,5 @@
 import express from "express";
+import path from "node:path";
 import type { Request, Response, NextFunction } from 'express';
 import sessionRouter from './routes/session.routes.js';
 
@@ -7,6 +8,9 @@ import wishlistRouter from "./routes/wishlist.routes.js"
 
 const app = express();
 const PORT = 3000;
+
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
 app.use((req: Request, res: Response, next: NextFunction) => {
     console.log(`Request: ${req.method} ${req.url}`);

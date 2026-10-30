@@ -5,6 +5,9 @@ import sessionRouter from './routes/session.routes.js';
 
 import collectionRouter from "./routes/collection.routes.js"
 import wishlistRouter from "./routes/wishlist.routes.js"
+import { fileURLToPath } from "node:url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = 3000;

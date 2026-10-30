@@ -29,6 +29,33 @@ class Session {
   }
 }
 
+const sessions: Session[] = [];
+
+function addSession(s: Session){
+    sessions.push(s);
+}
+
+function deleteSession(id: number) {
+    const index = sessions.findIndex(s => s.id === id);
+
+    if (index !== -1) {
+        sessions.splice(index, 1);
+    }
+}
+
+function getAllSessions() : Session[] {
+    return sessions;
+}
+
+function getOneSession(id: number): Session | undefined {
+    let found = sessions.find(s => s.id == id);
+    return found ? found : undefined;
+}
+
 export {
-    Session
+    Session,
+    addSession,
+    deleteSession,
+    getAllSessions,
+    getOneSession
 }

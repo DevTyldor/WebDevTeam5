@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shelves</title>
+</head>
+<body>
+    <h1>Mijn shelves</h1>
+    <a href="/collections/add-shelf">Shelf toevoegen</a>
+    <a href="/collections">Collectie</a>
+    <br><br>
+
+    <% if (locals.message) { %>
+        <%= message %><br><br>
+    <% } %>
+
+    <% if (shelves.length > 0 && records.length > 0) { %>
+        <form action="/collections/add-to-shelf" method="post">
+            <select name="gameId">
+                <% records.forEach(record => { %>
+                    <option value="<%= record.gameId %>"><%= getGameTitle(record.gameId) %></option>
+                <% }) %>
+            </select>
+
+            <select name="shelfId">
+                <% shelves.forEach(shelf => { %>
+                    <option value="<%= shelf.id %>"><%= shelf.name %></option>
+                <% }) %>
+            </select>
+
+            <input type="submit" value="Op shelf zetten">
+        </form>
+        <br>
+    <% } %>
+
+    <% if (shelves.length === 0) { %>
+        Geen shelves
+    <% } %>
+
+    <% shelves.forEach(shelf => { %>
+      <div style="border: 1px solid black; padding: 0.4rem;">
+        <strong><%= shelf.name %></strong><br>
+        <%= shelf.description %><br>
+        <% if (shelf.isPublic) { %>
+            Publiek
+        <% } else { %>
+            Prive
+        <% } %>
+        <ul>
+            <% shelf.gameIds.forEach(gameId => { %>
+                <li><%= getGameTitle(gameId) %></li>
+            <% }) %>
+        </ul>
+      </div>
+    <% }) %>
+</body>
+</html>

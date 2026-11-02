@@ -1,24 +1,18 @@
 import express from "express";
-import type { Request, Response } from 'express';
-
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import { showCollection, showAddGamePage, handleAddGame, showShelves, handleAddToShelf, showAddShelfPage, handleAddShelf, showShelfPage, showPublicShelfPage } from "../controllers/collections.controller.js";
 
 const router = express.Router();
 
-router.get("/public-shelf", (req: Request, res: Response) => {
-    res.sendFile(path.join(__dirname, "..", "views", "collections/public-shelf.html"))
-});
+router.get("/", showCollection);
+router.get("/add-game", showAddGamePage);
+router.post("/add-game", handleAddGame);
 
-router.get("/shelf", (req: Request, res: Response) => {
-    res.sendFile(path.join(__dirname, "..", "views", "collections/shelf.html"))
-});
+router.get("/shelves", showShelves);
+router.get("/add-shelf", showAddShelfPage);
+router.post("/add-shelf", handleAddShelf);
+router.post("/add-to-shelf", handleAddToShelf);
 
-router.get("/shelves", (req: Request, res: Response) => {
-    res.sendFile(path.join(__dirname, "..", "views", "collections/shelves.html"))
-});
+router.get("/shelf", showShelfPage);
+router.get("/public-shelf", showPublicShelfPage);
 
 export default router;

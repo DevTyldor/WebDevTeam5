@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collection</title>
+</head>
+<body>
+    <h1>Mijn collectie</h1>
+    <a href="/collections/add-game">Game toevoegen</a>
+    <a href="/collections/shelves">Shelves</a>
+    <br><br>
+
+    <% if (records.length === 0) { %>
+        Geen games in collectie
+    <% } %>
+
+    <% records.forEach(record => { %>
+      <div style="border: 1px solid black; padding: 0.4rem;">
+        <strong><%= getGameTitle(record.gameId) %></strong><br>
+        Status: <%= record.status %><br>
+        Plays: <%= record.plays %><br>
+        Rating: <%= record.rating %><br>
+        <%= record.note %>
+      </div>
+    <% }) %>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Shelf</title>
+</head>
+<body>
+    <h1>Shelf toevoegen</h1>
+    <a href="/collections/shelves">Terug naar shelves</a>
+
+    <% if (locals.message) { %>
+        <br><br><%= message %><br><br>
+    <% } %>
+
+    <form action="" method="post">
+        <input type="text" placeholder="Name" name="name">
+        <input type="text" placeholder="Description" name="description">
+
+        <label>
+            <input type="checkbox" name="isPublic">
+            Publiek
+        </label>
+
+        <input type="submit" value="Toevoegen">
+    </form>
+</body>
+</html>

@@ -1,21 +1,35 @@
-class SessionSignup { 
-    id: string;
-    sessionId: number;
-    memberId: string;
-    status: string;
-    CreatedAt: string;
-    gameId: number;
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
 
-    constructor(i: string, s: number, m: string, st: string, c: string, g: number){
-        this.id = i;
-        this.sessionId = s;
-        this.memberId = m;
-        this.status = st;
-        this.CreatedAt = c;
-        this.gameId = g;
-    }
+import { Session } from "./Session.js";
+import { SessionGame } from "./SessionGame.js";
+
+@Entity()
+class SessionSignup {
+  @PrimaryGeneratedColumn()
+  id!: number;
+
+  @Column()
+  memberId: string;
+
+  @Column()
+  status: string;
+
+  @Column()
+  createdAt: string;
+
+  @ManyToOne(() => Session, (session) => session.signups)
+  @JoinColumn({ name: "sessionId" })
+  session!: Session;
+
+  @ManyToOne(() => SessionGame, { nullable: true })
+  @JoinColumn({ name: "gameId" })
+  game!: SessionGame | null;
+
+  constructor(m: string, st: string, c: string) {
+    this.memberId = m;
+    this.status = st;
+    this.createdAt = c;
+  }
 }
 
-export {
-    SessionSignup
-}
+export { SessionSignup };

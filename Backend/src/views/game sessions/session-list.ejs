@@ -1,14 +1,119 @@
-<!DOCTYPE html>
-<html lang="en">
+ <!DOCTYPE html>
+ <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Session List</title>
-</head>
+ <head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Sessions | GameShelf</title>
+   <link rel="stylesheet" href="/css/style.css">
+ </head>
 
-<body>
+ <body>
 
-</body>
+   <main class="sessions-container">
 
-</html>
+     <header class="sessions-header">
+       <h1>Board Game Sessions</h1>
+       <p>Discover upcoming sessions and join other members!</p>
+       <a href="/sessions/new" class="button">Create session</a>
+     </header>
+
+     <section class="sessions-list">
+
+       <% if (sessions.length > 0) { %>
+
+       <% sessions.forEach(session => { %>
+
+       <article class="session-card">
+
+         <header class="session-card-header">
+           <h2><%= session.name %></h2>
+
+           <span class="session-status">
+             <%= session.status %>
+           </span>
+         </header>
+
+         <p><%= session.description %></p>
+
+         <div class="session-information">
+
+           <p>
+             <strong>Host:</strong>
+             <%= session.host %>
+           </p>
+
+           <p>
+             <strong>Date:</strong>
+             <%= session.date %>
+           </p>
+
+           <p>
+             <strong>Time:</strong>
+             <%= session.time %>
+           </p>
+
+           <p>
+             <strong>Location:</strong>
+             <%= session.place %>
+           </p>
+
+           <p>
+             <strong>Participants:</strong>
+             <%= session.signups.filter(s => s.status === "Confirmed").length %>
+             /
+             <%= session.capacity %>
+           </p>
+
+         </div>
+
+         <div class="session-games">
+
+           <h3>Games</h3>
+
+           <% if (session.games.length > 0) { %>
+
+           <ul>
+             <% session.games.forEach(game => { %>
+             <li>
+               <%= game.name %>
+               (<%= game.minPlayers %>-<%= game.maxPlayers %> players)
+             </li>
+             <% }); %>
+           </ul>
+
+           <% } else { %>
+
+           <p>No games selected yet.</p>
+
+           <% } %>
+
+         </div>
+
+         <footer class="session-card-footer">
+           <a href="/sessions/<%= session.id %>" class="button">
+             View session
+           </a>
+         </footer>
+
+       </article>
+
+       <% }); %>
+
+       <% } else { %>
+
+       <p>No sessions are currently available.</p>
+
+       <a href="/sessions/new" class="button">
+         Create the first session
+       </a>
+
+       <% } %>
+
+     </section>
+
+   </main>
+
+ </body>
+
+ </html>

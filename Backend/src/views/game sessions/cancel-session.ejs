@@ -4,11 +4,86 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cancel Sessions</title>
+  <title>Sessions | GameShelf</title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
+  <div class="cancel-session-page">
+    <main class="container">
+      <section>
+        <div class="section-title">
+          <div>
+            <h2>Cancel session</h2>
 
+            <p class="subtitle">
+              <% if (session?.status === "Cancelled") { %>
+              This session has already been cancelled.
+              <% } else { %>
+              Are you sure you want to cancel this session?
+              <% } %>
+            </p>
+          </div>
+        </div>
+
+        <% if (session) { %>
+        <div class="card card-hover">
+          <div class="game-box">
+            <div class="game-icon">🎲</div>
+
+            <div>
+              <h3><%= session.name %></h3>
+
+              <p>
+                <strong>Host:</strong>
+                <%= session.host %>
+              </p>
+
+              <p>
+                <strong>Date:</strong>
+                <%= session.date %>
+              </p>
+
+              <p>
+                <strong>Time:</strong>
+                <%= session.time %>
+              </p>
+
+              <p>
+                <strong>Place:</strong>
+                <%= session.place %>
+              </p>
+
+              <p>
+                <span class="badge <%= session.status === 'Cancelled' ? 'rejected' : 'approved' %>">
+                  <%= session.status %>
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <% } else { %>
+        <p class="error" role="alert">
+          Session not found.
+        </p>
+        <% } %>
+
+        <div class="flex gap-sm">
+          <% if (session && session.status !== "Cancelled") { %>
+          <form action="/sessions/<%= session.id %>/cancel" method="POST">
+            <button type="submit" class="btn btn-danger">
+              Confirm cancellation
+            </button>
+          </form>
+          <% } %>
+
+          <a href="/sessions" class="btn btn-secondary">
+            Back to sessions
+          </a>
+        </div>
+      </section>
+    </main>
+  </div>
 </body>
 
 </html>

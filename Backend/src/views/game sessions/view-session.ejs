@@ -4,89 +4,207 @@
  <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title><%= session.name %> | GameShelf</title>
+   <title>View Session | GameShelf</title>
    <link rel="stylesheet" href="/css/style.css">
  </head>
 
  <body>
 
-   <main class="session-container">
+   <div class="view-session-page">
+     <main class="container">
 
-     <section class="session-details">
-       <h1><%= session.name %></h1>
+       <% if (session) { %>
 
-       <p><strong>Description:</strong> <%= session.description %></p>
-       <p><strong>Host:</strong> <%= session.host %></p>
-       <p><strong>Date:</strong> <%= session.date %></p>
-       <p><strong>Time:</strong> <%= session.time %></p>
-       <p><strong>Location:</strong> <%= session.place %></p>
-       <p><strong>Capacity:</strong> <%= session.signups.length %> / <%= session.capacity %></p>
-       <p><strong>Status:</strong> <%= session.status %></p>
+       <!-- Session details -->
+       <section>
 
-       <div class="session-actions">
-         <a href="/sessions/edit/<%= session.id %>">Edit session</a>
-         <a href="/sessions/delete/<%= session.id %>">Cancel session</a>
-         <a href="/sessions/signup/<%= session.id %>">Join session</a>
-       </div>
-     </section>
+         <div class="section-title">
+           <div>
+             <h2>Session Details</h2>
+           </div>
 
-     <hr>
+           <div>
+             <a href="/sessions" class="btn btn-primary">
+               Return to sessions list
+             </a>
+           </div>
+         </div>
 
-     <section class="session-games">
-       <h2>Games</h2>
+         <div class="card card-hover">
+           <div class="game-box">
 
-       <% if (session.games.length > 0) { %>
+             <div class="game-icon">🎲</div>
 
-       <% session.games.forEach(game => { %>
-       <article class="game-card">
-         <h3><%= game.name %></h3>
+             <div>
+               <h3><%= session.name %></h3>
 
-         <p>Minimum players: <%= game.minPlayers %></p>
-         <p>Maximum players: <%= game.maxPlayers %></p>
+               <p><strong>Host:</strong> <%= session.host %></p>
+               <p><strong>Date:</strong> <%= session.date %></p>
+               <p><strong>Time:</strong> <%= session.time %></p>
+               <p><strong>Place:</strong> <%= session.place %></p>
+               <p><%= session.description %></p>
+             </div>
 
-         <p>
-           Enough players:
-           <%= game.enoughPlayers ? "Yes" : "No" %>
-         </p>
-       </article>
-       <% }); %>
+           </div>
+         </div>
+
+         <!-- Capacity and waiting list -->
+         <div class="card card-hover attendance-card">
+
+           <div>
+             <h4>Capacity</h4>
+
+             <p>
+               <%= session.signups.filter(s => s.status === "Confirmed").length %>/<%= session.capacity %>
+               Confirmed
+             </p>
+
+             <span class="badge <%= session.status === 'Open' ? 'approved' : (session.status === 'Full' || session.status === 'Cancelled' ? 'rejected' : '') %>">
+               <%= session.status %>
+             </span>
+           </div>
+
+           <div class="section-divider">
+
+             <h4>Waiting list</h4>
+
+             <% const waitingSignups = session.signups.filter(s => s.status === "Waiting"); %>
+
+             <% if (waitingSignups.length > 0) { %>
+
+             <ol>
+               <% waitingSignups.forEach(signup => { %>
+               <li><%= signup.memberId %></li>
+               <% }); %>
+             </ol>
+
+             <% } else { %>
+
+             <p>No one is currently on the waiting list.</p>
+
+             <% } %>
+
+           </div>
+         </div>
+
+         <!-- Games -->
+         <div class="card card-hover">
+
+           <div class="game-box">
+             <div>
+               <h4>Games</h4>
+
+               <% if (session.games.length > 0) { %>
+
+               <ul>
+                 <% session.games.forEach(game => { %>
+
+                 <li>
+                   <%= game.name %>
+                   (<%= game.minPlayers %>–<%= game.maxPlayers %> players)
+
+                   <% if (session.signups.filter(s => s.status === "Confirmed").length >= game.minPlayers) { %>
+
+                   <span class="badge approved">
+                     ✓ Enough players
+                   </span>
+
+                   <% } %>
+                 </li>
+
+                 <% }); %>
+               </ul>
+
+               <% } else { %>
+
+               <p>No games have been added to this session.</p>
+
+               <% } %>
+
+             </div>
+           </div>
+
+         </div>
+
+         <!-- Confirmed participants -->
+         <div class="card card-hover">
+
+           <div class="game-box">
+             <div>
+               <h4>Confirmed participants</h4>
+
+               <% const confirmedSignups = session.signups.filter(s => s.status === "Confirmed"); %>
+
+               <% if (confirmedSignups.length > 0) { %>
+
+               <ol>
+                 <% confirmedSignups.forEach(signup => { %>
+
+                 <li>
+                   <%= signup.memberId %>
+
+                   <% if (signup.game) { %>
+                   → Bringing <%= signup.game.name %>
+                   <% } else { %>
+                   → No game selected
+                   <% } %>
+                 </li>
+
+                 <% }); %>
+               </ol>
+
+               <% } else { %>
+
+               <p>No confirmed participants yet.</p>
+
+               <% } %>
+
+             </div>
+           </div>
+
+         </div>
+
+         <!-- Actions -->
+         <div class="flex gap-sm">
+
+           <% if (session.status !== "Cancelled") { %>
+
+           <a href="/sessions/signup/<%= session.id %>" class="btn btn-primary">
+             Sign up
+           </a>
+
+           <% } %>
+
+           <a href="/sessions/edit/<%= session.id %>" class="btn btn-primary">
+             Edit session
+           </a>
+
+           <% if (session.status !== "Cancelled") { %>
+
+           <a href="/sessions/cancel/<%= session.id %>" class="btn btn-danger">
+             Cancel session
+           </a>
+
+           <% } %>
+
+         </div>
+
+       </section>
 
        <% } else { %>
-       <p>No games have been added to this session yet.</p>
-       <% } %>
-     </section>
 
-     <hr>
+       <section>
+         <h2>Session not found</h2>
 
-     <section class="session-signups">
-       <h2>Participants</h2>
+         <a href="/sessions" class="btn btn-primary">
+           Return to sessions list
+         </a>
+       </section>
 
-       <% if (session.signups.length > 0) { %>
-
-       <% session.signups.forEach(signup => { %>
-       <article class="signup-card">
-         <p><strong>Member:</strong> <%= signup.memberId %></p>
-         <p><strong>Status:</strong> <%= signup.status %></p>
-         <p><strong>Signed up:</strong> <%= signup.createdAt %></p>
-
-         <p>
-           <strong>Selected game:</strong>
-           <%= signup.game ? signup.game.name : "No game selected" %>
-         </p>
-       </article>
-       <% }); %>
-
-       <% } else { %>
-       <p>No participants have signed up yet.</p>
        <% } %>
 
-     </section>
-
-     <hr>
-
-     <a href="/sessions">Back to sessions</a>
-
-   </main>
+     </main>
+   </div>
 
  </body>
 

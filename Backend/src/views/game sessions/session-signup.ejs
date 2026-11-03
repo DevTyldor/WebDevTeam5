@@ -1,14 +1,197 @@
-<!DOCTYPE html>
-<html lang="en">
+ <!DOCTYPE html>
+ <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Session Signup</title>
-</head>
+ <head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Session Signup | GameShelf</title>
+   <link rel="stylesheet" href="/css/style.css">
+ </head>
 
-<body>
+ <body>
 
-</body>
+   <div class="session-signup-page">
+     <main class="container">
 
-</html>
+       <% if (session) { %>
+
+       <!-- Session information -->
+       <section>
+
+         <div class="card card-hover">
+           <div class="game-box">
+
+             <div class="game-icon">🎲</div>
+
+             <div>
+               <h3><%= session.name %></h3>
+               <p><strong>Host:</strong> <%= session.host %></p>
+               <p><strong>Date:</strong> <%= session.date %></p>
+               <p><strong>Time:</strong> <%= session.time %></p>
+               <p><strong>Place:</strong> <%= session.place %></p>
+             </div>
+
+           </div>
+         </div>
+
+         <!-- Capacity -->
+         <div class="card card-hover">
+
+           <h4>Capacity</h4>
+
+           <p>
+             <%= confirmedCount %>/<%= session.capacity %> Confirmed
+           </p>
+
+           <span class="badge <%= session.status === 'Open' ? 'approved' : (session.status === 'Full' || session.status === 'Cancelled' ? 'rejected' : '') %>">
+             <%= session.status %>
+           </span>
+
+           <% if (session.status === "Cancelled") { %>
+
+           <p>This session has been cancelled.</p>
+
+           <% } else if (seatsAvailable > 0) { %>
+
+           <p><%= seatsAvailable %> seats available</p>
+
+           <% } else { %>
+
+           <p>No seats available. You can join the waiting list.</p>
+
+           <% } %>
+
+         </div>
+
+         <!-- Waiting list -->
+         <% if (waitingSignups.length > 0) { %>
+
+         <div class="card">
+
+           <h3>Waiting list</h3>
+
+           <p><%= waitingSignups.length %> member(s) waiting</p>
+
+           <ol>
+             <% waitingSignups.forEach((signupEntry, index) => { %>
+             <li>
+               <%= index + 1 %>. <%= signupEntry.memberId %>
+             </li>
+             <% }); %>
+           </ol>
+
+         </div>
+
+         <% } %>
+
+         <!-- Signup form -->
+         <% if (!isSignedUp && session.status !== "Cancelled") { %>
+
+         <div class="card card-hover">
+
+           <form action="/sessions/signup/<%= session.id %>" method="POST">
+
+             <div class="game-box">
+
+               <div class="game-icon">🎲</div>
+
+               <div>
+                 <h3>Bring a game</h3>
+
+                 <select name="gameId" id="game">
+                   <option value="">I won't bring a game</option>
+
+                   <% session.games.forEach(game => { %>
+                   <option value="<%= game.id %>">
+                     <%= game.name %>
+                   </option>
+                   <% }); %>
+
+                 </select>
+
+               </div>
+
+             </div>
+
+             <div class="flex gap-sm">
+               <button type="submit" class="btn btn-primary">
+                 <%= seatsAvailable > 0 ? 'Sign up' : 'Join waiting list' %>
+               </button>
+             </div>
+
+           </form>
+
+         </div>
+
+         <% } %>
+
+         <!-- Current signup -->
+         <% if (currentSignup) { %>
+
+         <div class="card">
+
+           <h3>Your signup</h3>
+
+           <p>
+             Status:
+             <strong><%= currentSignup.status %></strong>
+           </p>
+
+           <% if (currentSignup.status === "Confirmed") { %>
+
+           <p>You have a confirmed seat!</p>
+
+           <% } else { %>
+
+           <p>
+             You are on the waiting list. You'll be promoted
+             automatically when a seat becomes available.
+           </p>
+
+           <% } %>
+
+         </div>
+
+         <% } %>
+
+         <!-- Actions -->
+         <div class="flex gap-sm">
+
+           <% if (isSignedUp) { %>
+
+           <form action="/sessions/signup/<%= session.id %>/cancel" method="POST">
+             <button type="submit" class="btn btn-danger">
+               Cancel signup
+             </button>
+           </form>
+
+           <% } else { %>
+
+           <a href="/sessions/<%= session.id %>" class="btn btn-secondary">
+             Back to session
+           </a>
+
+           <% } %>
+
+         </div>
+
+       </section>
+
+       <% } else { %>
+
+       <section>
+         <h2>Session not found</h2>
+
+         <a href="/sessions" class="btn btn-primary">
+           Return to sessions
+         </a>
+       </section>
+
+       <% } %>
+
+     </main>
+   </div>
+
+ </body>
+
+ </html>

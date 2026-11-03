@@ -5,12 +5,12 @@ const router = express.Router();
 
 router.get("/", showSessionListPage);
 
-router.get("/view", showViewSessionPage);
+router.get("/:id/view", showViewSessionPage);
 
-router.get("/edit", showEditSessionPage);
+router.get("/:id/edit", showEditSessionPage);
 
-router.get("/signup", showSessionSignupPage);
+router.get("/:id/signup", showSessionSignupPage);
 
-router.get("/cancel", showCancelSessionPage);
+router.get("/:id/cancel", showCancelSessionPage);
 
 export default router;

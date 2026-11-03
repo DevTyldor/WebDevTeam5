@@ -5,10 +5,10 @@ class Participant {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column()
+  @Column("varchar")
   name: string;
   
-  @Column()
+  @Column("varchar")
   game: string;
 
   constructor(n: string, g: string){

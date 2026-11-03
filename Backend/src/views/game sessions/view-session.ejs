@@ -1,14 +1,93 @@
-<!DOCTYPE html>
-<html lang="en">
+ <!DOCTYPE html>
+ <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>View Session</title>
-</head>
+ <head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title><%= session.name %> | GameShelf</title>
+   <link rel="stylesheet" href="/css/style.css">
+ </head>
 
-<body>
+ <body>
 
-</body>
+   <main class="session-container">
 
-</html>
+     <section class="session-details">
+       <h1><%= session.name %></h1>
+
+       <p><strong>Description:</strong> <%= session.description %></p>
+       <p><strong>Host:</strong> <%= session.host %></p>
+       <p><strong>Date:</strong> <%= session.date %></p>
+       <p><strong>Time:</strong> <%= session.time %></p>
+       <p><strong>Location:</strong> <%= session.place %></p>
+       <p><strong>Capacity:</strong> <%= session.signups.length %> / <%= session.capacity %></p>
+       <p><strong>Status:</strong> <%= session.status %></p>
+
+       <div class="session-actions">
+         <a href="/sessions/edit/<%= session.id %>">Edit session</a>
+         <a href="/sessions/delete/<%= session.id %>">Cancel session</a>
+         <a href="/sessions/signup/<%= session.id %>">Join session</a>
+       </div>
+     </section>
+
+     <hr>
+
+     <section class="session-games">
+       <h2>Games</h2>
+
+       <% if (session.games.length > 0) { %>
+
+       <% session.games.forEach(game => { %>
+       <article class="game-card">
+         <h3><%= game.name %></h3>
+
+         <p>Minimum players: <%= game.minPlayers %></p>
+         <p>Maximum players: <%= game.maxPlayers %></p>
+
+         <p>
+           Enough players:
+           <%= game.enoughPlayers ? "Yes" : "No" %>
+         </p>
+       </article>
+       <% }); %>
+
+       <% } else { %>
+       <p>No games have been added to this session yet.</p>
+       <% } %>
+     </section>
+
+     <hr>
+
+     <section class="session-signups">
+       <h2>Participants</h2>
+
+       <% if (session.signups.length > 0) { %>
+
+       <% session.signups.forEach(signup => { %>
+       <article class="signup-card">
+         <p><strong>Member:</strong> <%= signup.memberId %></p>
+         <p><strong>Status:</strong> <%= signup.status %></p>
+         <p><strong>Signed up:</strong> <%= signup.createdAt %></p>
+
+         <p>
+           <strong>Selected game:</strong>
+           <%= signup.game ? signup.game.name : "No game selected" %>
+         </p>
+       </article>
+       <% }); %>
+
+       <% } else { %>
+       <p>No participants have signed up yet.</p>
+       <% } %>
+
+     </section>
+
+     <hr>
+
+     <a href="/sessions">Back to sessions</a>
+
+   </main>
+
+ </body>
+
+ </html>

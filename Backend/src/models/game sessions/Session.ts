@@ -8,28 +8,28 @@ class Session {
     @PrimaryGeneratedColumn()
     id!: number;
 
-    @Column()
+    @Column("varchar")
     name: string;
 
-    @Column()
+    @Column("varchar")
     description: string;
 
-    @Column()
+    @Column("varchar")
     host: string;
 
-    @Column()
+    @Column("varchar")
     date: string;
 
-    @Column()
+    @Column("varchar")
     time: string;
 
-    @Column()
+    @Column("varchar")
     place: string;
 
-    @Column()
+    @Column("integer")
     capacity: number;
 
-    @Column()
+    @Column("varchar")
     status: string;
 
     @OneToMany(() => SessionGame, game => game.session)

@@ -8,13 +8,13 @@ class SessionSignup {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column()
+  @Column("varchar")
   memberId: string;
 
-  @Column()
+  @Column("varchar")
   status: string;
 
-  @Column()
+  @Column("varchar")
   createdAt: string;
 
   @ManyToOne(() => Session, (session) => session.signups)

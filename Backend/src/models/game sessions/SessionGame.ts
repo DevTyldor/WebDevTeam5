@@ -7,16 +7,16 @@ class SessionGame {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column()
+  @Column("varchar")
   name: string;
 
-  @Column()
+  @Column("integer")
   minPlayers: number;
 
-  @Column()
+  @Column("integer")
   maxPlayers: number;
 
-  @Column()
+  @Column("boolean")
   enoughPlayers: boolean;
 
   @ManyToOne(() => Session, (session) => session.games)

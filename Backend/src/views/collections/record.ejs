@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Record</title>
+</head>
+<body>
+    <% if (locals.message) { %>
+        <%= message %><br><br>
+    <% } %>
+
+    <% if (record) { %>
+        <h1><%= getGameTitle(record.gameId) %></h1>
+        Status: <%= record.status %><br>
+        Plays: <%= record.plays %><br>
+        Rating: <%= record.rating %><br>
+        <%= record.note %><br><br>
+
+        <form action="/collections/record/<%= record.id %>/play" method="post">
+            <input type="submit" value="Add play">
+        </form>
+        <br>
+
+        <form action="/collections/record/<%= record.id %>/status" method="post">
+            <select name="status">
+                <option value="Not played yet">Not played yet</option>
+                <option value="In progress">In progress</option>
+                <option value="Played">Played</option>
+            </select>
+            <input type="submit" value="Change status">
+        </form>
+        <br>
+
+        <% if (record.status === "Played") { %>
+            <form action="/collections/record/<%= record.id %>/rating" method="post">
+                <select name="rating">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <input type="submit" value="Give rating">
+            </form>
+            <br>
+        <% } %>
+
+        <a href="/collections/delete-record/<%= record.id %>">Remove from collection</a>
+        <br><br>
+    <% } else { %>
+        <h1>Game not found</h1>
+    <% } %>
+
+    <a href="/collections">Back to collection</a>
+</body>
+</html>

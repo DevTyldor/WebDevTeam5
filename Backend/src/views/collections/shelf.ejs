@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shelf</title>
+</head>
+<body>
+    <% if (shelf) { %>
+        <h1><%= shelf.name %></h1>
+        <%= shelf.description %><br>
+        <% if (shelf.isPublic) { %>
+            Public - <a href="/collections/public-shelf/<%= shelf.id %>">View public shelf</a>
+        <% } else { %>
+            Private
+        <% } %>
+
+        <ul>
+            <% shelfGames.forEach(shelfGame => { %>
+                <li><%= getGameTitle(shelfGame.gameId) %></li>
+            <% }) %>
+        </ul>
+
+        <% if (shelfGames.length === 0) { %>
+            No games on this shelf<br><br>
+        <% } %>
+
+        <a href="/collections/delete-shelf/<%= shelf.id %>">Delete shelf</a>
+        <br><br>
+    <% } else { %>
+        <h1>Shelf not found</h1>
+    <% } %>
+
+    <a href="/collections/shelves">Back to shelves</a>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Public Shelf</title>
+</head>
+<body>
+    <% if (shelf) { %>
+        <h1><%= shelf.name %></h1>
+        Owner: <%= shelf.owner %><br>
+        <%= shelf.description %>
+
+        <ul>
+            <% shelfGames.forEach(shelfGame => { %>
+                <li><%= getGameTitle(shelfGame.gameId) %></li>
+            <% }) %>
+        </ul>
+
+        <% if (shelfGames.length === 0) { %>
+            No games on this shelf
+        <% } %>
+    <% } else { %>
+        <h1>Shelf not found</h1>
+    <% } %>
+</body>
+</html>

@@ -6,18 +6,22 @@
     <title>Collection</title>
 </head>
 <body>
-    <h1>Mijn collectie</h1>
-    <a href="/collections/add-game">Game toevoegen</a>
+    <h1>My collection</h1>
+    <a href="/collections/add-game">Add game</a>
     <a href="/collections/shelves">Shelves</a>
     <br><br>
 
+    <% if (locals.message) { %>
+        <%= message %><br><br>
+    <% } %>
+
     <% if (records.length === 0) { %>
-        Geen games in collectie
+        No games in collection
     <% } %>
 
     <% records.forEach(record => { %>
       <div style="border: 1px solid black; padding: 0.4rem;">
-        <strong><%= getGameTitle(record.gameId) %></strong><br>
+        <strong><a href="/collections/record/<%= record.id %>"><%= getGameTitle(record.gameId) %></a></strong><br>
         Status: <%= record.status %><br>
         Plays: <%= record.plays %><br>
         Rating: <%= record.rating %><br>

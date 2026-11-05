@@ -6,9 +6,9 @@
     <title>Shelves</title>
 </head>
 <body>
-    <h1>Mijn shelves</h1>
-    <a href="/collections/add-shelf">Shelf toevoegen</a>
-    <a href="/collections">Collectie</a>
+    <h1>My shelves</h1>
+    <a href="/collections/add-shelf">Add shelf</a>
+    <a href="/collections">Collection</a>
     <br><br>
 
     <% if (locals.message) { %>
@@ -29,27 +29,29 @@
                 <% }) %>
             </select>
 
-            <input type="submit" value="Op shelf zetten">
+            <input type="submit" value="Add to shelf">
         </form>
         <br>
     <% } %>
 
     <% if (shelves.length === 0) { %>
-        Geen shelves
+        No shelves
     <% } %>
 
     <% shelves.forEach(shelf => { %>
       <div style="border: 1px solid black; padding: 0.4rem;">
-        <strong><%= shelf.name %></strong><br>
+        <strong><a href="/collections/shelf/<%= shelf.id %>"><%= shelf.name %></a></strong><br>
         <%= shelf.description %><br>
         <% if (shelf.isPublic) { %>
-            Publiek
+            Public
         <% } else { %>
-            Prive
+            Private
         <% } %>
         <ul>
-            <% shelf.gameIds.forEach(gameId => { %>
-                <li><%= getGameTitle(gameId) %></li>
+            <% shelfGames.forEach(shelfGame => { %>
+                <% if (shelfGame.shelfId === shelf.id) { %>
+                    <li><%= getGameTitle(shelfGame.gameId) %></li>
+                <% } %>
             <% }) %>
         </ul>
       </div>

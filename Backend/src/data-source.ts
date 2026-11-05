@@ -8,6 +8,10 @@ import { SessionGame } from "./models/game sessions/SessionGame.js";
 import { SessionSignup } from "./models/game sessions/Signup.js";
 import { Participant } from "./models/game sessions/Participant.js";
 
+import { CollectionRecord } from "./models/collections/CollectionRecord.js";
+import { Shelf } from "./models/collections/Shelf.js";
+import { ShelfGame } from "./models/collections/ShelfGame.js";
+
 export const AppDataSource = new DataSource({
     type: "better-sqlite3",
     database: "database.sqlite",
@@ -17,6 +21,9 @@ export const AppDataSource = new DataSource({
         Session,
         SessionGame,
         SessionSignup,
-        Participant
-    ] // add wishlist, collections & lending entities.
+        Participant,
+        CollectionRecord,
+        Shelf,
+        ShelfGame
+    ] // add wishlist & lending entities.
 });

@@ -1,14 +1,29 @@
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+
+@Entity()
 class CollectionRecord {
-    id: number;
+    @PrimaryGeneratedColumn()
+    id!: number;
+
+    @Column("text")
     owner: string;
+
+    @Column("integer")
     gameId: number;
+
+    @Column("text")
     status: string;
+
+    @Column("integer")
     plays: number;
+
+    @Column("integer")
     rating: number;
+
+    @Column("text")
     note: string;
 
-    constructor(i: number, o: string, g: number, s: string, p: number, r: number, n: string){
-        this.id = i;
+    constructor(o: string, g: number, s: string, p: number, r: number, n: string){
         this.owner = o;
         this.gameId = g;
         this.status = s;
@@ -18,14 +33,4 @@ class CollectionRecord {
     }
 }
 
-const records : CollectionRecord[] = [];
-
-function addRecord(r: CollectionRecord){
-    records.push(r);
-}
-
-function getAllRecords() : CollectionRecord[] {
-    return records;
-}
-
-export {CollectionRecord, addRecord, getAllRecords}
+export {CollectionRecord}

@@ -24,7 +24,7 @@ async function showCancelSessionPage(req: Request, res: Response) {
     return res.status(404).json({ message: "Session not found" });
   }
 
-  return res.render("game sessions/cancel-session");
+  return res.render("game sessions/cancel-session", { session: session });
 }
 
 async function showEditSessionPage(req: Request, res: Response) {
@@ -41,11 +41,18 @@ async function showEditSessionPage(req: Request, res: Response) {
     return res.status(404).json({ message: "Session not found" });
   }
 
-  return res.render("game sessions/edit-session");
+  return res.render("game sessions/edit-session", { session: session });
 }
 
 async function showSessionListPage(req: Request, res: Response) {
-  return res.render("game sessions/session-list");
+  const sessions = await sessionRepository.find({
+    relations: {
+      signups: true,
+      games: true,
+    },
+  });
+
+  return res.render("game sessions/session-list", { sessions: sessions });
 }
 
 async function showSessionCreationpage(req: Request, res: Response) {
@@ -75,7 +82,7 @@ async function showSessionSignupPage(req: Request, res: Response) {
     return res.status(404).json({ message: "Session not found" });
   }
 
-  return res.render("game sessions/session-signup");
+  return res.render("game sessions/session-signup", { session: session });
 }
 
 async function showViewSessionPage(req: Request, res: Response) {
@@ -94,6 +101,8 @@ async function showViewSessionPage(req: Request, res: Response) {
 
   return res.render("game sessions/view-session", { session: session });
 }
+
+
 
 export {
   showCancelSessionPage,

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Session | GameShelf</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div class="new-session-page">
+    <header>
+      <div class="header-inner">
+        <h1>New Session</h1>
+        <p>Create a new game session!</p>
+      </div>
+    </header>
+
+    <main class="container">
+      <form action="/sessions" method="post">
+        <section>
+          <div class="card card-hover">
+            <div class="game-box">
+              <div class="game-icon">🎲</div>
+
+              <div>
+                <h3>
+                  <label for="sessionName">Session name</label>
+                </h3>
+
+                <input
+                  id="sessionName"
+                  name="name"
+                  type="text"
+                  placeholder="Enter session name"
+                  value="<%= form.name %>"
+                  required
+                >
+
+                <p>
+                  <label for="sessionDate">
+                    <strong>Enter date:</strong>
+                  </label>
+                </p>
+
+                <input
+                  id="sessionDate"
+                  name="date"
+                  type="date"
+                  value="<%= form.date %>"
+                  required
+                >
+
+                <p>
+                  <label for="sessionTime">
+                    <strong>Enter time:</strong>
+                  </label>
+                </p>
+
+                <input
+                  id="sessionTime"
+                  name="time"
+                  type="time"
+                  value="<%= form.time %>"
+                  required
+                >
+
+                <p>
+                  <label for="sessionPlace">
+                    <strong>Enter place:</strong>
+                  </label>
+                </p>
+
+                <select id="sessionPlace" name="place" required>
+                  <%
+                    const places = [
+                      "Club room",
+                      "Community centre",
+                      "Library meeting room",
+                      "Game café",
+                      "Home"
+                    ];
+                  %>
+
+                  <% places.forEach(place => { %>
+                    <option
+                      value="<%= place %>"
+                      <%= form.place === place ? "selected" : "" %>
+                    >
+                      <%= place %>
+                    </option>
+                  <% }); %>
+                </select>
+
+                <p>
+                  <label for="sessionCapacity">
+                    <strong>Enter capacity:</strong>
+                  </label>
+                </p>
+
+                <input
+                  id="sessionCapacity"
+                  name="capacity"
+                  type="number"
+                  min="1"
+                  step="1"
+                  placeholder="Enter capacity"
+                  value="<%= form.capacity %>"
+                  required
+                >
+
+                <% if (error) { %>
+                  <p class="error" role="alert"><%= error %></p>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="flex gap-sm">
+          <button type="submit" class="btn btn-primary">
+            Create session
+          </button>
+
+          <a href="/sessions" class="btn btn-danger">
+            Cancel
+          </a>
+        </div>
+      </form>
+    </main>
+  </div>
+</body>
+</html>

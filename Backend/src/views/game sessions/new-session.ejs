@@ -17,7 +17,7 @@
     </header>
 
     <main class="container">
-      <form action="/sessions" method="post">
+      <form action="/sessions/new" method="post">
         <section>
           <div class="card card-hover">
             <div class="game-box">
@@ -34,6 +34,19 @@
                   type="text"
                   placeholder="Enter session name"
                   value="<%= form.name %>"
+                  required
+                >
+
+                <h3>
+                  <label for="sessionDescription">Session description</label>
+                </h3>
+
+                <input
+                  id="sessionDescription"
+                  name="description"
+                  type="text"
+                  placeholder="Enter session description"
+                  value="<%= form.description %>"
                   required
                 >
 

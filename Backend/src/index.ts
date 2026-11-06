@@ -10,7 +10,6 @@ import { fileURLToPath } from "node:url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-
 import { AppDataSource } from "./data-source.js";
 
 const app = express();

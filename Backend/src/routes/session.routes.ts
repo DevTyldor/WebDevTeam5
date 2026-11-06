@@ -1,11 +1,12 @@
 import express from "express";
-import { showCancelSessionPage, showEditSessionPage, showSessionListPage, showSessionSignupPage, showViewSessionPage, showSessionCreationpage } from "../controllers/sessions.controller.js";
+import { showCancelSessionPage, showEditSessionPage, showSessionListPage, showSessionSignupPage, showViewSessionPage, showSessionCreationpage, createSession } from "../controllers/sessions.controller.js";
 
 const router = express.Router();
 
 router.get("/", showSessionListPage);
 
 router.get("/new", showSessionCreationpage);
+router.post("/new", createSession);
 
 router.get("/:id/view", showViewSessionPage);
 

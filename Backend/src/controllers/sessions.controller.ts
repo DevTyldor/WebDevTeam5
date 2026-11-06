@@ -35,20 +35,34 @@ async function showCancelSessionPage(req: Request, res: Response) {
 }
 
 async function showEditSessionPage(req: Request, res: Response) {
-  const paramId = Number(req.params.id);
-  if (!paramId || !Number.isInteger(paramId)) {
+  const id = Number(req.params.id);
+
+  if (!id || !Number.isInteger(id)) {
     return res.status(400).json({ message: "Invalid session ID" });
   }
 
-  const session = await sessionRepository.findOneBy({
-    id: paramId,
+  const session = await sessionRepository.findOne({
+    where: { id },
+    relations: {
+      signups: true,
+    },
   });
 
-  if (!session) {
-    return res.status(404).json({ message: "Session not found" });
-  }
+  const places = ["Club room", "Community centre", "Library meeting room", "Game café", "Home"];
 
-  return res.render("game sessions/edit-session", { session: session });
+  const hosts = session ? [session.host] : [];
+
+  const confirmedCount = session
+    ? session.signups.filter((signup) => signup.status === "Confirmed").length
+    : 0;
+
+  return res.status(session ? 200 : 404).render("game sessions/edit-session", {
+    session,
+    places,
+    hosts,
+    confirmedCount,
+    error: "",
+  });
 }
 
 async function showSessionListPage(req: Request, res: Response) {
@@ -76,20 +90,53 @@ async function showSessionCreationpage(req: Request, res: Response) {
 }
 
 async function showSessionSignupPage(req: Request, res: Response) {
-  const paramId = Number(req.params.id);
-  if (!paramId || !Number.isInteger(paramId)) {
+  const id = Number(req.params.id);
+
+  if (!id || !Number.isInteger(id)) {
     return res.status(400).json({ message: "Invalid session ID" });
   }
 
-  const session = await sessionRepository.findOneBy({
-    id: paramId,
+  const session = await sessionRepository.findOne({
+    where: { id },
+    relations: {
+      games: true,
+      signups: true,
+    },
   });
 
   if (!session) {
-    return res.status(404).json({ message: "Session not found" });
+    return res.status(404).render("game sessions/session-signup", {
+      session: null,
+    });
   }
 
-  return res.render("game sessions/session-signup", { session: session });
+  const confirmedCount = session.signups.filter((signup) => signup.status === "Confirmed").length;
+
+  const seatsAvailable = Math.max(0, session.capacity - confirmedCount);
+
+  const waitingSignups = session.signups
+    .filter((signup) => signup.status === "Waiting")
+    .sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+
+  const currentMemberId = "alice";
+
+  const currentSignup =
+    session.signups.find(
+      (signup) =>
+        signup.memberId === currentMemberId &&
+        (signup.status === "Confirmed" || signup.status === "Waiting"),
+    ) ?? null;
+
+  const isSignedUp = currentSignup !== null;
+
+  return res.render("game sessions/session-signup", {
+    session,
+    confirmedCount,
+    seatsAvailable,
+    waitingSignups,
+    currentSignup,
+    isSignedUp,
+  });
 }
 
 async function showViewSessionPage(req: Request, res: Response) {
@@ -98,8 +145,14 @@ async function showViewSessionPage(req: Request, res: Response) {
     return res.status(400).json({ message: "Invalid session ID" });
   }
 
-  const session = await sessionRepository.findOneBy({
-    id: paramId,
+  const session = await sessionRepository.findOne({
+    where: { id: paramId },
+    relations: {
+      games: true,
+      signups: {
+        game: true,
+      },
+    },
   });
 
   if (!session) {
@@ -110,7 +163,15 @@ async function showViewSessionPage(req: Request, res: Response) {
 }
 
 async function createSession(req: Request, res: Response) {
-  let { name, description, host, date, time, place, capacity: unValidatedCapacity } = req.body ?? {};
+  let {
+    name,
+    description,
+    host,
+    date,
+    time,
+    place,
+    capacity: unValidatedCapacity,
+  } = req.body ?? {};
 
   if (!isNonEmptyString(name)) {
     return res.status(400).json({ message: "invalid name" });
@@ -145,7 +206,7 @@ async function createSession(req: Request, res: Response) {
     return res.status(400).json({ message: "invalid place" });
   }
   const capacity = validateCapacity(unValidatedCapacity); // returns the actual capacity number or null
-  
+
   if (capacity === null) {
     return res.status(400).json({ message: "invalid capacity" });
   }

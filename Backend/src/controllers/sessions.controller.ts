@@ -181,6 +181,7 @@ async function createSession(req: Request, res: Response) {
     return res.status(400).json({ message: "invalid description" });
   }
 
+  // in the future this will automatically set the host as the current authenticated member.
   if (!isNonEmptyString(host)) {
     host = "Hardcoded host";
     //return res.status(400).json({ message: "invalid host" });
@@ -205,7 +206,7 @@ async function createSession(req: Request, res: Response) {
   if (!isNonEmptyString(place) || !allowedPlaces.includes(place.trim())) {
     return res.status(400).json({ message: "invalid place" });
   }
-  const capacity = validateCapacity(unValidatedCapacity); // returns the actual capacity number or null
+  const capacity = validateCapacity(unValidatedCapacity);
 
   if (capacity === null) {
     return res.status(400).json({ message: "invalid capacity" });

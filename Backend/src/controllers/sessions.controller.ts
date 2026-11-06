@@ -118,7 +118,7 @@ async function showSessionSignupPage(req: Request, res: Response) {
     .filter((signup) => signup.status === "Waiting")
     .sort((a, b) => a.createdAt.localeCompare(b.createdAt));
 
-  const currentMemberId = "alice";
+  const currentMemberId = "Hardcoded Current Member";
 
   const currentSignup =
     session.signups.find(

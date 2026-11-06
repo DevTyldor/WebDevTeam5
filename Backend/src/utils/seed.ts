@@ -9,3 +9,6 @@ const sessionSignupRepository = AppDataSource.getRepository(SessionSignup);
 const sessionGameRepository = AppDataSource.getRepository(SessionGame);
 const participantRepository = AppDataSource.getRepository(Participant);
 
+export async function seedGameSessions(){
+    
+}

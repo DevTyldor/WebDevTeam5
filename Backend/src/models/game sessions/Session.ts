@@ -29,7 +29,7 @@ class Session {
     @Column("integer")
     capacity: number;
 
-    @Column("varchar")
+    @Column("varchar", { default: "Open" })
     status: string;
 
     @OneToMany(() => SessionGame, game => game.session)

@@ -17,7 +17,7 @@ class SessionSignup {
   @Column("varchar")
   createdAt: string;
 
-  @ManyToOne(() => Session, (session) => session.signups)
+  @ManyToOne(() => Session, (session) => session.signups, { nullable: false })
   @JoinColumn({ name: "sessionId" })
   session!: Session;
 

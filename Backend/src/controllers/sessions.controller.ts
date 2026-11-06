@@ -48,6 +48,19 @@ async function showSessionListPage(req: Request, res: Response) {
   return res.render("game sessions/session-list");
 }
 
+async function showSessionCreationpage(req: Request, res: Response) {
+  return res.render("game sessions/new-session", {
+    error: "",
+    form: {
+      name: "",
+      date: "",
+      time: "",
+      place: "Club room",
+      capacity: "",
+    },
+  });
+}
+
 async function showSessionSignupPage(req: Request, res: Response) {
   const paramId = Number(req.params.id);
   if (!paramId || !Number.isInteger(paramId)) {
@@ -88,4 +101,5 @@ export {
   showSessionListPage,
   showSessionSignupPage,
   showViewSessionPage,
+  showSessionCreationpage,
 };

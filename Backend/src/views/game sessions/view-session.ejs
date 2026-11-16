@@ -169,19 +169,19 @@
 
            <% if (session.status !== "Cancelled") { %>
 
-           <a href="/sessions/signup/<%= session.id %>" class="btn btn-primary">
+           <a href="/sessions/<%= session.id %>/signup" class="btn btn-primary">
              Sign up
            </a>
 
            <% } %>
 
-           <a href="/sessions/edit/<%= session.id %>" class="btn btn-primary">
+           <a href="/sessions/<%= session.id %>/edit" class="btn btn-primary">
              Edit session
            </a>
 
            <% if (session.status !== "Cancelled") { %>
 
-           <a href="/sessions/cancel/<%= session.id %>" class="btn btn-danger">
+           <a href="/sessions/<%= session.id %>/cancel" class="btn btn-danger">
              Cancel session
            </a>
 

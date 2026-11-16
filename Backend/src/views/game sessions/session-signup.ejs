@@ -89,7 +89,7 @@
 
          <div class="card card-hover">
 
-           <form action="/sessions/signup/<%= session.id %>" method="POST">
+           <form action="/sessions/<%= session.id %>/signup" method="POST">
 
              <div class="game-box">
 
@@ -159,7 +159,7 @@
 
            <% if (isSignedUp) { %>
 
-           <form action="/sessions/signup/<%= session.id %>/cancel" method="POST">
+           <form action="/sessions/<%= session.id %>/cancel" method="POST">
              <button type="submit" class="btn btn-danger">
                Cancel signup
              </button>

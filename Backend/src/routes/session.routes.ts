@@ -8,7 +8,7 @@ router.get("/", showSessionListPage);
 router.get("/new", showSessionCreationpage);
 router.post("/new", createSession);
 
-router.get("/:id/view", showViewSessionPage);
+router.get("/:id", showViewSessionPage);
 
 router.get("/:id/edit", showEditSessionPage);
 

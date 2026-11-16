@@ -20,7 +20,7 @@ export function isValidSessionTime(value: unknown): value is string {
 export function validateCapacity(value: unknown): number | null {
   const capacity = Number(value);
 
-  if (Number.isInteger(capacity) && capacity > 0) {
+  if (Number.isInteger(capacity) && capacity > 1) {
     return capacity;
   }
 

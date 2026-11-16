@@ -48,7 +48,13 @@ async function showEditSessionPage(req: Request, res: Response) {
     },
   });
 
-  const places = ["Club room", "Community centre", "Library meeting room", "Game café", "Home"];
+  const places = [
+    "Club room",
+    "Community centre",
+    "Library meeting room",
+    "Game café",
+    "Home",
+  ];
 
   const hosts = session ? [session.host] : [];
 
@@ -110,7 +116,9 @@ async function showSessionSignupPage(req: Request, res: Response) {
     });
   }
 
-  const confirmedCount = session.signups.filter((signup) => signup.status === "Confirmed").length;
+  const confirmedCount = session.signups.filter(
+    (signup) => signup.status === "Confirmed",
+  ).length;
 
   const seatsAvailable = Math.max(0, session.capacity - confirmedCount);
 
@@ -225,7 +233,74 @@ async function createSession(req: Request, res: Response) {
 
   const savedSession = await sessionRepository.save(session);
   console.log(`Successfully saved session: ${savedSession.name}`);
-  return res.status(201).json({ message: `Successfully created session: ${savedSession.name}` });
+  return res
+    .status(201)
+    .json({ message: `Successfully created session: ${savedSession.name}` });
+}
+
+async function updateSession(req: Request, res: Response) {
+  const id = Number(req.params.id);
+
+  if (!Number.isInteger(id) || id <= 0) {
+    return res.status(400).json({ message: "Invalid session ID" });
+  }
+
+  let {
+    host,
+    date,
+    time,
+    place,
+    capacity: unValidatedCapacity,
+  } = req.body ?? {};
+
+  // in the future this will automatically set the host as the current authenticated member.
+  if (!isNonEmptyString(host)) {
+    host = "Hardcoded host";
+    //return res.status(400).json({ message: "invalid host" });
+  }
+
+  if (!isValidSessionDate(date)) {
+    return res.status(400).json({ message: "invalid date" });
+  }
+
+  if (!isValidSessionTime(time)) {
+    return res.status(400).json({ message: "invalid time" });
+  }
+
+  const allowedPlaces = [
+    "Club room",
+    "Community centre",
+    "Library meeting room",
+    "Game café",
+    "Home",
+  ];
+
+  if (!isNonEmptyString(place) || !allowedPlaces.includes(place.trim())) {
+    return res.status(400).json({ message: "invalid place" });
+  }
+  const capacity = validateCapacity(unValidatedCapacity);
+
+  if (capacity === null) {
+    return res.status(400).json({ message: "invalid capacity" });
+  }
+
+  const session = await sessionRepository.findOneBy({ id });
+
+  if (!session) {
+    return res.status(404).json({ message: "Session not found" });
+  }
+
+  await sessionRepository.update(id, {
+    host: host.trim(),
+    date,
+    time,
+    place: place.trim(),
+    capacity,
+  });
+
+  return res.status(200).json({
+    message: `Successfully updated session: ${session.name.trim()}`,
+  });
 }
 
 export {
@@ -236,4 +311,5 @@ export {
   showViewSessionPage,
   showSessionCreationpage,
   createSession,
+  updateSession
 };

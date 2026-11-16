@@ -11,7 +11,7 @@ router.post("/new", createSession);
 router.get("/:id", showViewSessionPage);
 
 router.get("/:id/edit", showEditSessionPage);
-router.put("/:id/edit", updateSession);
+router.post("/:id/edit", updateSession);
 
 router.get("/:id/signup", showSessionSignupPage);
 

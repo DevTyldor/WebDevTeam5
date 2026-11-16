@@ -12,7 +12,7 @@
   <div class="edit-session-page">
     <main class="container">
       <% if (session) { %>
-      <form action="/sessions/<%= session.id %>/edit" method="PUT">
+      <form action="/sessions/<%= session.id %>/edit" method="POST">
 
         <div class="card card-hover">
           <div class="game-box">
@@ -66,7 +66,7 @@
                 <%= confirmedCount %>/<%= session.capacity %>
                 Confirmed
 
-                <span class="badge <%= session.status === 'Open' ? 'approved' : 'rejected' %>">
+                <span class="badge <%= session.status === 'open' ? 'approved' : 'rejected' %>">
                   <%= session.status %>
                 </span>
               </p>

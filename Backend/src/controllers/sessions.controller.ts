@@ -31,6 +31,12 @@ async function showCancelSessionPage(req: Request, res: Response) {
     return res.status(404).json({ message: "Session not found" });
   }
 
+  if (session.status === "cancelled") {
+    return res
+      .status(409)
+      .json({ message: "This session has already been cancelled" });
+  }
+
   return res.render("game sessions/cancel-session", { session: session });
 }
 
@@ -228,7 +234,7 @@ async function createSession(req: Request, res: Response) {
     time,
     place: place.trim(),
     capacity,
-    status: "Open",
+    status: "open",
   });
 
   const savedSession = await sessionRepository.save(session);
@@ -289,6 +295,12 @@ async function updateSession(req: Request, res: Response) {
     return res.status(404).json({ message: "Session not found" });
   }
 
+  if (session.status === "cancelled") {
+    return res
+      .status(403)
+      .json({ message: "You are unauthorized to edit a cancelled session." });
+  }
+
   await sessionRepository.update(id, {
     host: host.trim(),
     date,
@@ -331,7 +343,13 @@ async function cancelSession(req: Request, res: Response) {
     return res.status(404).json({ message: "Session not found" });
   }
 
-  
+  await sessionRepository.update(id, {
+    status: "cancelled",
+  });
+
+  return res.status(200).json({
+    message: `Successfully cancelled session: ${session.name.trim()}`,
+  });
 }
 
 export {

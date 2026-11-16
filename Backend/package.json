@@ -7,7 +7,7 @@
     "build": "tsc --build",
     "start": "node ./dist/index.js",
     "typecheck": "tsc --noEmit",
-    "dev": "tsx watch ./src/index.ts"
+    "dev": "tsx watch ./src/delete.ts"
   },
   "keywords": [],
   "author": "",

@@ -12,7 +12,7 @@
   <div class="edit-session-page">
     <main class="container">
       <% if (session) { %>
-      <form action="/sessions/<%= session.id %>/edit" method="POST">
+      <form action="/sessions/<%= session.id %>/edit" method="PUT">
 
         <div class="card card-hover">
           <div class="game-box">

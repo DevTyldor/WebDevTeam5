@@ -253,7 +253,6 @@ async function updateSession(req: Request, res: Response) {
     capacity: unValidatedCapacity,
   } = req.body ?? {};
 
-  // in the future this will automatically set the host as the current authenticated member.
   if (!isNonEmptyString(host)) {
     host = "Hardcoded host";
     //return res.status(400).json({ message: "invalid host" });
@@ -303,6 +302,38 @@ async function updateSession(req: Request, res: Response) {
   });
 }
 
+// todo: only commitee members or the session host can delete sessions
+async function deleteSession(req: Request, res: Response) {
+  const id = Number(req.params.id);
+
+  if (!Number.isInteger(id) || id <= 0) {
+    return res.status(400).json({ message: "Invalid session ID" });
+  }
+
+  const session = await sessionRepository.findOneBy({ id });
+
+  if (!session) {
+    return res.status(404).json({ message: "Session not found" });
+  }
+}
+
+// todo: only commitee members or the session host can cancel sessions
+async function cancelSession(req: Request, res: Response) {
+  const id = Number(req.params.id);
+
+  if (!Number.isInteger(id) || id <= 0) {
+    return res.status(400).json({ message: "Invalid session ID" });
+  }
+
+  const session = await sessionRepository.findOneBy({ id });
+
+  if (!session) {
+    return res.status(404).json({ message: "Session not found" });
+  }
+
+  
+}
+
 export {
   showCancelSessionPage,
   showEditSessionPage,
@@ -311,5 +342,7 @@ export {
   showViewSessionPage,
   showSessionCreationpage,
   createSession,
-  updateSession
+  updateSession,
+  deleteSession,
+  cancelSession,
 };

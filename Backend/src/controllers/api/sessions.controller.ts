@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { AppDataSource } from "../../data-source.js"
+import { AppDataSource } from "../../data-source.js";
 import { Session } from "../../models/game sessions/Session.js";
 import { Participant } from "../../models/game sessions/Participant.js";
 import { SessionGame } from "../../models/game sessions/SessionGame.js";
@@ -14,26 +14,44 @@ import {
 
 const sessionRepository = AppDataSource.getRepository(Session);
 
-export async function getAllSessions(req: Request, res: Response){
+export async function getAllSessions(req: Request, res: Response) {
+  const sessions = await sessionRepository.find({
+    relations: {
+      signups: true,
+      games: true,
+    },
+  });
 
+  res.status(200).json(sessions);
 }
 
-export async function getSession(req: Request, res: Response){
+export async function getSession(req: Request, res: Response) {
+  const paramId = Number(req.params.id);
+  if (!paramId || !Number.isInteger(paramId)) {
+    return res.status(400).json({ message: "Invalid session ID" });
+  }
 
+  const session = await sessionRepository.findOne({
+    where: { id: paramId },
+    relations: {
+      games: true,
+      signups: {
+        game: true,
+      },
+    },
+  });
+
+  if (!session) {
+    return res.status(404).json({ message: "Session not found" });
+  }
+
+  return res.status(200).json(session);
 }
 
-export async function addSession(req: Request, res: Response){
+export async function addSession(req: Request, res: Response) {}
 
-}
+export async function editSession(req: Request, res: Response) {}
 
-export async function editSession(req: Request, res: Response){
+export async function cancelSession(req: Request, res: Response) {}
 
-}
-
-export async function cancelSession(req: Request, res: Response){
-
-}
-
-export async function deleteSession(req: Request, res: Response){
-
-}
+export async function deleteSession(req: Request, res: Response) {}

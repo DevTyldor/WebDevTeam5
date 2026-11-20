@@ -2,7 +2,7 @@ import "reflect-metadata";
 import express from "express";
 import path from "node:path";
 import type { Request, Response, NextFunction } from "express";
-import sessionRouter from "./routes/session.routes.js";
+import sessionApiRouter from "../src/routes/api/session.routes.js";
 
 import collectionRouter from "./routes/collection.routes.js";
 import wishlistRouter from "./routes/wishlist.routes.js";
@@ -31,7 +31,9 @@ AppDataSource.initialize()
 
     app.use("/collections", collectionRouter);
     app.use("/wishlist", wishlistRouter);
-    app.use("/sessions", sessionRouter);
+    //app.use("/sessions", sessionRouter); DEPRECATED, use /api/sessions 
+    
+    app.use("/api/sessions", sessionApiRouter);
 
     app.get("/", (req: Request, res: Response) => {
       res.send("Hello! Welcome to my Express + TypeScript server");

@@ -13,9 +13,6 @@ import {
 } from "../validators/sessionValidators.js";
 
 const sessionRepository = AppDataSource.getRepository(Session);
-const sessionSignupRepository = AppDataSource.getRepository(SessionSignup);
-const sessionGameRepository = AppDataSource.getRepository(SessionGame);
-const participantRepository = AppDataSource.getRepository(Participant);
 
 async function showCancelSessionPage(req: Request, res: Response) {
   const paramId = Number(req.params.id);

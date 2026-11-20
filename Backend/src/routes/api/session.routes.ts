@@ -1,14 +1,23 @@
 import express from "express";
-import { getAllSessions, getSession, addSession, editSession, cancelSession, deleteSession } from "../../controllers/api/sessions.controller.js";
+import {
+  getAllSessions,
+  getSession,
+  addSession,
+  editSession,
+  cancelSession,
+  deleteSession,
+} from "../../controllers/api/sessions.controller.js";
 const router = express.Router();
 
-router.get("/");
-router.get("/:id");
+router.get("/", getAllSessions);
+router.get("/:id", getSession);
 
-router.post("/new");
+router.post("/new", addSession);
 
-router.post("/:id/edit");
+router.post("/:id/edit", editSession);
 
-router.post("/:id/cancel");
+router.post("/:id/cancel", cancelSession);
+
+router.post("/:id/delete", deleteSession);
 
 export default router;

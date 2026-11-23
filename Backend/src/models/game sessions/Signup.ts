@@ -21,7 +21,7 @@ class SessionSignup {
   @JoinColumn({ name: "sessionId" })
   session!: Session;
 
-  @ManyToOne(() => SessionGame, { nullable: true })
+  @ManyToOne(() => SessionGame, { nullable: true, onDelete: "SET NULL" })
   @JoinColumn({ name: "gameId" })
   game!: SessionGame | null;
 

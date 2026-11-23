@@ -1,9 +1,6 @@
 import type { Request, Response } from "express";
 import { AppDataSource } from "../../data-source.js";
 import { Session } from "../../models/game sessions/Session.js";
-import { Participant } from "../../models/game sessions/Participant.js";
-import { SessionGame } from "../../models/game sessions/SessionGame.js";
-import { SessionSignup } from "../../models/game sessions/Signup.js";
 
 import {
   isNonEmptyString,
@@ -48,7 +45,73 @@ export async function getSession(req: Request, res: Response) {
   return res.status(200).json(session);
 }
 
-export async function addSession(req: Request, res: Response) {}
+export async function addSession(req: Request, res: Response) {
+  let {
+    name,
+    description,
+    host,
+    date,
+    time,
+    place,
+    capacity: unValidatedCapacity,
+  } = req.body ?? {};
+
+  if (!isNonEmptyString(name)) {
+    return res.status(400).json({ message: "invalid name" });
+  }
+
+  if (!isNonEmptyString(description)) {
+    return res.status(400).json({ message: "invalid description" });
+  }
+
+  // in the future this will automatically set the host as the current authenticated member.
+  if (!isNonEmptyString(host)) {
+    host = "Hardcoded host";
+    //return res.status(400).json({ message: "invalid host" });
+  }
+
+  if (!isValidSessionDate(date)) {
+    return res.status(400).json({ message: "invalid date" });
+  }
+
+  if (!isValidSessionTime(time)) {
+    return res.status(400).json({ message: "invalid time" });
+  }
+
+  const allowedPlaces = [
+    "Club room",
+    "Community centre",
+    "Library meeting room",
+    "Game café",
+    "Home",
+  ];
+
+  if (!isNonEmptyString(place) || !allowedPlaces.includes(place.trim())) {
+    return res.status(400).json({ message: "invalid place" });
+  }
+  const capacity = validateCapacity(unValidatedCapacity);
+
+  if (capacity === null) {
+    return res.status(400).json({ message: "invalid capacity" });
+  }
+
+  const session = sessionRepository.create({
+    name: name.trim(),
+    description: description.trim(),
+    host: host.trim(),
+    date,
+    time,
+    place: place.trim(),
+    capacity,
+    status: "open",
+  });
+
+  const savedSession = await sessionRepository.save(session);
+  console.log(`Successfully saved session: ${savedSession.name}`);
+  return res
+    .status(201)
+    .json({ message: `Successfully created session: ${savedSession.name}` });
+}
 
 export async function editSession(req: Request, res: Response) {
   const paramId = Number(req.params.id);

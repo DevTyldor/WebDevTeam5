@@ -120,7 +120,27 @@ export async function editSession(req: Request, res: Response) {
   });
 }
 
-export async function cancelSession(req: Request, res: Response) {}
+export async function cancelSession(req: Request, res: Response) {
+  const paramId = Number(req.params.id);
+
+  if (!Number.isInteger(paramId) || paramId <= 0) {
+    return res.status(400).json({ message: "Invalid session ID" });
+  }
+
+  const session = await sessionRepository.findOneBy({ id: paramId });
+
+  if (!session) {
+    return res.status(404).json({ message: "Session not found" });
+  }
+
+  await sessionRepository.update(paramId, {
+    status: "cancelled",
+  });
+
+  return res.status(200).json({
+    message: `Successfully cancelled session: ${session.name.trim()}`,
+  });
+}
 
 export async function deleteSession(req: Request, res: Response) {
   const paramId = Number(req.params.id);

@@ -19,7 +19,7 @@ class SessionGame {
   @Column("boolean")
   enoughPlayers: boolean;
 
-  @ManyToOne(() => Session, (session) => session.games, { nullable: false })
+  @ManyToOne(() => Session, (session) => session.games, { nullable: false, onDelete: "CASCADE", })
   session!: Session;
 
   constructor(n: string, min: number, max: number, e: boolean) {

@@ -5,62 +5,62 @@ import { SessionSignup } from "./Signup.js";
 
 @Entity()
 class Session {
-    @PrimaryGeneratedColumn()
-    id!: number;
+  @PrimaryGeneratedColumn()
+  id!: number;
 
-    @Column("varchar")
-    name: string;
+  @Column("varchar")
+  name: string;
 
-    @Column("varchar")
-    description: string;
+  @Column("varchar")
+  description: string;
 
-    @Column("varchar")
-    host: string;
+  @Column("varchar")
+  host: string;
 
-    @Column("varchar")
-    date: string;
+  @Column("varchar")
+  date: string;
 
-    @Column("varchar")
-    time: string;
+  @Column("varchar")
+  time: string;
 
-    @Column("varchar")
-    place: string;
+  @Column("varchar")
+  place: string;
 
-    @Column("integer")
-    capacity: number;
+  @Column("integer")
+  capacity: number;
 
-    @Column("varchar", { default: "open" })
-    status: string;
+  @Column("varchar", { default: "open" })
+  status: string;
 
-    @OneToMany(() => SessionGame, game => game.session)
-    games: SessionGame[];
+  @OneToMany(() => SessionGame, (game) => game.session)
+  games: SessionGame[];
 
-    @OneToMany(() => SessionSignup, signup => signup.session)
-    signups: SessionSignup[];
+  @OneToMany(() => SessionSignup, (signup) => signup.session)
+  signups: SessionSignup[];
 
-    constructor(
-        n: string,
-        de: string,
-        h: string,
-        da: string,
-        t: string,
-        p: string,
-        c: number,
-        s: string,
-        g: SessionGame[],
-        si: SessionSignup[]
-    ) {
-        this.name = n;
-        this.description = de;
-        this.host = h;
-        this.date = da;
-        this.time = t;
-        this.place = p;
-        this.capacity = c;
-        this.status = s;
-        this.games = g;
-        this.signups = si;
-    }
+  constructor(
+    n: string,
+    de: string,
+    h: string,
+    da: string,
+    t: string,
+    p: string,
+    c: number,
+    s: string,
+    g: SessionGame[],
+    si: SessionSignup[],
+  ) {
+    this.name = n;
+    this.description = de;
+    this.host = h;
+    this.date = da;
+    this.time = t;
+    this.place = p;
+    this.capacity = c;
+    this.status = s;
+    this.games = g;
+    this.signups = si;
+  }
 }
 
 const sessions: Session[] = [];

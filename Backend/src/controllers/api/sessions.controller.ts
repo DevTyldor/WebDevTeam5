@@ -222,9 +222,11 @@ export async function deleteSession(req: Request, res: Response) {
     return res.status(404).json({ message: "Session not found" });
   }
 
-  // todo: finish implementation
+  await sessionRepository.delete(session.id);
+
+  return res
+    .status(200)
+    .json({ message: `Successfully deleted ${session.name}` });
 }
 
-export async function addSignup(req: Request, res: Response) {
-  
-}
+export async function addSignup(req: Request, res: Response) {}

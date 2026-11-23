@@ -72,3 +72,7 @@ Thumbs.db
 # Testing & Coverage
 coverage/
 .nyc_output/
+
+# REST client tests
+/tests
+/tests/

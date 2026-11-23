@@ -76,3 +76,6 @@ coverage/
 # REST client tests
 /tests
 /tests/
+
+# Contribution log script
+contribution-log.mjs

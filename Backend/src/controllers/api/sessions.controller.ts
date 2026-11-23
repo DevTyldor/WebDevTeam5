@@ -229,4 +229,5 @@ export async function deleteSession(req: Request, res: Response) {
     .json({ message: `Successfully deleted ${session.name}` });
 }
 
+// TODO: implement this once a central member system exists over gameshelf as a whole, not just game sessions.
 export async function addSignup(req: Request, res: Response) {}

@@ -1,6 +1,8 @@
 import type { Request, Response } from "express";
 import { AppDataSource } from "../../data-source.js";
 import { Session } from "../../models/game sessions/Session.js";
+import { SessionSignup } from "../../models/game sessions/Signup.js";
+import { SessionGame } from "../../models/game sessions/SessionGame.js";
 
 import {
   isNonEmptyString,
@@ -10,6 +12,8 @@ import {
 } from "../../validators/sessionValidators.js";
 
 const sessionRepository = AppDataSource.getRepository(Session);
+const signupRepository = AppDataSource.getRepository(SessionSignup);
+const gameRepository = AppDataSource.getRepository(SessionGame);
 
 export async function getAllSessions(req: Request, res: Response) {
   const sessions = await sessionRepository.find({
@@ -219,4 +223,8 @@ export async function deleteSession(req: Request, res: Response) {
   }
 
   // todo: finish implementation
+}
+
+export async function addSignup(req: Request, res: Response) {
+  
 }

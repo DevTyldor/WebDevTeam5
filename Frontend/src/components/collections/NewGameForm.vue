@@ -7,10 +7,11 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-    add: [title: string]
+    add: [title: string, image: string]
 }>()
 
 const newTitle = ref<string>('')
+const newImage = ref<string>('')
 const formError = ref<string>('')
 
 function handleSubmit() {
@@ -26,9 +27,10 @@ function handleSubmit() {
         }
     }
 
-    emit('add', newTitle.value.trim())
+    emit('add', newTitle.value.trim(), newImage.value.trim())
 
     newTitle.value = ''
+    newImage.value = ''
     formError.value = ''
 }
 </script>
@@ -38,6 +40,11 @@ function handleSubmit() {
         <div class="form-group">
             <label for="new-game-title">Title</label>
             <input type="text" id="new-game-title" v-model="newTitle">
+        </div>
+
+        <div class="form-group">
+            <label for="new-game-image">Image URL (optinal)</label>
+            <input type="url" id="new-game-image" v-model="newImage">
         </div>
 
         <p v-if="formError" class="notice error">{{ formError }}</p>

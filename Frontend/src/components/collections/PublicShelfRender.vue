@@ -1,20 +1,26 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useCollection } from '../../composables/useCollection'
 import ShelfGamesTable from './ShelfGamesTable.vue'
 
 const route = useRoute()
-const { getShelf, getShelfGames } = useCollection()
+const { loading, error, initGames, getShelf, getShelfGames } = useCollection()
 
 const shelfId = Number(route.params.id)
 
 const shelf = computed(() => getShelf(shelfId))
 const shelfGames = computed(() => getShelfGames(shelfId))
+
+onMounted(() => {
+    initGames()
+})
 </script>
 
 <template>
-    <div v-if="shelf && shelf.isPublic">
+    <p v-if="loading" class="notice">Loading games...</p>
+    <p v-else-if="error" class="notice error">{{ error }}</p>
+    <div v-else-if="shelf && shelf.isPublic">
         <!-- Shelf info -->
         <section>
             <div class="section-title">

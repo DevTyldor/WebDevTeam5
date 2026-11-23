@@ -11,7 +11,7 @@ const emit = defineEmits<{
     remove: [gameId: number]
 }>()
 
-const { getTitle } = useCollection()
+const { getTitle, getImage } = useCollection()
 </script>
 
 <template>
@@ -19,6 +19,7 @@ const { getTitle } = useCollection()
         <table>
             <thead>
                 <tr>
+                    <th>Image</th>
                     <th>Game</th>
                     <th>Status</th>
                     <th>Plays</th>
@@ -28,6 +29,9 @@ const { getTitle } = useCollection()
             </thead>
             <tbody>
                 <tr v-for="record in records" :key="record.id">
+                    <td>
+                        <img v-if="getImage(record.gameId)" :src="getImage(record.gameId)" width="60">
+                    </td>
                     <td>{{ getTitle(record.gameId) }}</td>
                     <td>{{ record.status }}</td>
                     <td>{{ record.plays }}</td>
@@ -37,7 +41,7 @@ const { getTitle } = useCollection()
                     </td>
                 </tr>
                 <tr v-if="records.length === 0">
-                    <td colspan="5">No games on this shelf yet</td>
+                    <td colspan="6">No games on this shelf yet</td>
                 </tr>
             </tbody>
         </table>

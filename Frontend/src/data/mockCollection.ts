@@ -1,14 +1,5 @@
-import type { Game } from '../types/Game'
 import type { CollectionRecord } from '../types/CollectionRecord'
 import type { Shelf } from '../types/Shelf'
-
-export const mockGames: Game[] = [
-  { id: 1, title: 'Halo 3' },
-  { id: 2, title: 'Overwatch' },
-  { id: 3, title: 'Fortnite' },
-  { id: 4, title: 'Minecraft' },
-  { id: 5, title: 'Mario Kart' },
-]
 
 export const mockRecords: CollectionRecord[] = [
   { id: 1, owner: 'Stefano', gameId: 1, status: 'Played', plays: 12, rating: 4, note: 'qwertyuiop' },

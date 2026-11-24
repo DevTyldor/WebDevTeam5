@@ -1,12 +1,13 @@
 import { ref, computed, watch } from 'vue'
 import type { Game } from '../types/Game'
+import type { ApiGame } from '../types/ApiGame'
 import type { CollectionRecord, RecordStatus } from '../types/CollectionRecord'
 import type { Shelf } from '../types/Shelf'
-import { mockGames, mockRecords, mockShelves } from '../data/mockCollection'
+import { mockRecords, mockShelves } from '../data/mockCollection'
 
 const me = 'Stefano'
 
-const games = ref<Game[]>(JSON.parse(localStorage.getItem('collectionGames') || JSON.stringify(mockGames)))
+const games = ref<Game[]>(JSON.parse(localStorage.getItem('collectionGames') || '[]'))
 const records = ref<CollectionRecord[]>(JSON.parse(localStorage.getItem('collectionRecords') || JSON.stringify(mockRecords)))
 const shelves = ref<Shelf[]>(JSON.parse(localStorage.getItem('collectionShelves') || JSON.stringify(mockShelves)))
 
@@ -21,6 +22,9 @@ watch(records, (latest) => {
 watch(shelves, (latest) => {
   localStorage.setItem('collectionShelves', JSON.stringify(latest))
 }, { deep: true })
+
+const loading = ref(false)
+const error = ref<string | null>(null)
 
 export function useCollection() {
   const myGames = computed(() => {
@@ -44,7 +48,58 @@ export function useCollection() {
     return ''
   }
 
-  function addNewGame(title: string) {
+  function getImage(gameId: number) {
+    const game = games.value.find(g => g.id === gameId)
+    if (game && game.image) {
+      return game.image
+    }
+    return ''
+  }
+
+  async function fetchGames() {
+    if (loading.value) return
+
+    loading.value = true
+    error.value = null
+
+    try {
+      const response = await fetch('/data/games.json')
+
+      if (!response.ok) {
+        throw new Error(`Request failed with status ${response.status}`)
+      }
+
+      const data: ApiGame[] = await response.json()
+
+      const newGames: Game[] = []
+      for (const item of data) {
+        const game: Game = {
+          id: item.id,
+          title: item.name,
+          image: item.image
+        }
+        newGames.push(game)
+      }
+      games.value = newGames
+    } catch (err) {
+      if (err instanceof Error) {
+        error.value = err.message
+      } else {
+        error.value = 'An unknown error occurred'
+      }
+    } finally {
+      loading.value = false
+    }
+  }
+
+  async function initGames() {
+    const saved = localStorage.getItem('collectionGames')
+    if (saved === null || saved === '[]') {
+      await fetchGames()
+    }
+  }
+
+  function addNewGame(title: string, image: string) {
     for (const game of games.value) {
       if (game.title.toLowerCase() === title.toLowerCase()) {
         addGame(game.id, 'Not played yet', '')
@@ -55,6 +110,9 @@ export function useCollection() {
     const newGame: Game = {
       id: Date.now(),
       title
+    }
+    if (image !== '') {
+      newGame.image = image
     }
     games.value.push(newGame)
     addGame(newGame.id, 'Not played yet', '')
@@ -150,7 +208,12 @@ export function useCollection() {
     myGames,
     myShelves,
     tooManyInProgress,
+    loading,
+    error,
     getTitle,
+    getImage,
+    fetchGames,
+    initGames,
     addNewGame,
     hasGame,
     addGame,

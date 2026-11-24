@@ -12,7 +12,7 @@ const emit = defineEmits<{
     remove: [id: number]
 }>()
 
-const { getTitle } = useCollection()
+const { getTitle, getImage } = useCollection()
 
 function changeRating(id: number, event: Event) {
     const select = event.target as HTMLSelectElement
@@ -25,6 +25,7 @@ function changeRating(id: number, event: Event) {
         <table>
             <thead>
                 <tr>
+                    <th>Image</th>
                     <th>Game</th>
                     <th>Status</th>
                     <th>Plays</th>
@@ -35,6 +36,9 @@ function changeRating(id: number, event: Event) {
             </thead>
             <tbody>
                 <tr v-for="record in records" :key="record.id">
+                    <td>
+                        <img v-if="getImage(record.gameId)" :src="getImage(record.gameId)" width="60">
+                    </td>
                     <td>{{ getTitle(record.gameId) }}</td>
                     <td>{{ record.status }}</td>
                     <td>{{ record.plays }}</td>
@@ -58,7 +62,7 @@ function changeRating(id: number, event: Event) {
                     </td>
                 </tr>
                 <tr v-if="records.length === 0">
-                    <td colspan="6">No games in your collection yet</td>
+                    <td colspan="7">No games in your collection yet</td>
                 </tr>
             </tbody>
         </table>

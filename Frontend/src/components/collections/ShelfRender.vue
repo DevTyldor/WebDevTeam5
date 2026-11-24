@@ -1,12 +1,22 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useCollection } from '../../composables/useCollection'
 import ShelfGamesTable from './ShelfGamesTable.vue'
 import ShelfGameForm from './ShelfGameForm.vue'
 
 const route = useRoute()
-const { me, myGames, getShelf, getShelfGames, addToShelf, removeFromShelf } = useCollection()
+const {
+    me,
+    myGames,
+    loading,
+    error,
+    initGames,
+    getShelf,
+    getShelfGames,
+    addToShelf,
+    removeFromShelf
+} = useCollection()
 
 const shelfId = Number(route.params.id)
 
@@ -20,10 +30,16 @@ function handleAdd(gameId: number) {
 function handleRemove(gameId: number) {
     removeFromShelf(shelfId, gameId)
 }
+
+onMounted(() => {
+    initGames()
+})
 </script>
 
 <template>
-    <div v-if="shelf && shelf.owner === me">
+    <p v-if="loading" class="notice">Loading games...</p>
+    <p v-else-if="error" class="notice error">{{ error }}</p>
+    <div v-else-if="shelf && shelf.owner === me">
         <section>
             <div class="section-title">
                 <h2>{{ shelf.name }}</h2>

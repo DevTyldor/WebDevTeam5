@@ -22,11 +22,11 @@ class SessionGame {
   @ManyToOne(() => Session, (session) => session.games, { nullable: false, onDelete: "CASCADE", })
   session!: Session;
 
-  constructor(n: string, min: number, max: number, e: boolean) {
-    this.name = n;
+  constructor(name: string, min: number, max: number, enoughPlayers: boolean) {
+    this.name = name;
     this.minPlayers = min;
     this.maxPlayers = max;
-    this.enoughPlayers = e;
+    this.enoughPlayers = enoughPlayers;
   }
 }
 

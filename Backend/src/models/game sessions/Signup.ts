@@ -25,10 +25,10 @@ class SessionSignup {
   @JoinColumn({ name: "gameId" })
   game!: SessionGame | null;
 
-  constructor(m: string, st: string, c: string) {
-    this.memberId = m;
-    this.status = st;
-    this.createdAt = c;
+  constructor(memberId: string, status: string, createdAt: string) {
+    this.memberId = memberId;
+    this.status = status;
+    this.createdAt = createdAt;
   }
 }
 

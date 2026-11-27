@@ -39,27 +39,27 @@ class Session {
   signups: SessionSignup[];
 
   constructor(
-    n: string,
-    de: string,
-    h: string,
-    da: string,
-    t: string,
-    p: string,
-    c: number,
-    s: string,
-    g: SessionGame[],
-    si: SessionSignup[],
+    name: string,
+    description: string,
+    host: string,
+    date: string,
+    time: string,
+    place: string,
+    capacity: number,
+    status: string,
+    games: SessionGame[],
+    signups: SessionSignup[],
   ) {
-    this.name = n;
-    this.description = de;
-    this.host = h;
-    this.date = da;
-    this.time = t;
-    this.place = p;
-    this.capacity = c;
-    this.status = s;
-    this.games = g;
-    this.signups = si;
+    this.name = name;
+    this.description = description;
+    this.host = host;
+    this.date = date;
+    this.time = time;
+    this.place = place;
+    this.capacity = capacity;
+    this.status = status;
+    this.games = games;
+    this.signups = signups;
   }
 }
 

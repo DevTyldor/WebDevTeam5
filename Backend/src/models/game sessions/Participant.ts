@@ -11,9 +11,9 @@ class Participant {
   @Column("varchar")
   game: string;
 
-  constructor(n: string, g: string){
-    this.name = n;
-    this.game = g;
+  constructor(name: string, game: string){
+    this.name = name;
+    this.game = game;
   }
 }
 

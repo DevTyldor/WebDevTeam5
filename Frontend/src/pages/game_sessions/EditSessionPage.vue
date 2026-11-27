@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import EditSessionPage from '../../components/game sessions/EditSession.vue'
+import EditSessionPage from '../../components/game_sessions/EditSession.vue'
 </script>
 
 <template>

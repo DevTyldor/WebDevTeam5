@@ -1,5 +1,5 @@
 
-import type { Session } from "../types/game session/Session";
+import type { Session } from "../types/game_session/Session";
 
 export const mockSessions: Session[] = [
   {

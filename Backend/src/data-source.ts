@@ -3,10 +3,10 @@ import { DataSource } from "typeorm";
 
 
 
-import { Session } from "./models/game sessions/Session.js";
-import { SessionGame } from "./models/game sessions/SessionGame.js";
-import { SessionSignup } from "./models/game sessions/Signup.js";
-import { Participant } from "./models/game sessions/Participant.js";
+import { Session } from "./models/game_sessions/Session.js";
+import { SessionGame } from "./models/game_sessions/SessionGame.js";
+import { SessionSignup } from "./models/game_sessions/Signup.js";
+import { Participant } from "./models/game_sessions/Participant.js";
 
 import { CollectionRecord } from "./models/collections/CollectionRecord.js";
 import { Shelf } from "./models/collections/Shelf.js";

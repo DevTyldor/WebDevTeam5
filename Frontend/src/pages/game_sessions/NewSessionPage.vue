@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import NewSessionPage from '../../components/game sessions/ViewSession.vue';
+import NewSessionPage from '../../components/game_sessions/NewSession.vue'
 </script>
 
 <template>

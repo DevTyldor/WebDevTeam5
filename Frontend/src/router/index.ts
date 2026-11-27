@@ -20,32 +20,32 @@ const router = createRouter({
     {
       path: '/sessions',
       name: 'Game Sessions',
-      component: () => import('../pages/game sessions/SessionsListPage.vue'),
+      component: () => import('../pages/game_sessions/SessionsListPage.vue'),
     },
     {
       path: '/new-session',
       name: 'New Session',
-      component: () => import('../pages/game sessions/NewSessionPage.vue'),
+      component: () => import('../pages/game_sessions/NewSessionPage.vue'),
     },
     {
       path: '/edit-session/:id',
       name: 'Edit Session',
-      component: () => import('../pages/game sessions/EditSessionPage.vue'),
+      component: () => import('../pages/game_sessions/EditSessionPage.vue'),
     },
     {
       path: '/session-signup/:id',
       name: 'Session Signup',
-      component: () => import('../pages/game sessions/SessionSignupPage.vue'),
+      component: () => import('../pages/game_sessions/SessionSignupPage.vue'),
     },
     {
       path: '/view-session/:id',
       name: 'Session Overview',
-      component: () => import('../pages/game sessions/ViewSessionPage.vue'),
+      component: () => import('../pages/game_sessions/ViewSessionPage.vue'),
     },
     {
     path: '/cancel-session/:id',
     name: 'cancel-session',
-    component: () => import('@/pages/game sessions/CancelSessionPage.vue')
+    component: () => import('@/pages/game_sessions/CancelSessionPage.vue')
     },
     // Collections
     {

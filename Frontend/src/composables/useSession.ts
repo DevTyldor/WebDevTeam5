@@ -1,8 +1,8 @@
 import { ref, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { mockSessions } from "@/data/mockSessions";
-import type { Session } from "@/types/game session/Session";
-import type { SessionSignup } from "@/types/game session/Signup";
+import type { Session } from "@/types/game_session/Session";
+import type { SessionSignup } from "@/types/game_session/Signup";
 
 const sessions = ref<Session[]>(mockSessions);
 

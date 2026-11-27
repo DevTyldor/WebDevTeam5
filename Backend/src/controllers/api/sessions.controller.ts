@@ -1,8 +1,8 @@
 import type { Request, Response } from "express";
 import { AppDataSource } from "../../data-source.js";
-import { Session } from "../../models/game sessions/Session.js";
-import { SessionSignup } from "../../models/game sessions/Signup.js";
-import { SessionGame } from "../../models/game sessions/SessionGame.js";
+import { Session } from "../../models/game_sessions/Session.js";
+import { SessionSignup } from "../../models/game_sessions/Signup.js";
+import { SessionGame } from "../../models/game_sessions/SessionGame.js";
 
 import {
   isNonEmptyString,

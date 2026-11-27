@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import SessionsListPage from '../../components/game sessions/SessionsPage.vue'
+import SessionsListPage from '../../components/game_sessions/SessionsPage.vue'
 </script>
 
 <template>

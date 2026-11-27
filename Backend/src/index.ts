@@ -12,12 +12,14 @@ const __dirname = path.dirname(__filename);
 
 import { AppDataSource } from "./data-source.js";
 
+import { seedGameSessions } from "./utils/sessionSeeder.js";
 const app = express();
 const PORT = 3000;
 
 AppDataSource.initialize()
-  .then(() => {
+  .then(async () => {
     console.log("Database connected");
+    seedGameSessions();
 
     app.set("view engine", "ejs");
     app.set("views", path.join(__dirname, "views"));
